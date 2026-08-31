@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 70" fill="none">
+    <!-- Icon Container / Badge -->
+    <g transform="translate(10, 8)">
+        <!-- Warm Soft Background Circle -->
+        <circle cx="27" cy="27" r="26" fill="#FDF6F0" stroke="#A26752" stroke-width="1.5"/>
+        
+        <!-- Whisk / Pastry Gift Graphic -->
+        <path d="M27 12C20 12 16 17 16 23C16 29 22 34 27 41C32 34 38 29 38 23C38 17 34 12 27 12Z" fill="#A26752" fill-opacity="0.15"/>
+        <path d="M21 21C21 17 23.5 15 27 15C30.5 15 33 17 33 21C33 25.5 28.5 29 27 34C25.5 29 21 25.5 21 21Z" fill="#A26752"/>
+        <circle cx="27" cy="20" r="2.5" fill="#FFF"/>
+        <!-- Ribbon / Sparkle -->
+        <circle cx="37" cy="15" r="2" fill="#D4AF37"/>
+        <circle cx="17" cy="34" r="1.5" fill="#D4AF37"/>
+    </g>
+    
+    <!-- Typography -->
+    <text x="74" y="34" font-family="'Outfit', sans-serif" font-weight="800" font-size="24" fill="#2B1810" letter-spacing="-0.5">Fafá Doces</text>
+    <text x="202" y="34" font-family="'Outfit', sans-serif" font-weight="500" font-size="20" fill="#A26752">Presentes</text>
+    
+    <text x="75" y="50" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="9.5" fill="#78665E" letter-spacing="1.2">CONFEITARIA AFETIVA • CAFETERIA &amp; CESTAS</text>
+</svg>

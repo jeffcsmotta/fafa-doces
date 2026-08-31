@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta Comercial | Fafá Doces Presentes & Onira Labs</title>
+    <meta name="description" content="Proposta comercial de canal próprio para a Fafá Doces Presentes em Caxias do Sul: cardápio interativo de alta velocidade, pedidos diretos no WhatsApp oficial e domínio próprio sem taxas por pedido.">
+
+    <!-- Página de proposta restrita a link direto -->
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg-page: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --text-dark: #0F172A;
+            --text-main: #334155;
+            --text-muted: #64748B;
+
+            --primary: #0F172A;
+            --primary-hover: #1E293B;
+
+            --accent: #F59E0B;
+            --accent-light: #FEF3C7;
+
+            --emerald: #059669;
+            --emerald-light: #ECFDF5;
+            --emerald-border: rgba(5, 150, 105, 0.35);
+
+            --border: #E2E8F0;
+            --border-light: #F1F5F9;
+
+            --font-heading: 'Outfit', -apple-system, sans-serif;
+            --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 0 18px;
+        }
+
+        /* Nav */
+        .proposal-nav {
+            background: #FFFFFF;
+            border-bottom: 1px solid var(--border);
+            padding: 14px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-logo-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .brand-logo-img {
+            height: 38px;
+            width: auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: #F1F5F9;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-dark);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .back-link:hover {
+            background: var(--primary);
+            color: #FFFFFF;
+            border-color: var(--primary);
+        }
+
+        /* Main Hero Hook */
+        .offer-hero { padding: 28px 0 20px 0; }
+
+        .offer-card-main {
+            background: linear-gradient(135deg, #0F172A 0%, #020617 100%);
+            color: #FFFFFF;
+            border-radius: 20px;
+            padding: 42px 32px;
+            box-shadow: 0 16px 36px rgba(15, 23, 42, 0.25);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .offer-title {
+            font-family: var(--font-heading);
+            font-size: 2.25rem;
+            font-weight: 900;
+            line-height: 1.2;
+            color: #FFFFFF;
+            margin-bottom: 14px;
+            letter-spacing: -0.02em;
+        }
+
+        .offer-title span { color: #F59E0B; }
+
+        .offer-desc {
+            font-size: 1.05rem;
+            color: #CBD5E1;
+            max-width: 640px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Domain Strip */
+        .domain-strip {
+            background: var(--emerald-light);
+            border: 1.5px solid var(--emerald-border);
+            border-radius: 14px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .domain-tag {
+            font-size: 0.76rem;
+            color: #047857;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .domain-name {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: #064E3B;
+            letter-spacing: -0.01em;
+        }
+
+        .domain-price {
+            text-align: right;
+        }
+
+        .domain-price strong {
+            font-size: 1.05rem;
+            color: #047857;
+            display: block;
+            font-weight: 800;
+        }
+
+        .domain-price span {
+            font-size: 0.78rem;
+            color: #065F46;
+        }
+
+        /* Section Card */
+        .section-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -0.01em;
+        }
+
+        .section-title i { color: #F59E0B; }
+
+        /* Numbers Grid */
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .num-card {
+            background: #F8FAFC;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .num-big {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--emerald);
+            margin-bottom: 4px;
+        }
+
+        .num-title {
+            font-weight: 800;
+            font-size: 0.92rem;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .num-text {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Benchmark Box */
+        .benchmark-box {
+            background: #F0FDF4;
+            border: 1.5px solid rgba(5, 150, 105, 0.25);
+            border-radius: 14px;
+            padding: 22px;
+            margin-top: 14px;
+        }
+
+        .benchmark-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 800;
+            font-size: 1rem;
+            color: #064E3B;
+            margin-bottom: 8px;
+        }
+
+        .benchmark-desc {
+            font-size: 0.88rem;
+            color: #166534;
+            line-height: 1.55;
+            margin-bottom: 16px;
+        }
+
+        .benchmark-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .benchmark-mini-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(5, 150, 105, 0.2);
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .benchmark-mini-card small {
+            display: block;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .benchmark-mini-card strong {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 900;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .feature-box {
+            background: #F8FAFC;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+            transition: all 0.2s ease;
+        }
+
+        .feature-box:hover {
+            border-color: #CBD5E1;
+            background: #F1F5F9;
+        }
+
+        .feature-box h4 {
+            font-family: var(--font-heading);
+            font-size: 1.02rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-box h4 i { color: #059669; }
+
+        .feature-box p {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Financial Split */
+        .financial-split {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 18px;
+        }
+
+        .fin-box-main {
+            background: #FFFBEB;
+            border: 1.5px solid rgba(245, 158, 11, 0.4);
+            border-radius: 14px;
+            padding: 24px;
+        }
+
+        .fin-label {
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #B45309;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .fin-total {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 900;
+            color: #D97706; /* Regra Mandatória: Âmbar Quente em Preços */
+            margin-bottom: 14px;
+        }
+
+        .fin-item {
+            font-size: 0.88rem;
+            color: #78350F;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .fin-box-upsell {
+            background: #FAF5FF;
+            border: 1.5px solid rgba(168, 85, 247, 0.3);
+            border-radius: 14px;
+            padding: 24px;
+        }
+
+        .upsell-tag {
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #7E22CE;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .upsell-total {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: #6B21A8;
+            margin-bottom: 12px;
+        }
+
+        .upsell-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .upsell-list li {
+            font-size: 0.8rem;
+            color: #581C87;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            line-height: 1.4;
+        }
+
+        .upsell-list li i {
+            color: #9333EA;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* CTA Box */
+        .cta-box {
+            background: #0F172A;
+            color: #FFFFFF;
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .cta-hook-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: rgba(245, 158, 11, 0.2);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            border-radius: 9999px;
+            color: #FBBF24;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .cta-box h3 {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 12px;
+            line-height: 1.35;
+        }
+
+        .cta-box p {
+            font-size: 0.92rem;
+            color: #CBD5E1;
+            max-width: 600px;
+            margin: 0 auto 20px auto;
+            line-height: 1.55;
+        }
+
+        .btn-wa-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: #25D366;
+            border-radius: 9999px;
+            color: #0B0B0C;
+            font-size: 0.95rem;
+            font-weight: 900;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
+        }
+
+        .btn-wa-action:hover {
+            background: #20BA5A;
+            transform: translateY(-2px);
+        }
+
+        /* Profile Card (Onira Labs Master Standard) */
+        .dev-profile-card {
+            background: #0F172A;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            color: #FFFFFF;
+            margin-top: 24px;
+        }
+
+        .dev-profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .dev-profile-avatar-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .dev-profile-avatar {
+            width: 84px;
+            height: 84px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid #059669;
+            box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35);
+            display: block;
+        }
+
+        .dev-profile-tag {
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #10B981;
+            margin-bottom: 4px;
+        }
+
+        .dev-profile-name {
+            font-family: var(--font-heading);
+            font-size: 1.45rem;
+            font-weight: 900;
+            color: #FFFFFF;
+            line-height: 1.2;
+        }
+
+        .dev-profile-role {
+            font-size: 0.88rem;
+            color: #E2E8F0;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .dev-profile-city {
+            font-size: 0.78rem;
+            color: #94A3B8;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 4px;
+        }
+
+        .dev-profile-bio {
+            background: rgba(255, 255, 255, 0.04);
+            border-left: 3px solid #059669;
+            border-radius: 0 8px 8px 0;
+            padding: 14px 18px;
+            font-style: italic;
+            font-size: 0.93rem;
+            color: #E2E8F0;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .dev-links-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .dev-link-pill {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .dev-link-pill:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .dev-link-icon-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            flex-shrink: 0;
+        }
+
+        .dev-link-pill span {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .dev-link-ext {
+            width: 16px;
+            height: 16px;
+            color: #94A3B8;
+            flex-shrink: 0;
+        }
+
+        .studio-signature-box {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 22px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .studio-logo-img {
+            height: 44px;
+            width: auto;
+            max-width: 240px;
+            object-fit: contain;
+            opacity: 1;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+        }
+
+        .studio-motto {
+            font-size: 0.82rem;
+            color: #CBD5E1;
+            letter-spacing: 1.2px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .studio-location {
+            font-size: 0.75rem;
+            color: #64748B;
+        }
+
+        /* Floating WhatsApp Button */
+        .floating-whatsapp-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #25D366;
+            color: #FFFFFF;
+            padding: 12px 22px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+            font-size: 0.92rem;
+            font-weight: 800;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.45);
+            z-index: 9999;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: waPulse 2.5s infinite ease-in-out;
+        }
+
+        .floating-whatsapp-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.6);
+            background: #20BA5A;
+            color: #FFFFFF;
+        }
+
+        @keyframes waPulse {
+            0%, 100% { box-shadow: 0 8px 25px rgba(37, 211, 102, 0.45); }
+            50% { box-shadow: 0 8px 35px rgba(37, 211, 102, 0.75); }
+        }
+
+        @media (max-width: 640px) {
+            .offer-title { font-size: 1.75rem; }
+            .domain-strip { flex-direction: column; align-items: flex-start; }
+            .domain-price { text-align: left; }
+            .feature-grid, .financial-split, .numbers-grid, .benchmark-grid { grid-template-columns: 1fr; }
+            .dev-profile-header { flex-direction: column; text-align: center; }
+            .dev-profile-city { justify-content: center; }
+            .dev-links-grid { grid-template-columns: 1fr; }
+            .floating-whatsapp-btn {
+                bottom: 16px;
+                right: 16px;
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Nav -->
+    <nav class="proposal-nav">
+        <div class="container nav-wrapper">
+            <a href="index.html" class="brand-logo-link" aria-label="Voltar para a demonstração do site">
+                <img src="assets/logo.svg" alt="Fafá Doces Presentes Logo" class="brand-logo-img">
+            </a>
+            <a href="index.html" class="back-link">
+                <i data-lucide="arrow-left" style="width:16px;height:16px;"></i> Ver Site de Demonstração
+            </a>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <!-- Main Hero Hook -->
+        <section class="offer-hero">
+            <div class="offer-card-main">
+                <h1 class="offer-title">O Canal Digital Direto da <span>Fafá Doces Presentes</span></h1>
+                <p class="offer-desc">Um cardápio interativo e afetivo de alta velocidade para transformar seguidores, encomendas de presentes e clientes fiéis em vendas diretas pelo WhatsApp oficial: <strong>(54) 3201-1633</strong> — com posse total da sua audiência e 0% de comissões.</p>
+            </div>
+        </section>
+
+        <!-- Domínio Próprio Oficial -->
+        <div class="domain-strip">
+            <div>
+                <span class="domain-tag">Domínio Próprio & Ativo Digital da Sua Marca</span>
+                <div class="domain-name">fafadoces.com.br</div>
+            </div>
+            <div class="domain-price">
+                <strong>Incluso no Projeto</strong>
+                <span>Registro Oficial + Cloudflare SSL + CDN no RS</span>
+            </div>
+        </div>
+
+        <!-- O Tamanho da Oportunidade & Audiência -->
+        <section class="section-card">
+            <h2 class="section-title"><i data-lucide="trending-up"></i> O Tamanho da Oportunidade</h2>
+
+            <div class="numbers-grid">
+                <div class="num-card">
+                    <div class="num-big">100% Próprio</div>
+                    <div class="num-title">Posse da Sua Audiência</div>
+                    <div class="num-text">Sua marca no domínio oficial <code>fafadoces.com.br</code>. O cliente pede focado exclusivamente nos cookies, tortas e cestas da casa, sem branding de terceiros.</div>
+                </div>
+
+                <div class="num-card">
+                    <div class="num-big">0% de Comissão</div>
+                    <div class="num-title">Margem Preservada na Recorrência</div>
+                    <div class="num-text">Plataformas de terceiros são importantes para atração de topo de funil. Mas nas recompras de quem já ama a Fafá, o canal próprio retém 100% do lucro no seu caixa.</div>
+                </div>
+
+                <div class="num-card">
+                    <div class="num-big">4.9★ Estrelas</div>
+                    <div class="num-title">Demanda Consolidada na Serra</div>
+                    <div class="num-text">Mais de 200 avaliações no Google Maps e o troféu de <strong>Melhor Chef Pâtissier 2024 (Sabores do Sul)</strong> comprovam a alta autoridade da marca.</div>
+                </div>
+
+                <div class="num-card">
+                    <div class="num-big">2 Toques</div>
+                    <div class="num-title">Montagem Ágil de Pedidos</div>
+                    <div class="num-text">O cliente personaliza caixas de cookies, dedicações em cartões de presente e tamanhos em menos de 1 minuto, enviando a comanda pronta no WhatsApp.</div>
+                </div>
+            </div>
+
+            <!-- Simulação / Benchmark de Mercado -->
+            <div class="benchmark-box">
+                <div class="benchmark-header">
+                    <i data-lucide="calculator" style="color: #059669; width: 22px; height: 22px;"></i>
+                    <span>Referência de Mercado: Retenção de Margem & Lucro no Setor</span>
+                </div>
+                <p class="benchmark-desc">
+                    No segmento de confeitaria fina e presentes, o ticket médio por pedido gira em torno de <strong>R$ 85,00</strong>. Em plataformas com comissão de <strong>20% a 23%</strong>, a cada <strong>100 pedidos recorrentes</strong> a operação deixa milhares de reais em taxas. Veja a comparação direta:
+                </p>
+                <div class="benchmark-grid">
+                    <div class="benchmark-mini-card">
+                        <small>Fica no caixa em app de terceiro (100 pedidos)</small>
+                        <strong style="color: #64748B;">R$ 6.545,00</strong>
+                    </div>
+                    <div class="benchmark-mini-card">
+                        <small>Fica no caixa no canal próprio Onira.fly</small>
+                        <strong style="color: #059669;">R$ 8.500,00</strong>
+                    </div>
+                    <div class="benchmark-mini-card">
+                        <small>Margem limpa extra retida todo mês</small>
+                        <strong style="color: #0F172A;">+ R$ 1.955,00</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- O Que Está Incluído -->
+        <section class="section-card">
+            <h2 class="section-title"><i data-lucide="layers"></i> O Que Está Incluído</h2>
+
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <h4><i data-lucide="cookie"></i> Cardápio Interativo Completo</h4>
+                    <p>17 sabores de cookies artesanais, tortas, cheesecakes, croissants franceses e cestas presenteáveis com fotos em alta resolução e opções de mimos.</p>
+                </div>
+                <div class="feature-box">
+                    <h4><i data-lucide="globe"></i> Domínio Oficial da Marca</h4>
+                    <p>Registro oficial <code>fafadoces.com.br</code> sob a titularidade dos fundadores, transmitindo sofisticação máxima em todas as redes sociais.</p>
+                </div>
+                <div class="feature-box">
+                    <h4><i data-lucide="message-square"></i> Comanda Limpa no WhatsApp</h4>
+                    <p>Pedidos chegam perfeitamente estruturados no WhatsApp oficial <code>(54) 3201-1633</code>, com itens, adicionais, dedicatória e endereço prontos para a produção.</p>
+                </div>
+                <div class="feature-box">
+                    <h4><i data-lucide="truck"></i> Tele-Entrega & Retirada no Balcão</h4>
+                    <p>Tabela inteligente de taxas por bairro de Caxias do Sul (Rio Branco, Centro, São Pelegrino, Panazzolo, etc.) com cálculo automático instantâneo.</p>
+                </div>
+                <div class="feature-box">
+                    <h4><i data-lucide="zap"></i> Carregamento em menos de 0.5s</h4>
+                    <p>Arquitetura PWA ultra leve que abre instantaneamente no Instagram ou no WhatsApp do cliente sem travar e sem download de aplicativo.</p>
+                </div>
+                <div class="feature-box">
+                    <h4><i data-lucide="refresh-cw"></i> Suporte Contínuo & Datas Especiais</h4>
+                    <p>Hospedagem de alta velocidade, certificado SSL e suporte ativo para campanhas sazonais (Páscoa, Dia das Mães, Dia dos Namorados e Natal).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Investimento & Condições -->
+        <section class="section-card">
+            <h2 class="section-title"><i data-lucide="badge-dollar-sign"></i> Investimento & Condições</h2>
+
+            <div class="financial-split">
+                <!-- Oferta Principal -->
+                <div class="fin-box-main">
+                    <span class="fin-label">⭐ Oferta Principal • Canal Onira.fly</span>
+                    <div class="fin-total">3x de R$ 800,00</div>
+                    <div class="fin-item">
+                        💵 <strong>Implementação & Setup:</strong> R$ 2.400,00 à vista (Pix) ou parcelado em 3x de R$ 800,00 sem juros.
+                    </div>
+                    <div class="fin-item">
+                        ⚡ <strong>Acompanhamento Mensal & Nuvem:</strong> R$ 100,00/mês — inclui infraestrutura Cloudflare, SSL, domínio oficial e suporte contínuo para cardápio e preços.
+                    </div>
+                </div>
+
+                <!-- Upsell Enxuto -->
+                <div class="fin-box-upsell">
+                    <span class="upsell-tag">🚀 Acelerador Local</span>
+                    <span class="fin-label" style="color: #7E22CE;">Google Meu Negócio & SEO</span>
+                    <div class="upsell-total">+ R$ 100/mês <small style="font-size:0.75rem; color:#6B21A8; display:block; font-weight:600;">(nos 3 primeiros meses)</small></div>
+                    <ul class="upsell-list">
+                        <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Otimização completa da ficha no Google Maps.</li>
+                        <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Posicionamento para termos como "Cookies Caxias do Sul" e "Cestas Café da Manhã".</li>
+                        <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Link direto do canal oficial na vitrine de buscas locais.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Novo CTA: Diagnóstico e Co-Criação Convidativa -->
+        <section class="cta-box">
+            <span class="cta-hook-badge"><i data-lucide="sparkles" style="width: 14px; height: 14px;"></i> Co-Criação & Diagnóstico</span>
+            <h3>Desenhamos essa primeira versão olhando o seu negócio de fora para dentro. Agora, queremos entender sua rotina por dentro.</h3>
+            <p>Ninguém conhece os cookies mais desejados, as cestas mais pedidas e as particularidades da produção da Fafá melhor do que vocês. Esta demonstração é uma base pronta para ser calibrada. Vamos conversar 10 minutos no WhatsApp para alinharmos os detalhes da sua operação?</p>
+            <a href="https://wa.me/5554996862169?text=Ol%C3%A1%20Jefferson!%20Vi%20a%20proposta%20do%20canal%20pr%C3%B3prio%20da%20Faf%C3%A1%20Doces%20Presentes%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener noreferrer" class="btn-wa-action">
+                <i data-lucide="message-circle"></i>
+                <span>Conversar com o Jefferson no WhatsApp</span>
+            </a>
+        </section>
+
+        <!-- Developer & Studio Profile Container (Onira Labs Master Standard) -->
+        <div class="dev-profile-card">
+            <div class="dev-profile-header">
+                <div class="dev-profile-avatar-wrap">
+                    <img src="assets/jeff-avatar.webp" alt="Jefferson Motta" class="dev-profile-avatar" onerror="this.src='../../assets/jeff-avatar.webp'">
+                </div>
+                <div class="dev-profile-main-info">
+                    <div class="dev-profile-tag">SERVICE DESIGN & AI BUSINESS INTELLIGENCE</div>
+                    <h3 class="dev-profile-name">Jefferson Motta</h3>
+                    <p class="dev-profile-role">Service Designer e A.I Business Intelligence na Onira Labs</p>
+                    <p class="dev-profile-city">
+                        <i data-lucide="map-pin" style="width: 14px; height: 14px; color: #10B981;"></i>
+                        Caxias do Sul - Serra Gaúcha
+                    </p>
+                </div>
+            </div>
+
+            <!-- Citação do Manifesto Onira.fly -->
+            <div class="dev-profile-bio">
+                "Nosso propósito com o Onira.fly é devolver a autonomia para os negócios gastronômicos locais: o cliente visualiza o cardápio em menos de 1 segundo, monta o pedido em 2 toques e envia direto no WhatsApp oficial. Zero burocracia para quem compra e lucro total no caixa de quem produz."
+            </div>
+
+            <!-- Botões Sociais com Ícones Oficiais -->
+            <div class="dev-links-grid">
+                <a href="https://www.linkedin.com/in/jeff-motta" target="_blank" rel="noopener noreferrer" class="dev-link-pill">
+                    <div class="dev-link-icon-box">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#0A66C2">
+                            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.2a1.65 1.65 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.66 1.67 1.67 0 0 0 1.67-1.66A1.66 1.66 0 0 0 7.83 6.2Z"/>
+                        </svg>
+                    </div>
+                    <span>LinkedIn: <strong>/in/jeff-motta</strong></span>
+                    <i data-lucide="external-link" class="dev-link-ext"></i>
+                </a>
+                <a href="https://jeffmotta.framer.website" target="_blank" rel="noopener noreferrer" class="dev-link-pill">
+                    <div class="dev-link-icon-box">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                    </div>
+                    <span>Portfólio: <strong>jeffmotta.framer.website</strong></span>
+                    <i data-lucide="external-link" class="dev-link-ext"></i>
+                </a>
+            </div>
+
+            <!-- Assinatura Onira Labs Ampliada com Alta Legibilidade -->
+            <div class="studio-signature-box">
+                <img src="assets/logo_onira_branco.png" alt="Onira Labs" class="studio-logo-img" onerror="this.src='../../logo_onira_branco.png'">
+                <div class="studio-motto">ONIRA.FLY • HIGH CONVERSION DIGITAL CHANNELS</div>
+                <div class="studio-location">Caxias do Sul - Serra Gaúcha • Brasil</div>
+            </div>
+        </div>
+
+        <!-- Developer Signature -->
+        <div style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 32px; margin-bottom: 24px;">
+            <p>Proposta comercial elaborada por <strong>Onira Labs</strong> • Soluções Web & Inteligência de Negócios</p>
+        </div>
+
+    </main>
+
+    <!-- Floating WhatsApp Action Button -->
+    <a href="https://wa.me/5554996862169?text=Ol%C3%A1%20Jefferson!%20Vi%20a%20proposta%20do%20canal%20pr%C3%B3prio%20da%20Faf%C3%A1%20Doces%20Presentes%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener noreferrer" class="floating-whatsapp-btn" id="floating-whatsapp-btn" aria-label="Falar com Jefferson no WhatsApp">
+        <i data-lucide="message-circle"></i>
+        <span>Falar com o Jefferson</span>
+    </a>
+
+    <script>
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    </script>
+
+</body>
+</html>

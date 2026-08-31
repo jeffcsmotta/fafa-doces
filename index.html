@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Fafá Doces Presentes | Confeitaria Afetiva, Cafeteria & Cestas em Caxias do Sul</title>
+    <meta name="description" content="🍪 Fafá Doces Presentes — Confeitaria artesanal, 17 sabores de cookies exclusivos, tortas nobres e cestas de café da manhã premiadas em Caxias do Sul. Peça direto no WhatsApp!">
+    <meta name="keywords" content="Fafa Doces Caxias do Sul, Cookies Caxias do Sul, Cestas Café da Manha Caxias, Confeitaria Rio Branco Caxias, Chef Rafael Franzosi, Doces Finos Caxias">
+
+    <!-- PWA Manifest & Theme Color -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2B1810">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="apple-touch-icon" href="assets/logo.svg">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css?v=20260831a">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="container nav-container">
+            <a href="index.html" class="brand-wrapper" aria-label="Página Inicial Fafá Doces Presentes">
+                <img src="assets/logo.svg" alt="Fafá Doces Presentes" class="brand-logo-img">
+                <h1 class="sr-only">Fafá Doces Presentes - Caxias do Sul</h1>
+            </a>
+
+            <div class="status-pill">
+                <span class="status-dot"></span>
+                <span id="store-status-text">Aberto Agora • até 18:30</span>
+            </div>
+
+            <div class="nav-actions">
+                <a href="proposta.html" class="nav-link-btn" title="Conheça a proposta do canal próprio">Proposta</a>
+
+                <!-- Botão Carrinho Trigger -->
+                <button type="button" class="btn-cart-trigger" id="btn-cart-nav" onclick="window.openCart()" aria-label="Abrir carrinho de pedidos">
+                    <i data-lucide="shopping-bag" style="width:18px; height:18px;"></i>
+                    <span class="cart-label">Carrinho</span>
+                    <span class="cart-total-header" id="cart-total-header">R$ 0,00</span>
+                    <span class="cart-count-badge" id="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Compact Brand Identity Strip -->
+    <section class="hero-compact-strip">
+        <div class="container hero-strip-layout">
+            <div class="hero-tagline-col">
+                <span class="hero-tagline-badge">
+                    <i data-lucide="award" style="width:12px;height:12px;"></i> Melhor Chef Pâtissier 2024 • Sabores do Sul
+                </span>
+                <span class="hero-tagline-text">Afeto, memórias e <span>experiências doces inesquecíveis!</span></span>
+            </div>
+            <div class="hero-meta-badges">
+                <span class="hero-meta-pill">
+                    <i data-lucide="map-pin" style="width:13px;height:13px;color:#E6C8B2;"></i> Rua Tronca, 2951 • Rio Branco
+                </span>
+                <span class="hero-meta-pill">
+                    <i data-lucide="zap" style="width:13px;height:13px;color:var(--emerald-light);"></i> Pedido Direto no WhatsApp
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Toolbar: Busca & Categorias -->
+    <section class="catalog-toolbar-section">
+        <div class="container toolbar-layout">
+            <div class="search-box-wrap">
+                <i data-lucide="search" class="search-icon-inside" style="width:18px;height:18px;"></i>
+                <input type="text" class="search-input" placeholder="Buscar sabor de cookie, torta, cesta presente..." oninput="window.handleSearch(event)" aria-label="Buscar produtos">
+            </div>
+
+            <div class="category-scroll-pills">
+                <button class="cat-pill active" data-category="todos">
+                    <i data-lucide="grid" style="width:14px;height:14px;"></i>
+                    <span>Todos os Itens</span>
+                </button>
+                <button class="cat-pill" data-category="promocoes">
+                    <i data-lucide="sparkles" style="width:14px;height:14px;"></i>
+                    <span>Mais Vendidos &amp; Promoções</span>
+                </button>
+                <button class="cat-pill" data-category="cookies">
+                    <i data-lucide="cookie" style="width:14px;height:14px;"></i>
+                    <span>Cookies &amp; Viciantes</span>
+                </button>
+                <button class="cat-pill" data-category="tortas">
+                    <i data-lucide="cake" style="width:14px;height:14px;"></i>
+                    <span>Bolos &amp; Vitrine</span>
+                </button>
+                <button class="cat-pill" data-category="presentes">
+                    <i data-lucide="gift" style="width:14px;height:14px;"></i>
+                    <span>Boxes &amp; Presentes</span>
+                </button>
+                <button class="cat-pill" data-category="congelados">
+                    <i data-lucide="snowflake" style="width:14px;height:14px;"></i>
+                    <span>Fafá Congelados</span>
+                </button>
+                <button class="cat-pill" data-category="salgados">
+                    <i data-lucide="croissant" style="width:14px;height:14px;"></i>
+                    <span>Quiches &amp; Salgados</span>
+                </button>
+                <button class="cat-pill" data-category="bebidas">
+                    <i data-lucide="coffee" style="width:14px;height:14px;"></i>
+                    <span>Cafés &amp; Bebidas</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upsell Hero Banner -->
+    <section class="upsell-banner-section">
+        <div class="container">
+            <div class="upsell-card">
+                <div class="upsell-left">
+                    <img src="assets/produtos/prod_12314145.jpg" alt="Cookie Gotas Chocolate Branco" class="upsell-img-thumb" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=200&q=80';">
+                    <div>
+                        <span class="upsell-tag">⚡ Dica da Casa</span>
+                        <h4 class="upsell-title">Que tal um Cookie Gotas de Chocolate Branco quentinho?</h4>
+                        <p class="upsell-sub">O clássico artesanal favorito da Fafá por apenas <strong>R$ 8,50</strong>.</p>
+                    </div>
+                </div>
+                <button type="button" class="btn-upsell-quick" onclick="window.addQuickUpsell('12314145')">
+                    <i data-lucide="plus-circle" style="width:18px;height:18px;"></i>
+                    <span>Adicionar em 1 Toque</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catálogo de Produtos -->
+    <main class="catalog-section">
+        <div class="container">
+            <div class="catalog-grid" id="catalog-grid">
+                <!-- Preenchido via JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Chef Story & Differentials (Dark Section) -->
+    <section class="story-section">
+        <div class="container">
+            <div class="story-grid">
+                <div class="story-content">
+                    <span class="story-badge">
+                        <i data-lucide="heart" style="width:12px;height:12px;"></i> Confeitaria com Afeto
+                    </span>
+                    <h2 class="story-title">A arte da pâtisserie artesanal <span>nascida do coração de Caxias.</span></h2>
+                    <p class="story-p">Fundada em 2020 por <strong>Bruna Moura Gobbi Franzosi</strong> e <strong>Rafael Franzosi</strong>, a Fafá Doces Presentes transformou o amor pela confeitaria em uma experiência gastronômica afetiva e inesquecível.</p>
+                    <p class="story-p">Em 2024, o chef Rafael Franzosi foi laureado como <strong>Melhor Chef Pâtissier de Caxias do Sul</strong> pelo Prêmio Revista Sabores do Sul, e a casa conquistou o troféu de <strong>Melhor Box / Platter</strong> por suas criações presenteáveis generosas e impecáveis.</p>
+                    
+                    <div class="story-stats-row">
+                        <div class="stat-box">
+                            <span class="stat-num">17+</span>
+                            <span class="stat-desc">Sabores de Cookies</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-num">4.9★</span>
+                            <span class="stat-desc">+200 Avaliações</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-num">2024</span>
+                            <span class="stat-desc">Prêmio Sabores do Sul</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80" alt="Confeitaria Afetiva Fafá Doces Presentes" class="story-img" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=800&q=80';">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Reviews (Light Section) -->
+    <section class="reviews-section">
+        <div class="container">
+            <div class="section-header-center">
+                <span class="section-tag">Prova Social Consolidada</span>
+                <h2 class="section-title">O carinho de quem vive a experiência Fafá</h2>
+            </div>
+
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-stars">
+                        <i data-lucide="star" style="width:16px;height:16px;fill:#F59E0B;stroke:none;"></i>
+                        <i data-lucide="star" style="width:16px;height:16px;fill:#F59E0B;stroke:none;"></i>
+                        <i data-lucide="star" style="width:16px;height:16px;fill:#F59E0B;stroke:none;"></i>
+                        <i data-lucide="star" style="width:16px;height:16px;fill:#F59E0B;stroke:none;"></i>
+                        <i data-lucide="star" style="width:16px;height:16px;fill:#F59E0B;stroke:none;"></i>
+                    </div>
+                    <p class="review-text">"Os melhores cookies de Caxias do Sul sem sombra de dúvidas! O de pistache com chocolate branco e o de ninho com nutella são inacreditáveis de tão gostosos."</p>
+                    <div class="reviewer-meta">
+                        <div class="reviewer-avatar-letter">M</div>
+                        <div>
+                            <div class="reviewer-name">Mariana Silveira</div>
+                            <div class="reviewer-source">Avaliação no Google Maps • 5.0★</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">
+                        <i data-lucide="star" style="width:16px;height:16px;fill:#F59E0B;stroke:none;"></i>
+                        <i data-lucide="star" style="width:16px;height:16px;fill:#F59E0B;stroke:none;"></i>
+                        <i data-lucide="star" style="width:16px;height:16px;fill:#F59E0B;stroke:none;"></i>
+                        <i data-lucide="star" style="width:16px;height:16px;fill:#F59E0B;stroke:none;"></i>
+                        <i data-lucide="star" style="width:16px;height:16px;fill:#F59E0B;stroke:none;"></i>
+                    </div>
+                    <p class="review-text">"Encomendei uma Box de Café da Manhã para presentear no aniversário da minha mãe e foi emocionante. Tudo fresco, embalagem linda com laço e muito capricho."</p>
+                    <div class="reviewer-meta">
+                        <div class="reviewer-avatar-letter">G</div>
+                        <div>
+                            <div class="reviewer-name">Gabriel Fontana</div>
+                            <div class="reviewer-source">Avaliação no Google Maps • 5.0★</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">
+                        <i data-lucide="star" style="width:16px;height:16px;fill:#F59E0B;stroke:none;"></i>
+                        <i data-lucide="star" style="width:16px;height:16px;fill:#F59E0B;stroke:none;"></i>
+                        <i data-lucide="star" style="width:16px;height:16px;fill:#F59E0B;stroke:none;"></i>
+                        <i data-lucide="star" style="width:16px;height:16px;fill:#F59E0B;stroke:none;"></i>
+                        <i data-lucide="star" style="width:16px;height:16px;fill:#F59E0B;stroke:none;"></i>
+                    </div>
+                    <p class="review-text">"O cheesecake de frutas vermelhas e o croissant folhado na manteiga francesa são dignos dos melhores cafés da Europa. Atendimento super atencioso."</p>
+                    <div class="reviewer-meta">
+                        <div class="reviewer-avatar-letter">C</div>
+                        <div>
+                            <div class="reviewer-name">Camila Ramos</div>
+                            <div class="reviewer-source">Avaliação no Google Maps • 5.0★</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Hours Section -->
+    <section class="location-section">
+        <div class="container">
+            <div class="location-grid">
+                <div class="location-info-card">
+                    <span class="section-tag">Venha nos Visitar</span>
+                    <h3 class="story-title" style="color:var(--text-dark);margin-bottom:20px;">Espaço Confeitaria &amp; Cafeteria</h3>
+
+                    <div class="info-row">
+                        <div class="info-icon-box">
+                            <i data-lucide="map-pin" style="width:20px;height:20px;"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Endereço Oficial</h4>
+                            <p>Rua Tronca, 2951 – Sala 1, Bairro Rio Branco<br>Caxias do Sul - RS • CEP 95010-100</p>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <div class="info-icon-box">
+                            <i data-lucide="clock" style="width:20px;height:20px;"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Horários de Atendimento</h4>
+                            <p><strong>Segunda:</strong> 13:30 às 18:30<br>
+                               <strong>Terça a Sexta:</strong> 10:00 às 12:00 e 13:30 às 18:30<br>
+                               <strong>Sábado:</strong> 09:00 às 12:00 e 13:30 às 17:00</p>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <div class="info-icon-box">
+                            <i data-lucide="phone" style="width:20px;height:20px;"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>WhatsApp &amp; Encomendas</h4>
+                            <p>(54) 3201-1633 • Atendimento e tele-entrega expressa</p>
+                        </div>
+                    </div>
+
+                    <div class="location-buttons">
+                        <a href="https://maps.google.com/?q=Fafa+Doces+Presentes+Rua+Tronca+2951+Caxias+do+Sul" target="_blank" class="btn-route">
+                            <i data-lucide="navigation" style="width:16px;height:16px;"></i> Abrir no Google Maps
+                        </a>
+                        <a href="https://waze.com/ul?q=Rua+Tronca+2951+Caxias+do+Sul" target="_blank" class="btn-route" style="background:#F4ECE6;color:var(--text-dark);">
+                            <i data-lucide="compass" style="width:16px;height:16px;"></i> Traçar Rota no Waze
+                        </a>
+                    </div>
+                </div>
+
+                <div class="map-embed-wrap">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3483.921389201479!2d-51.1872101!3d-29.1739107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x951ea30c0c000001%3A0x1!2sR.+Tronca%2C+2951+-+Rio+Branco%2C+Caxias+do+Sul+-+RS!5e0!3m2!1spt-BR!2sbr!4v1710000000000!5m2!1spt-BR!2sbr" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa Fafá Doces Presentes"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="assets/logo.svg" alt="Fafá Doces Presentes" style="height:38px;filter:brightness(0) invert(1);">
+                </div>
+                <div class="footer-copy">
+                    &copy; 2026 Fafá Doces Presentes • Todos os direitos reservados.
+                </div>
+            </div>
+            <div class="footer-signature">
+                Tecnologia por <strong>Onira Labs</strong> • Canal Próprio de Alta Conversão
+            </div>
+        </div>
+    </footer>
+
+    <!-- Product Modal -->
+    <div class="product-modal-wrap" id="product-modal">
+        <div class="modal-content-card">
+            <button type="button" class="btn-close-modal" onclick="window.closeProductModal()" aria-label="Fechar">
+                <i data-lucide="x" style="width:20px;height:20px;"></i>
+            </button>
+            <div class="modal-hero-img-box">
+                <img id="modal-img" src="" alt="">
+                <span class="modal-badge-tag" id="modal-badge"></span>
+            </div>
+            <div class="modal-body-scroll">
+                <h3 class="modal-title" id="modal-title"></h3>
+                <p class="modal-desc" id="modal-desc"></p>
+
+                <!-- Seção de Tamanhos / Opções -->
+                <div class="modal-section-title">
+                    <span>Opções &amp; Tamanhos</span>
+                    <small>Selecione 1 opção</small>
+                </div>
+                <div class="size-options-grid" id="modal-sizes-list"></div>
+
+                <!-- Seção de Adicionais / Presentes -->
+                <div class="modal-section-title">
+                    <span>Mimos &amp; Adicionais Especiais</span>
+                    <small>Opcional</small>
+                </div>
+                <div class="addons-options-list" id="modal-addons-list"></div>
+
+                <!-- Observações -->
+                <div class="modal-section-title">
+                    <span>Instruções ou Mensagem do Cartão</span>
+                    <small>Opcional</small>
+                </div>
+                <input type="text" id="modal-obs" class="modal-obs-input" placeholder="Ex: Aquecer antes de enviar / De: João Para: Maria">
+
+                <!-- Rodapé de Ações do Modal -->
+                <div class="modal-footer-actions">
+                    <div class="qty-control-box">
+                        <button type="button" class="qty-btn-modal" onclick="window.changeModalQty(-1)">-</button>
+                        <span class="qty-modal-val" id="modal-qty">1</span>
+                        <button type="button" class="qty-btn-modal" onclick="window.changeModalQty(1)">+</button>
+                    </div>
+                    <button type="button" class="btn-confirm-add" id="modal-add-btn" onclick="window.confirmAddModalToCart()">
+                        <span>Adicionar ao Pedido</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Overlay & Drawer (Padrão Master CLAEM / Onira Labs) -->
+    <div class="cart-overlay" id="cart-overlay" onclick="window.closeCart()"></div>
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <div class="cart-header-title">
+                <i data-lucide="shopping-bag" style="width:20px;height:20px;color:var(--emerald-light);"></i>
+                <span>Seu Pedido</span>
+            </div>
+            <div class="cart-header-actions">
+                <button type="button" class="btn-continue-shopping" onclick="window.closeCart()">
+                    <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Continuar Escolhendo
+                </button>
+                <button type="button" class="btn-clear-cart-circle" onclick="window.clearCart()" title="Limpar carrinho">
+                    <i data-lucide="trash-2" style="width:16px;height:16px;"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="cart-body">
+            <!-- Lista de Itens no Carrinho -->
+            <div class="cart-items-list" id="cart-items-list"></div>
+
+            <!-- Tipo de Pedido (Tele-Entrega vs Retirada) -->
+            <div class="cart-form-group">
+                <span class="cart-label">Como deseja receber?</span>
+                <div class="delivery-toggle-wrap">
+                    <button type="button" class="delivery-type-btn active" data-type="delivery" onclick="window.setDeliveryType('delivery')">
+                        <i data-lucide="truck" style="width:14px;height:14px;display:inline-block;vertical-align:middle;margin-right:4px;"></i> Tele-Entrega
+                    </button>
+                    <button type="button" class="delivery-type-btn" data-type="pickup" onclick="window.setDeliveryType('pickup')">
+                        <i data-lucide="store" style="width:14px;height:14px;display:inline-block;vertical-align:middle;margin-right:4px;"></i> Retirada na Loja
+                    </button>
+                </div>
+            </div>
+
+            <!-- Formulário de Identificação do Cliente -->
+            <div class="cart-form-group">
+                <span class="cart-label">Seu Nome Completo</span>
+                <input type="text" id="client-name" class="cart-input" placeholder="Informe seu nome ou de quem vai receber">
+            </div>
+
+            <!-- Endereço de Entrega (se delivery) -->
+            <div id="delivery-address-form" class="cart-form-group">
+                <span class="cart-label">Bairro de Entrega (Caxias do Sul)</span>
+                <select class="cart-select" onchange="window.handleZoneChange(this)">
+                    <option value="0">Rio Branco (Bairro da Loja) - R$ 8,00</option>
+                    <option value="1">Centro - R$ 10,00</option>
+                    <option value="2">São Pelegrino - R$ 10,00</option>
+                    <option value="3">Exposição / Lourdes - R$ 11,00</option>
+                    <option value="4">Panazzolo - R$ 12,00</option>
+                    <option value="5">Sagrada Família - R$ 12,00</option>
+                    <option value="6">Cristo Redentor / Kayser - R$ 12,00</option>
+                    <option value="7">Cruzeiro / Bela Vista - R$ 13,00</option>
+                    <option value="8">Villagio Caxias / Sanvitto - R$ 14,00</option>
+                    <option value="9">Pio X / Santa Catarina - R$ 14,00</option>
+                    <option value="10">Universitário / Interlagos - R$ 14,00</option>
+                    <option value="11">Ana Rech - R$ 22,00</option>
+                    <option value="12">Forqueta - R$ 22,00</option>
+                    <option value="13">Outro Bairro (Caxias do Sul) - R$ 15,00</option>
+                </select>
+
+                <div class="form-row-2" style="margin-top:8px;">
+                    <input type="text" id="client-street" class="cart-input" placeholder="Rua / Avenida">
+                    <input type="text" id="client-number" class="cart-input" placeholder="Nº">
+                </div>
+                <input type="text" id="client-complement" class="cart-input" placeholder="Complemento (Apto, Bloco, Casa)" style="margin-top:8px;">
+            </div>
+
+            <!-- Forma de Pagamento -->
+            <div class="cart-form-group">
+                <span class="cart-label">Forma de Pagamento</span>
+                <div class="payment-methods-grid">
+                    <button type="button" class="pay-method-btn active" data-method="pix" onclick="window.setPaymentMethod('pix')">
+                        <i data-lucide="qr-code" style="width:16px;height:16px;"></i>
+                        <span>Pix</span>
+                    </button>
+                    <button type="button" class="pay-method-btn" data-method="cartao" onclick="window.setPaymentMethod('cartao')">
+                        <i data-lucide="credit-card" style="width:16px;height:16px;"></i>
+                        <span>Cartão</span>
+                    </button>
+                    <button type="button" class="pay-method-btn" data-method="dinheiro" onclick="window.setPaymentMethod('dinheiro')">
+                        <i data-lucide="banknote" style="width:16px;height:16px;"></i>
+                        <span>Dinheiro</span>
+                    </button>
+                </div>
+
+                <div id="troco-input-box" style="display:none;margin-top:8px;">
+                    <input type="text" id="troco-val" class="cart-input" placeholder="Troco para quanto? (Ex: R$ 50,00)">
+                </div>
+            </div>
+        </div>
+
+        <!-- Rodapé e Finalização do Carrinho -->
+        <div class="cart-footer">
+            <div class="cart-summary-row">
+                <span>Subtotal dos itens</span>
+                <strong id="cart-subtotal-val">R$ 0,00</strong>
+            </div>
+            <div class="cart-summary-row" id="cart-fee-row">
+                <span>Taxa de Entrega</span>
+                <strong id="cart-fee-val">R$ 8,00</strong>
+            </div>
+            <div class="cart-summary-row cart-total-row">
+                <span>Total Estimado</span>
+                <strong id="cart-total-val" class="cart-total-value">R$ 0,00</strong>
+            </div>
+
+            <button type="button" class="btn-submit-order" onclick="window.submitOrderToWhatsApp()">
+                <i data-lucide="message-circle" style="width:20px;height:20px;"></i>
+                <span>Enviar Pedido no WhatsApp Oficial</span>
+            </button>
+
+            <div class="cart-onira-tag">
+                Tecnologia por <strong>Onira Labs</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Floating Bar -->
+    <div class="cart-floating-bar" id="cart-floating-bar" onclick="window.openCart()">
+        <div class="floating-bar-left">
+            <i data-lucide="shopping-bag" style="width:20px;height:20px;"></i>
+            <span class="floating-count-pill" id="floating-cart-count">1 item</span>
+            <span>Ver Pedido</span>
+        </div>
+        <div class="floating-bar-right">
+            <span id="floating-cart-total">R$ 0,00</span>
+            <i data-lucide="chevron-right" style="width:18px;height:18px;"></i>
+        </div>
+    </div>
+
+    <!-- Floating Proposal Widget (.onira-cta) -->
+    <a href="proposta.html" class="onira-cta" id="onira-floating-cta" title="Ver proposta comercial do site">
+        <img src="assets/jeff-avatar.webp" alt="Jefferson Motta" class="onira-avatar">
+        <div class="onira-text-col">
+            <span class="onira-hook">Gostou desse cardápio?</span>
+            <span class="onira-call">Saiba como funciona meu trabalho &rarr;</span>
+        </div>
+        <button type="button" class="onira-cta-close" onclick="window.toggleProposalWidget(event)" title="Minimizar">
+            &times;
+        </button>
+    </a>
+
+    <!-- Scripts -->
+    <script src="app.js?v=20260831a"></script>
+</body>
+</html>
