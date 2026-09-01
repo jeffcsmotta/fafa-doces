@@ -120,8 +120,8 @@ body {
 }
 
 .brand-logo-img {
-    height: 36px;
-    max-width: 240px;
+    height: 46px;
+    max-width: 250px;
     object-fit: contain;
 }
 
@@ -1478,15 +1478,37 @@ body {
 /* ==========================================================================
    Cart Drawer (Tons de Rosa/Vinho Decadente — Sem Preto Genérico)
    ========================================================================== */
+/* ==========================================================================
+   Cart Overlay, Drawer & Parallax Background Motion
+   ========================================================================== */
+body {
+    transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Efeito Parallax de Profundidade quando o carrinho está aberto */
+body.cart-drawer-open .nav-header,
+body.cart-drawer-open .catalog-nav-section,
+body.cart-drawer-open .catalog-section,
+body.cart-drawer-open .story-section,
+body.cart-drawer-open .reviews-section,
+body.cart-drawer-open .location-section,
+body.cart-drawer-open .site-footer {
+    transform: scale(0.97) translate3d(-10px, 0, 0);
+    filter: brightness(0.82);
+    transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
+    pointer-events: none;
+    user-select: none;
+}
+
 .cart-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(54, 12, 20, 0.7);
-    backdrop-filter: blur(4px);
+    background: rgba(40, 7, 14, 0.72);
+    backdrop-filter: blur(6px);
     z-index: 1100;
     display: none;
     opacity: 0;
-    transition: opacity 0.25s ease;
+    transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .cart-overlay.active {
@@ -1509,68 +1531,70 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    transform: translateX(100%);
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: -10px 0 40px rgba(54, 12, 20, 0.5);
+    transform: translate3d(100%, 0, 0);
+    will-change: transform;
+    transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: -12px 0 45px rgba(35, 7, 12, 0.6);
 }
 
 .cart-drawer.active {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
 }
 
 .cart-header {
     flex-shrink: 0;
     background: #28070E;
-    padding: 16px 20px;
+    padding: 12px 18px;
     border-bottom: 1px solid rgba(216, 74, 91, 0.25);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 8px;
+}
+
+.cart-header-actions-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .cart-header-title {
     font-family: var(--font-heading);
-    font-size: 1.2rem;
+    font-size: 1.12rem;
     font-weight: 800;
     color: #FFFFFF;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 
-.cart-header-actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* Orange Return Button "Continuar Escolhendo" (Regra Mandatória) */
+/* Botão Voltar / Cardápio Neutro & Elegante à Esquerda */
 .btn-continue-shopping {
-    background: rgba(245, 158, 11, 0.15);
-    border: 1px solid #F59E0B;
-    color: #F59E0B;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #F5EAE0;
     padding: 6px 12px;
     border-radius: var(--radius-pill);
-    font-size: 0.75rem;
-    font-weight: 800;
+    font-size: 0.78rem;
+    font-weight: 700;
     cursor: pointer;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
     transition: all 0.2s ease;
 }
 
 .btn-continue-shopping:hover {
-    background: #F59E0B;
-    color: #000000;
+    background: rgba(255, 255, 255, 0.18);
+    color: #FFFFFF;
 }
 
 .btn-clear-cart-circle {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
     color: #F5EAE0;
     display: flex;
     align-items: center;
@@ -1591,7 +1615,7 @@ body {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-y: contain;
-    padding: 18px 20px;
+    padding: 18px 20px 36px 20px;
     display: flex;
     flex-direction: column;
     gap: 18px;
@@ -1608,19 +1632,20 @@ body {
     border-radius: 4px;
 }
 
-/* Lista de Itens no Carrinho (Sem rolagem interna: expande e empurra o formulário para baixo naturalmente) */
+/* 1. Tipo de Pedido (Tele-Entrega vs Retirada) no topo */
+.delivery-top-group {
+    background: rgba(0, 0, 0, 0.22);
+    padding: 12px 14px;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Lista de Itens no Carrinho (Sem rolagem interna: expande e empurra todo o formulário para baixo naturalmente) */
 .cart-items-list {
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: 100%;
-}
-
-.cart-footer {
-    flex-shrink: 0;
-    background: #28070E;
-    padding: 16px 20px;
-    border-top: 1px solid rgba(216, 74, 91, 0.25);
 }
 
 .cart-item-card {
@@ -1639,14 +1664,10 @@ body {
 }
 
 .cart-item-name {
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     font-weight: 700;
     color: #FFFFFF;
     margin-bottom: 3px;
-}
-
-.cart-item-name strong {
-    color: var(--emerald-light);
 }
 
 .cart-item-details {
@@ -1685,37 +1706,54 @@ body {
 .cart-item-actions {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
 }
 
+/* Container Cápsula Branca para os controles de quantidade */
+.cart-qty-pill {
+    display: inline-flex;
+    align-items: center;
+    background: #FFFFFF;
+    border-radius: var(--radius-pill);
+    padding: 2px 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Botões Stepper + e - : sem contorno e sinais em verde esmeralda */
 .qty-btn {
     width: 26px;
     height: 26px;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.15);
-    border: none;
-    color: #FFFFFF;
-    font-weight: 800;
+    border: none !important;
+    background: transparent !important;
+    color: #10B981 !important; /* Apenas o sinal + ou - em verde */
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    font-weight: 900;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
+    line-height: 1;
+    transition: transform 0.15s ease, background 0.15s ease;
 }
 
-.qty-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
+.qty-btn:hover, .qty-btn:active {
+    transform: scale(1.18);
+    background: rgba(16, 185, 129, 0.12) !important;
 }
 
 .qty-val {
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     font-weight: 800;
-    min-width: 18px;
+    color: #1E120D; /* Número escuro legível sobre o fundo branco */
+    min-width: 20px;
     text-align: center;
 }
 
 .trash-btn {
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
     border-radius: 6px;
     background: transparent;
     border: none;
@@ -1724,10 +1762,22 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s ease;
 }
 
 .trash-btn:hover {
     color: var(--accent-coral);
+    transform: scale(1.1);
+}
+
+/* Seção de Totais e Checkout contínua (No final da rolagem da página) */
+.cart-checkout-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(216, 74, 91, 0.25);
 }
 
 .cart-empty-state {
@@ -1917,21 +1967,33 @@ body {
 /* ==========================================================================
    Mobile Floating Bar (Visível apenas mobile com itens > 0)
    ========================================================================== */
+/* ==========================================================================
+   Mobile Floating Bar & Onira Proposal CTA (Alinhamento & Movimento Sincronizado)
+   ========================================================================== */
+.cart-floating-bar,
+.onira-cta {
+    left: 16px;
+    right: 16px;
+    width: calc(100% - 32px);
+    max-width: 440px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    border-radius: var(--radius-pill);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease, bottom 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .cart-floating-bar {
     position: fixed;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
+    bottom: 16px;
     background: var(--primary);
     border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: var(--radius-pill);
     padding: 12px 20px;
     display: none;
     align-items: center;
     justify-content: space-between;
     color: #FFFFFF;
     z-index: 800;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
     cursor: pointer;
     animation: bounceIn 0.3s ease;
 }
@@ -1970,35 +2032,44 @@ body {
     color: var(--emerald-light);
 }
 
-/* ==========================================================================
-   Floating Proposal Widget (.onira-cta)
-   ========================================================================== */
+/* Floating Proposal Widget (.onira-cta) */
 .onira-cta {
     position: fixed;
-    bottom: 24px;
-    left: 24px;
-    z-index: 700;
+    bottom: 16px;
+    z-index: 750;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 12px;
     background: #0F172A;
     border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: var(--radius-pill);
     padding: 8px 14px 8px 8px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
     text-decoration: none;
     color: #FFFFFF;
-    transition: all 0.3s ease;
 }
 
-.onira-cta.scrolling {
-    opacity: 0.35;
+/* Quando há itens no carrinho, o card de proposta se alinha acima do botão do pedido */
+body.has-cart-items .onira-cta {
+    bottom: 74px;
 }
 
 .onira-cta:hover {
     opacity: 1 !important;
     transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* Movimento em bloco quando rolando a página */
+.cart-floating-bar.scroll-hidden,
+.onira-cta.scroll-hidden {
+    transform: translateY(180%) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.cart-floating-bar.scrolling-active,
+.onira-cta.scrolling-active {
+    opacity: 0.88;
 }
 
 .onira-avatar {
@@ -2074,7 +2145,7 @@ body {
     border-radius: var(--radius-pill);
     font-size: 0.85rem;
     font-weight: 700;
-    z-index: 2000;
+    z-index: 1050;
     opacity: 0;
     pointer-events: none;
     transition: all 0.25s ease;
@@ -2137,10 +2208,6 @@ body {
         width: 100%;
         justify-content: center;
     }
-
-    .onira-cta {
-        bottom: 80px; /* Acima da barra móvel */
-    }
 }
 
 @media (max-width: 640px) {
@@ -2151,8 +2218,8 @@ body {
     }
 
     .brand-logo-img {
-        height: 28px;
-        max-width: 130px;
+        height: 36px;
+        max-width: 175px;
     }
 
     .status-compact {

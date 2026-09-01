@@ -406,71 +406,64 @@
     <div class="cart-overlay" id="cart-overlay" onclick="window.closeCart()"></div>
     <div class="cart-drawer" id="cart-drawer">
         <div class="cart-header">
-            <div class="cart-header-title">
-                <i data-lucide="shopping-bag" style="width:20px;height:20px;color:var(--emerald-light);"></i>
-                <span>Seu Pedido</span>
+            <!-- Grupo Esquerdo: Botão Cardápio + Botão Limpar Pedido entre Cardápio e Título -->
+            <div class="cart-header-actions-left">
+                <button type="button" class="btn-continue-shopping" onclick="window.closeCart()" aria-label="Voltar para o Cardápio">
+                    <i data-lucide="arrow-left" style="width:15px;height:15px;"></i>
+                    <span>Cardápio</span>
+                </button>
+                <button type="button" class="btn-clear-cart-circle" onclick="window.clearCart()" title="Limpar pedido" aria-label="Limpar pedido">
+                    <i data-lucide="trash-2" style="width:15px;height:15px;"></i>
+                </button>
             </div>
-            <div class="cart-header-actions">
-                <button type="button" class="btn-continue-shopping" onclick="window.closeCart()">
-                    <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Continuar Escolhendo
-                </button>
-                <button type="button" class="btn-clear-cart-circle" onclick="window.clearCart()" title="Limpar carrinho">
-                    <i data-lucide="trash-2" style="width:16px;height:16px;"></i>
-                </button>
+
+            <!-- Título à Direita -->
+            <div class="cart-header-title">
+                <i data-lucide="shopping-bag" style="width:17px;height:17px;color:var(--emerald-light);"></i>
+                <span>Seu Pedido Fafa</span>
             </div>
         </div>
 
+        <!-- Corpo do Carrinho com Rolagem 100% Fluida e Unificada (Itens empurram o formulário, totais e botão WhatsApp) -->
         <div class="cart-body">
-            <!-- Lista de Itens no Carrinho -->
-            <div class="cart-items-list" id="cart-items-list"></div>
-
-            <!-- Tipo de Pedido (Tele-Entrega vs Retirada) -->
-            <div class="cart-form-group">
-                <span class="cart-label">Como deseja receber?</span>
+            <!-- 1. Tipo de Pedido (Tele-Entrega vs Retirada) no Início do Fluxo -->
+            <div class="cart-form-group delivery-top-group">
+                <span class="cart-label">Como deseja receber seu pedido?</span>
                 <div class="delivery-toggle-wrap">
                     <button type="button" class="delivery-type-btn active" data-type="delivery" onclick="window.setDeliveryType('delivery')">
-                        <i data-lucide="truck" style="width:14px;height:14px;display:inline-block;vertical-align:middle;margin-right:4px;"></i> Tele-Entrega
+                        <i data-lucide="truck" style="width:15px;height:15px;"></i>
+                        <span>Tele-Entrega</span>
                     </button>
                     <button type="button" class="delivery-type-btn" data-type="pickup" onclick="window.setDeliveryType('pickup')">
-                        <i data-lucide="store" style="width:14px;height:14px;display:inline-block;vertical-align:middle;margin-right:4px;"></i> Retirada na Loja
+                        <i data-lucide="store" style="width:15px;height:15px;"></i>
+                        <span>Retirada na Loja</span>
                     </button>
                 </div>
             </div>
 
-            <!-- Formulário de Identificação do Cliente -->
+            <!-- 2. Lista de Itens no Carrinho (Sem rolagem interna: expande e empurra todo o conteúdo para baixo) -->
+            <div class="cart-items-list" id="cart-items-list"></div>
+
+            <!-- 3. Formulário de Identificação do Cliente (Opcional - sem bloqueio) -->
             <div class="cart-form-group">
-                <span class="cart-label">Seu Nome Completo</span>
+                <span class="cart-label">Seu Nome (Opcional)</span>
                 <input type="text" id="client-name" class="cart-input" placeholder="Informe seu nome ou de quem vai receber">
             </div>
 
-            <!-- Endereço de Entrega (se delivery) -->
+            <!-- 4. Endereço de Entrega (se tele-entrega - campos diretos sem select de bairros) -->
             <div id="delivery-address-form" class="cart-form-group">
-                <span class="cart-label">Bairro de Entrega (Caxias do Sul)</span>
-                <select class="cart-select" onchange="window.handleZoneChange(this)">
-                    <option value="0">Rio Branco (Bairro da Loja) - R$ 8,00</option>
-                    <option value="1">Centro - R$ 10,00</option>
-                    <option value="2">São Pelegrino - R$ 10,00</option>
-                    <option value="3">Exposição / Lourdes - R$ 11,00</option>
-                    <option value="4">Panazzolo - R$ 12,00</option>
-                    <option value="5">Sagrada Família - R$ 12,00</option>
-                    <option value="6">Cristo Redentor / Kayser - R$ 12,00</option>
-                    <option value="7">Cruzeiro / Bela Vista - R$ 13,00</option>
-                    <option value="8">Villagio Caxias / Sanvitto - R$ 14,00</option>
-                    <option value="9">Pio X / Santa Catarina - R$ 14,00</option>
-                    <option value="10">Universitário / Interlagos - R$ 14,00</option>
-                    <option value="11">Ana Rech - R$ 22,00</option>
-                    <option value="12">Forqueta - R$ 22,00</option>
-                    <option value="13">Outro Bairro (Caxias do Sul) - R$ 15,00</option>
-                </select>
-
-                <div class="form-row-2" style="margin-top:8px;">
+                <span class="cart-label">Endereço de Entrega (Caxias do Sul)</span>
+                <div class="form-row-2">
                     <input type="text" id="client-street" class="cart-input" placeholder="Rua / Avenida">
                     <input type="text" id="client-number" class="cart-input" placeholder="Nº">
                 </div>
-                <input type="text" id="client-complement" class="cart-input" placeholder="Complemento (Apto, Bloco, Casa)" style="margin-top:8px;">
+                <div class="form-row-2" style="margin-top:8px;">
+                    <input type="text" id="client-bairro" class="cart-input" placeholder="Bairro">
+                    <input type="text" id="client-complement" class="cart-input" placeholder="Complemento (Apto, Bloco)">
+                </div>
             </div>
 
-            <!-- Forma de Pagamento -->
+            <!-- 5. Forma de Pagamento -->
             <div class="cart-form-group">
                 <span class="cart-label">Forma de Pagamento</span>
                 <div class="payment-methods-grid">
@@ -492,30 +485,30 @@
                     <input type="text" id="troco-val" class="cart-input" placeholder="Troco para quanto? (Ex: R$ 50,00)">
                 </div>
             </div>
-        </div>
 
-        <!-- Rodapé e Finalização do Carrinho -->
-        <div class="cart-footer">
-            <div class="cart-summary-row">
-                <span>Subtotal dos itens</span>
-                <strong id="cart-subtotal-val">R$ 0,00</strong>
-            </div>
-            <div class="cart-summary-row" id="cart-fee-row">
-                <span>Taxa de Entrega</span>
-                <strong id="cart-fee-val">R$ 8,00</strong>
-            </div>
-            <div class="cart-summary-row cart-total-row">
-                <span>Total Estimado</span>
-                <strong id="cart-total-val" class="cart-total-value">R$ 0,00</strong>
-            </div>
+            <!-- 6. Totais e Finalização (No final da rolagem contínua da tela) -->
+            <div class="cart-checkout-section">
+                <div class="cart-summary-row">
+                    <span>Subtotal dos itens</span>
+                    <strong id="cart-subtotal-val">R$ 0,00</strong>
+                </div>
+                <div class="cart-summary-row" id="cart-fee-row">
+                    <span>Taxa de Entrega</span>
+                    <strong id="cart-fee-val">R$ 8,00</strong>
+                </div>
+                <div class="cart-summary-row cart-total-row">
+                    <span>Total</span>
+                    <strong id="cart-total-val" class="cart-total-value">R$ 0,00</strong>
+                </div>
 
-            <button type="button" class="btn-submit-order" onclick="window.submitOrderToWhatsApp()">
-                <i data-lucide="message-circle" style="width:20px;height:20px;"></i>
-                <span>Enviar Pedido no WhatsApp Oficial</span>
-            </button>
+                <button type="button" class="btn-submit-order" onclick="window.submitOrderToWhatsApp()">
+                    <i data-lucide="message-circle" style="width:20px;height:20px;"></i>
+                    <span>Enviar Pedido no WhatsApp Oficial</span>
+                </button>
 
-            <div class="cart-onira-tag">
-                Tecnologia por <strong>Onira Labs</strong> • Engenharia de Negócios Digitais
+                <div class="cart-onira-tag">
+                    Tecnologia por <strong>Onira Labs</strong> • Engenharia de Negócios Digitais
+                </div>
             </div>
         </div>
     </div>

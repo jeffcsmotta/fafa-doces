@@ -1041,6 +1041,7 @@ window.openCart = function() {
     if (drawer && overlay) {
         drawer.classList.add('active');
         overlay.classList.add('active');
+        document.body.classList.add('cart-drawer-open');
         document.body.style.overflow = 'hidden';
     }
 };
@@ -1051,6 +1052,7 @@ window.closeCart = function() {
     if (drawer && overlay) {
         drawer.classList.remove('active');
         overlay.classList.remove('active');
+        document.body.classList.remove('cart-drawer-open');
         document.body.style.overflow = '';
     }
 };
@@ -1122,13 +1124,6 @@ window.setDeliveryType = function(type) {
     updateCartUI();
 };
 
-// Seleção de Bairro para Taxa de Entrega
-window.handleZoneChange = function(selectEl) {
-    const zoneIndex = parseInt(selectEl.value);
-    selectedZone = DELIVERY_ZONES[zoneIndex] || DELIVERY_ZONES[0];
-    updateCartUI();
-};
-
 // Seleção de Forma de Pagamento
 window.setPaymentMethod = function(method) {
     selectedPaymentMethod = method;
@@ -1154,7 +1149,7 @@ function updateCartUI() {
 
     const subtotal = cart.reduce((sum, item) => sum + (item.unitPrice * item.qty), 0);
     const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
-    const deliveryFee = selectedDeliveryType === 'delivery' ? (selectedZone ? selectedZone.fee : 0) : 0;
+    const deliveryFee = selectedDeliveryType === 'delivery' ? 8.00 : 0;
     const finalTotal = subtotal + deliveryFee;
 
     if (cartCountBadge) cartCountBadge.textContent = totalItems;
@@ -1164,12 +1159,16 @@ function updateCartUI() {
         headerTrash.style.display = totalItems > 0 ? 'inline-flex' : 'none';
     }
 
-    if (floatingBar) {
-        if (totalItems > 0) {
+    if (totalItems > 0) {
+        document.body.classList.add('has-cart-items');
+        if (floatingBar) {
             floatingBar.classList.add('visible');
             if (floatingCount) floatingCount.textContent = `${totalItems} ${totalItems === 1 ? 'item' : 'itens'}`;
             if (floatingTotal) floatingTotal.textContent = formatCurrency(finalTotal);
-        } else {
+        }
+    } else {
+        document.body.classList.remove('has-cart-items');
+        if (floatingBar) {
             floatingBar.classList.remove('visible');
         }
     }
@@ -1187,9 +1186,9 @@ function updateCartUI() {
             cartItemsContainer.innerHTML = cart.map(item => `
                 <div class="cart-item-card" data-cart-id="${item.cartId}">
                     <div class="cart-item-info">
-                        <h4 class="cart-item-name"><strong>${item.qty}x</strong> ${item.name}</h4>
+                        <h4 class="cart-item-name">${item.name}</h4>
                         <div class="cart-item-details">
-                            ${item.sizeName ? `<span class="detail-pill">${item.sizeName}</span>` : ''}
+                            ${item.sizeName && item.sizeName !== 'Padrão' ? `<span class="detail-pill">${item.sizeName}</span>` : ''}
                             ${item.addons && item.addons.length > 0 ? item.addons.map(ad => `<div class="addon-line">+ ${ad}</div>`).join('') : ''}
                             ${item.observations ? `<div class="obs-line"><em>Obs: ${item.observations}</em></div>` : ''}
                         </div>
@@ -1198,11 +1197,13 @@ function updateCartUI() {
                         </div>
                     </div>
                     <div class="cart-item-actions">
-                        <button type="button" class="qty-btn" onclick="changeCartItemQty('${item.cartId}', -1)" aria-label="Diminuir">-</button>
-                        <span class="qty-val">${item.qty}</span>
-                        <button type="button" class="qty-btn" onclick="changeCartItemQty('${item.cartId}', 1)" aria-label="Aumentar">+</button>
+                        <div class="cart-qty-pill">
+                            <button type="button" class="qty-btn" onclick="changeCartItemQty('${item.cartId}', -1)" aria-label="Diminuir">−</button>
+                            <span class="qty-val">${item.qty}</span>
+                            <button type="button" class="qty-btn" onclick="changeCartItemQty('${item.cartId}', 1)" aria-label="Aumentar">+</button>
+                        </div>
                         <button type="button" class="trash-btn" onclick="removeCartItem('${item.cartId}')" aria-label="Remover item">
-                            <i data-lucide="trash-2" style="width:15px;height:15px;"></i>
+                            <i data-lucide="trash-2" style="width:16px;height:16px;"></i>
                         </button>
                     </div>
                 </div>
@@ -1235,29 +1236,22 @@ window.submitOrderToWhatsApp = function() {
     const clientNameInput = document.getElementById('client-name');
     const clientName = clientNameInput ? clientNameInput.value.trim() : '';
 
-    if (!clientName) {
-        alert('Por favor, informe seu nome para a comanda do pedido.');
-        if (clientNameInput) clientNameInput.focus();
-        return;
-    }
-
     let addressDetails = '';
     if (selectedDeliveryType === 'delivery') {
-        const street = document.getElementById('client-street')?.value.trim() || '';
-        const number = document.getElementById('client-number')?.value.trim() || '';
-        const complement = document.getElementById('client-complement')?.value.trim() || '';
-        const neighborhood = selectedZone ? selectedZone.neighborhood : 'Caxias do Sul';
+        const street = (document.getElementById('client-street')?.value || '').trim();
+        const number = (document.getElementById('client-number')?.value || '').trim();
+        const bairro = (document.getElementById('client-bairro')?.value || '').trim();
+        const complement = (document.getElementById('client-complement')?.value || '').trim();
 
-        if (!street || !number) {
-            alert('Por favor, preencha o endereço completo (rua e número) para a entrega.');
-            return;
+        if (street || number) {
+            addressDetails = `${street}${number ? ', nº ' + number : ''}${bairro ? ' - ' + bairro : ''}${complement ? ' (' + complement + ')' : ''} - Caxias do Sul`;
+        } else {
+            addressDetails = `Endereço a confirmar no WhatsApp (Caxias do Sul)`;
         }
-
-        addressDetails = `${street}, nº ${number}${complement ? ' (' + complement + ')' : ''} - ${neighborhood}`;
     }
 
     const subtotal = cart.reduce((sum, item) => sum + (item.unitPrice * item.qty), 0);
-    const deliveryFee = selectedDeliveryType === 'delivery' ? (selectedZone ? selectedZone.fee : 0) : 0;
+    const deliveryFee = selectedDeliveryType === 'delivery' ? 8.00 : 0;
     const totalFinal = subtotal + deliveryFee;
 
     let paymentText = '';
@@ -1266,7 +1260,7 @@ window.submitOrderToWhatsApp = function() {
     } else if (selectedPaymentMethod === 'cartao') {
         paymentText = 'Pagamento no cartão — favor levar a maquininha';
     } else if (selectedPaymentMethod === 'dinheiro') {
-        const trocoVal = document.getElementById('troco-val')?.value.trim();
+        const trocoVal = (document.getElementById('troco-val')?.value || '').trim();
         paymentText = trocoVal ? `Pagamento em dinheiro — troco para R$ ${trocoVal}` : 'Pagamento em dinheiro (sem troco)';
     }
 
@@ -1293,15 +1287,17 @@ window.submitOrderToWhatsApp = function() {
 
     msg += `*Itens: ${formatCurrency(subtotal)}*\n`;
     if (selectedDeliveryType === 'delivery') {
-        msg += `Entrega: ${formatCurrency(deliveryFee)} (${selectedZone ? selectedZone.neighborhood : 'Caxias do Sul'})\n`;
+        msg += `Entrega: ${formatCurrency(deliveryFee)} (Caxias do Sul)\n`;
     }
     msg += `*Total: ${formatCurrency(totalFinal)}*\n\n`;
 
-    msg += `*${clientName}*\n`;
-    if (selectedDeliveryType === 'delivery') {
-        msg += `${addressDetails}\n`;
+    if (clientName) {
+        msg += `*Cliente:* ${clientName}\n`;
     }
-    msg += `${paymentText}\n\n`;
+    if (selectedDeliveryType === 'delivery') {
+        msg += `*Endereço:* ${addressDetails}\n`;
+    }
+    msg += `*Pagamento:* ${paymentText}\n\n`;
     msg += `_Enviado pelo site oficial da Fafa Doces Presentes • Onira.fly (Engenharia de Negócios Digitais)_`;
 
     const encodedMsg = encodeURIComponent(msg);
@@ -1310,18 +1306,41 @@ window.submitOrderToWhatsApp = function() {
     window.open(whatsappUrl, '_blank');
 };
 
-// Floating Proposal Widget (.onira-cta)
+// Sincronização e Comportamento Inteligente de Rolagem dos Botões Flutuantes Mobile
 function initProposalFloatingWidget() {
     const ctaWidget = document.getElementById('onira-floating-cta');
-    if (!ctaWidget) return;
+    const cartBar = document.getElementById('cart-floating-bar');
+    if (!ctaWidget && !cartBar) return;
 
-    let scrollTimeout;
+    let lastScrollY = window.scrollY;
+    let scrollTimeout = null;
+
     window.addEventListener('scroll', () => {
-        ctaWidget.classList.add('scrolling');
+        const currentScrollY = window.scrollY;
+        const scrollDelta = currentScrollY - lastScrollY;
+
+        // Leve efeito de opacidade em movimento ativo
+        if (ctaWidget) ctaWidget.classList.add('scrolling-active');
+        if (cartBar) cartBar.classList.add('scrolling-active');
+
+        // Rolando para baixo: recolhe ambos suavemente para dar visibilidade total aos doces
+        if (scrollDelta > 10 && currentScrollY > 100) {
+            if (ctaWidget) ctaWidget.classList.add('scroll-hidden');
+            if (cartBar) cartBar.classList.add('scroll-hidden');
+        } 
+        // Rolando para cima ou perto do topo: reexibe ambos em bloco
+        else if (scrollDelta < -6 || currentScrollY <= 80) {
+            if (ctaWidget) ctaWidget.classList.remove('scroll-hidden');
+            if (cartBar) cartBar.classList.remove('scroll-hidden');
+        }
+
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
-            ctaWidget.classList.remove('scrolling');
-        }, 300);
+            if (ctaWidget) ctaWidget.classList.remove('scrolling-active');
+            if (cartBar) cartBar.classList.remove('scrolling-active');
+        }, 220);
+
+        lastScrollY = currentScrollY;
     }, { passive: true });
 }
 
