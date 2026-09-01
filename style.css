@@ -238,15 +238,15 @@ body {
 }
 
 /* ==========================================================================
-   Catalog Toolbar: Search & Categories (Primeira Dobra Limpa & Compacta)
+   Catalog Toolbar: Search & Horizontal Carousel of Filter Chips
    ========================================================================== */
 .catalog-nav-section {
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
-    padding: 8px 0 4px 0;
+    padding: 8px 0 6px 0;
     position: sticky;
-    top: 52px;
+    top: 56px;
     z-index: 850;
     box-shadow: 0 2px 8px rgba(46, 31, 39, 0.02);
 }
@@ -254,7 +254,7 @@ body {
 .search-box-wrap {
     position: relative;
     width: 100%;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 
 .search-icon-inside {
@@ -268,12 +268,12 @@ body {
 
 .search-input {
     width: 100%;
-    padding: 8px 16px 8px 38px;
+    padding: 9px 16px 9px 40px;
     background: #FFFFFF;
     border: 1px solid var(--border);
     border-radius: var(--radius-pill);
     font-family: var(--font-body);
-    font-size: 0.84rem;
+    font-size: 0.86rem;
     color: var(--text-dark);
     outline: none;
     box-shadow: 0 1px 4px rgba(46, 31, 39, 0.02);
@@ -285,42 +285,51 @@ body {
     box-shadow: 0 0 0 3px rgba(206, 179, 171, 0.25);
 }
 
-/* Container de Rolagem e Disposição Compacta das Categorias */
+/* Carrossel Horizontal Deslizante com Touch Momentum */
 .category-scroll-container,
 .categories-nav,
 .catalog-nav-section .categories-scroll-wrap {
     width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
     padding: 2px 0 4px 0;
+}
+
+.category-scroll-container::-webkit-scrollbar,
+.categories-nav::-webkit-scrollbar,
+.categories-scroll-wrap::-webkit-scrollbar {
+    display: none;
 }
 
 .category-scroll-pills,
 .categories-scroll-wrap {
     display: flex;
     align-items: center;
-    gap: 6px;
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding-right: 0;
+    gap: 8px;
+    width: max-content;
+    padding-right: 16px;
 }
 
 .cat-pill,
 .nav-category-btn {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    padding: 5px 12px;
+    gap: 6px;
+    padding: 8px 16px;
     background: #FFFFFF;
     border: 1px solid var(--border);
     border-radius: var(--radius-pill);
     color: var(--text-dark);
     font-family: var(--font-body);
-    font-size: 0.78rem;
+    font-size: 0.84rem;
     font-weight: 700;
     white-space: nowrap;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 1px 3px rgba(46, 31, 39, 0.03);
+    box-shadow: 0 1px 4px rgba(46, 31, 39, 0.04);
     flex-shrink: 0;
     outline: none;
 }
@@ -338,7 +347,26 @@ body {
     background: var(--primary-dark);
     border-color: var(--primary-dark);
     color: #FFFFFF;
-    box-shadow: 0 2px 8px rgba(54, 12, 20, 0.22);
+    box-shadow: 0 3px 10px rgba(54, 12, 20, 0.25);
+}
+
+/* No Desktop: Distribuição com respiro */
+@media (min-width: 1024px) {
+    .category-scroll-container,
+    .categories-nav,
+    .catalog-nav-section .categories-scroll-wrap {
+        overflow-x: visible;
+    }
+
+    .category-scroll-pills,
+    .categories-scroll-wrap {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        padding-right: 0;
+    }
 }
 
 /* ==========================================================================
@@ -2126,38 +2154,6 @@ body.has-cart-items .onira-cta {
    Responsive Breakpoints
    ========================================================================== */
 @media (max-width: 768px) {
-    .category-scroll-container,
-    .categories-nav,
-    .catalog-nav-section .categories-scroll-wrap {
-        width: 100% !important;
-        padding: 2px 0 4px 0 !important;
-    }
-
-    .category-scroll-pills,
-    .categories-scroll-wrap {
-        width: 100% !important;
-        display: flex !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        gap: 3px !important;
-        padding-right: 0 !important;
-    }
-
-    .cat-pill,
-    .nav-category-btn {
-        font-size: 0.70rem !important;
-        padding: 4px 6px !important;
-        gap: 2px !important;
-    }
-
-    .cat-pill i,
-    .cat-pill svg,
-    .nav-category-btn i,
-    .nav-category-btn svg {
-        width: 12px !important;
-        height: 12px !important;
-    }
-
     .story-grid, .location-grid {
         grid-template-columns: 1fr;
     }
@@ -2179,20 +2175,22 @@ body.has-cart-items .onira-cta {
 
 @media (max-width: 640px) {
     .container {
-        padding: 0 14px !important;
+        padding: 0 16px !important;
     }
 
     .nav-container {
-        padding-top: 8px;
-        padding-bottom: 8px;
-        gap: 8px;
+        padding-top: 10px;
+        padding-bottom: 10px;
         width: 100%;
         box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .brand-logo-img {
-        height: 28px !important;
-        max-width: 115px !important;
+        height: 38px !important;
+        max-width: 180px !important;
         object-fit: contain;
         flex-shrink: 0;
     }
@@ -2201,47 +2199,55 @@ body.has-cart-items .onira-cta {
         display: none;
     }
 
+    /* Ocultar o botão Compre este site do topo no mobile para dar respiro total à logo e ao carrinho.
+       A proposta comercial é apresentada com destaque permanente no card flutuante do rodapé (.onira-cta) */
+    .btn-buy-site {
+        display: none !important;
+    }
+
     .nav-actions {
-        gap: 6px;
         margin-left: auto;
         flex-shrink: 0;
         display: flex;
         align-items: center;
-    }
-
-    .btn-buy-site {
-        padding: 5px 9px;
-        font-size: 0.72rem;
-        gap: 4px;
-        flex-shrink: 0;
-    }
-
-    .btn-buy-site .btn-buy-text {
-        display: inline-block;
-        font-size: 0.72rem;
+        gap: 0;
     }
 
     .btn-cart-trigger {
-        padding: 5px 9px;
-        gap: 5px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: var(--primary-dark);
+        border-radius: var(--radius-pill);
+        color: #FFFFFF;
+        font-weight: 700;
+        font-size: 0.84rem;
+        box-shadow: 0 3px 10px rgba(54, 12, 20, 0.2);
         flex-shrink: 0;
         margin-right: 0;
     }
 
-    .btn-cart-trigger .cart-btn-label,
+    .btn-cart-trigger .cart-btn-label {
+        display: inline-block;
+        font-size: 0.84rem;
+        font-weight: 700;
+    }
+
     .btn-cart-trigger .cart-total-header {
         display: none;
     }
 
     .btn-cart-trigger i,
     .btn-cart-trigger svg {
-        width: 16px;
-        height: 16px;
+        width: 18px;
+        height: 18px;
     }
 
     .cart-count-badge {
-        padding: 1px 5px !important;
-        font-size: 0.68rem !important;
+        padding: 2px 7px !important;
+        font-size: 0.72rem !important;
+        background: var(--accent-coral) !important;
     }
 
     .catalog-grid {
