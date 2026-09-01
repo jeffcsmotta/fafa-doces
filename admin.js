@@ -153,50 +153,8 @@ function saveAdminProducts(notify = true) {
         if (notify) {
             updateMetrics();
         }
-
-        // Tenta sincronizar com Supabase se configurado
-        syncWithSupabaseAsync();
     } catch (e) {
         console.error('Erro ao salvar produtos', e);
-    }
-}
-
-async function syncWithSupabaseAsync() {
-    const supabaseUrl = localStorage.getItem('fafa_supabase_url');
-    const supabaseKey = localStorage.getItem('fafa_supabase_key');
-    if (!supabaseUrl || !supabaseKey) return;
-
-    try {
-        // Envio assíncrono para o endpoint REST do Supabase
-        const response = await fetch(`${supabaseUrl}/rest/v1/fafa_produtos`, {
-            method: 'POST',
-            headers: {
-                'apikey': supabaseKey,
-                'Authorization': `Bearer ${supabaseKey}`,
-                'Content-Type': 'application/json',
-                'Prefer': 'resolution=merge-duplicates'
-            },
-            body: JSON.stringify(adminProducts.map(p => ({
-                id: p.id,
-                name: p.name,
-                category: p.category,
-                group_name: p.group || '',
-                description: p.desc || '',
-                badge: p.badge || '',
-                rating: p.rating || '5.0',
-                img: p.img,
-                price: Number(p.price),
-                has_adicionais: Boolean(p.hasAdicionais),
-                visible: p.visible !== false
-            })))
-        });
-
-        const syncDot = document.getElementById('sync-status');
-        if (syncDot && response.ok) {
-            syncDot.innerHTML = '<span class="sync-dot"></span> Sincronizado na Nuvem';
-        }
-    } catch (err) {
-        console.warn('Sincronização Supabase em segundo plano:', err);
     }
 }
 
@@ -220,6 +178,26 @@ function updateMetrics() {
     if (elTotal) elTotal.textContent = totalCount;
     if (elActive) elActive.textContent = activeCount;
     if (elHidden) elHidden.textContent = hiddenCount;
+
+    // Controle dinâmico do botão/filtro de "Pausados"
+    const pausedPill = document.getElementById('pill-filter-paused');
+    const pausedCountSpan = document.getElementById('paused-count-pill');
+    if (pausedCountSpan) pausedCountSpan.textContent = hiddenCount;
+
+    if (pausedPill) {
+        if (hiddenCount > 0) {
+            pausedPill.style.display = 'inline-flex';
+        } else {
+            pausedPill.style.display = 'none';
+            if (activeAdminCategory === 'pausados') {
+                activeAdminCategory = 'todos';
+                const pills = document.querySelectorAll('.category-scroll-pills .cat-pill');
+                pills.forEach(pill => {
+                    pill.classList.toggle('active', pill.dataset.category === 'todos');
+                });
+            }
+        }
+    }
 }
 
 function renderProductList() {
@@ -230,11 +208,12 @@ function renderProductList() {
 
     const categoryNames = {
         'todos': 'Todos os Produtos',
+        'pausados': '⏸️ Itens Pausados & Esgotados',
         'promocoes': '⭐ Mais Vendidos & Promoções',
         'cookies': '🍪 Cookies & Viciantes',
         'tortas': '🎂 Bolos & Vitrine',
         'presentes': '🎁 Boxes & Presentes',
-        'congelados': '❄️ Fafá Congelados',
+        'congelados': '❄️ Fafa Congelados',
         'salgados': '🥐 Quiches & Salgados',
         'bebidas': '☕ Cafés & Bebidas'
     };
@@ -244,11 +223,20 @@ function renderProductList() {
     }
 
     let filtered = adminProducts.filter(prod => {
-        const matchesCategory = activeAdminCategory === 'todos' || prod.category === activeAdminCategory;
+        let matchesCategory = false;
+        if (activeAdminCategory === 'todos') {
+            matchesCategory = true;
+        } else if (activeAdminCategory === 'pausados') {
+            matchesCategory = prod.visible === false;
+        } else {
+            matchesCategory = prod.category === activeAdminCategory;
+        }
+
         const matchesSearch = !adminSearchQuery || 
             prod.name.toLowerCase().includes(adminSearchQuery) || 
             (prod.desc && prod.desc.toLowerCase().includes(adminSearchQuery)) ||
             (prod.group && prod.group.toLowerCase().includes(adminSearchQuery));
+
         return matchesCategory && matchesSearch;
     });
 
@@ -260,8 +248,8 @@ function renderProductList() {
         listContainer.innerHTML = `
             <div style="text-align: center; padding: 40px 20px; background: #FFFFFF; border-radius: var(--radius-md); border: 1px dashed var(--border);">
                 <i data-lucide="cookie" style="width:40px;height:40px;color:var(--text-muted);margin-bottom:8px;"></i>
-                <p style="font-weight: 700; color: var(--text-dark); margin-bottom: 4px;">Nenhum produto encontrado</p>
-                <p style="font-size: 0.82rem; color: var(--text-muted);">Tente buscar por outro nome ou limpar os filtros.</p>
+                <p style="font-weight: 700; color: var(--text-dark); margin-bottom: 4px;">Nenhum produto encontrado nesta visualização</p>
+                <p style="font-size: 0.82rem; color: var(--text-muted);">Tente buscar por outro nome ou selecionar outra categoria.</p>
             </div>
         `;
         if (window.lucide) window.lucide.createIcons();
@@ -340,6 +328,10 @@ window.toggleProductVisibility = function(id) {
         if (statusLabel) {
             statusLabel.textContent = prod.visible ? 'Ativo' : 'Pausado';
         }
+    }
+
+    if (activeAdminCategory === 'pausados') {
+        renderProductList();
     }
 
     if (prod.visible) {
@@ -550,64 +542,8 @@ window.clearSearch = function() {
 };
 
 // ==========================================================================
-// 6. Configurações e Supabase
 // ==========================================================================
-window.openSettingsModal = function() {
-    const modal = document.getElementById('settings-modal');
-    const urlInput = document.getElementById('cfg-supabase-url');
-    const keyInput = document.getElementById('cfg-supabase-key');
-
-    if (urlInput) urlInput.value = localStorage.getItem('fafa_supabase_url') || '';
-    if (keyInput) keyInput.value = localStorage.getItem('fafa_supabase_key') || '';
-
-    if (modal) modal.style.display = 'flex';
-};
-
-window.closeSettingsModal = function() {
-    const modal = document.getElementById('settings-modal');
-    if (modal) modal.style.display = 'none';
-};
-
-window.closeSettingsModalOnBackdrop = function(event) {
-    if (event.target.id === 'settings-modal') {
-        closeSettingsModal();
-    }
-};
-
-window.updateOwnerPin = function() {
-    const newPin = document.getElementById('new-pin-input')?.value.trim();
-    if (!newPin || newPin.length !== 4 || isNaN(newPin)) {
-        showAdminToast('⚠️ O PIN deve conter exatamente 4 números.');
-        return;
-    }
-    localStorage.setItem('fafa_owner_pin', newPin);
-    showAdminToast('✓ Novo PIN salvo com sucesso!');
-    document.getElementById('new-pin-input').value = '';
-};
-
-window.saveSupabaseConfig = function() {
-    const url = document.getElementById('cfg-supabase-url')?.value.trim();
-    const key = document.getElementById('cfg-supabase-key')?.value.trim();
-
-    localStorage.setItem('fafa_supabase_url', url);
-    localStorage.setItem('fafa_supabase_key', key);
-    showAdminToast('✓ Configurações do Supabase salvas!');
-    syncWithSupabaseAsync();
-    closeSettingsModal();
-};
-
-window.resetToDefaultCatalog = function() {
-    if (confirm('Tem certeza que deseja restaurar o catálogo padrão de 45 itens? Todas as alterações manuais serão resetadas.')) {
-        localStorage.removeItem('fafa_products_custom');
-        loadAdminProducts();
-        renderAdminUI();
-        showAdminToast('✓ Catálogo original restaurado!');
-        closeSettingsModal();
-    }
-};
-
-// ==========================================================================
-// 7. Utilitários
+// 6. Utilitários
 // ==========================================================================
 function formatMoney(val) {
     return 'R$ ' + Number(val || 0).toFixed(2).replace('.', ',');

@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Fafá Doces Presentes | Confeitaria Afetiva, Cafeteria & Cestas em Caxias do Sul</title>
-    <meta name="description" content="🍪 Fafá Doces Presentes — Confeitaria artesanal, 17 sabores de cookies exclusivos, tortas nobres e cestas de café da manhã premiadas em Caxias do Sul. Peça direto no WhatsApp!">
-    <meta name="keywords" content="Fafa Doces Caxias do Sul, Cookies Caxias do Sul, Cestas Café da Manha Caxias, Confeitaria Rio Branco Caxias, Chef Rafael Franzosi, Doces Finos Caxias">
+    <title>Fafa Doces Presentes | Confeitaria Afetiva, Cafeteria & Cestas em Caxias do Sul</title>
+    <meta name="description" content="🍪 Fafa Doces Presentes — Confeitaria artesanal, 17 sabores de cookies exclusivos, tortas nobres e cestas de café da manhã premiadas em Caxias do Sul. Peça direto no WhatsApp!">
+    <meta name="theme-color" content="#360C14">
 
-    <!-- PWA Manifest & Theme Color -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#2B1810">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link rel="apple-touch-icon" href="assets/logo.svg">
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Fafa Doces Presentes | Confeitaria Afetiva & Cafeteria">
+    <meta property="og:description" content="Cardápio oficial com 17 sabores de cookies artesanais, doces finos, tortas e cestas presenteáveis em Caxias do Sul.">
+    <meta property="og:image" content="assets/fafa_founders.jpg">
 
-    <!-- Google Fonts: Serif Elegante Playfair Display + Sans Plus Jakarta Sans -->
+    <!-- Google Fonts: Playfair Display + Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -23,118 +22,131 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=20260831b">
+    <link rel="stylesheet" href="style.css?v=20260901a">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
-    <!-- Header Navigation Despoluído -->
+    <!-- Header Despoluído & Focado -->
     <header class="site-header">
         <div class="container nav-container">
-            <a href="index.html" class="brand-wrapper" aria-label="Página Inicial Fafá Doces Presentes">
-                <img src="assets/logo_fafa_horizontal.svg" alt="Fafá Doces Presentes" class="brand-logo-img" onerror="this.onerror=null;this.src='assets/logo.svg';">
-                <h1 class="sr-only">Fafá Doces Presentes - Caxias do Sul</h1>
+            <a href="index.html" class="brand-wrapper" aria-label="Página Inicial Fafa Doces Presentes">
+                <img src="assets/logo_fafa_horizontal.svg" alt="Fafa Doces Presentes" class="brand-logo-img" onerror="this.onerror=null;this.src='assets/logo.svg';">
+                <h1 class="sr-only">Fafa Doces Presentes - Caxias do Sul</h1>
             </a>
 
-            <div class="status-compact">
-                <span class="status-dot"></span>
-                <span class="status-compact-text" id="store-status-text">Aberto Agora • até 18:30</span>
-            </div>
-
+            <!-- Status do Estabelecimento & Ações -->
             <div class="nav-actions">
-                <!-- Botão Compre Esse Site -->
-                <a href="proposta.html" class="btn-buy-site" title="Conheça a proposta e compre este canal próprio">
-                    <i data-lucide="sparkles" style="width:14px;height:14px;"></i>
-                    <span class="btn-buy-text">Compre esse site</span>
+                <div class="status-compact" id="header-status">
+                    <span class="status-dot"></span>
+                    <span id="status-text-header">Aberto Hoje • 13h30 às 18h30</span>
+                </div>
+
+                <!-- Botão Compre esse site (Design Sóbrio) -->
+                <a href="proposta.html" class="btn-buy-site" title="Compre esse site para o seu negócio">
+                    <i data-lucide="sparkles" style="width:14px;height:14px;color:var(--accent-coral);"></i>
+                    <span>Compre esse site</span>
                 </a>
 
-                <!-- Lixeira Outline no Cabeçalho -->
-                <button type="button" class="btn-header-trash" id="btn-header-trash" onclick="window.clearCart()" title="Limpar pedido" style="display:none;" aria-label="Limpar pedido">
+                <!-- Botão Lixeira no Cabeçalho (Outline) -->
+                <button type="button" class="btn-header-trash" id="btn-header-trash" onclick="window.clearCart()" title="Limpar Pedido" aria-label="Limpar Pedido">
                     <i data-lucide="trash-2" style="width:16px;height:16px;"></i>
                 </button>
 
-                <!-- Botão Carrinho / Pedido Trigger -->
-                <button type="button" class="btn-cart-trigger" id="btn-cart-nav" onclick="window.openCart()" aria-label="Abrir pedido">
-                    <i data-lucide="shopping-bag" style="width:17px; height:17px;"></i>
-                    <span class="cart-label">Pedido</span>
+                <!-- Botão Carrinho Desktop ("Pedido") / Mobile (Ícone) -->
+                <button type="button" class="btn-cart-trigger" id="btn-cart-nav" onclick="window.openCart()" aria-label="Ver Carrinho de Compras">
+                    <i data-lucide="shopping-bag" style="width:18px;height:18px;"></i>
+                    <span class="cart-btn-label">Pedido</span>
+                    <span class="cart-total-header" id="cart-total-nav">R$ 0,00</span>
                     <span class="cart-count-badge" id="cart-count">0</span>
-                    <span class="cart-total-header" id="cart-total-header">R$ 0,00</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Toolbar: Busca & Categorias (Primeira Dobra Limpa) -->
-    <section class="catalog-toolbar-section">
-        <div class="container toolbar-layout">
+    <!-- Barra de Categorias & Busca Rápida -->
+    <section class="catalog-nav-section">
+        <div class="container">
+            <!-- Busca Integrada -->
             <div class="search-box-wrap">
-                <i data-lucide="search" class="search-icon-inside" style="width:18px;height:18px;"></i>
-                <input type="text" class="search-input" placeholder="Buscar sabor de cookie, bolo, presente..." oninput="window.handleSearch(event)" aria-label="Buscar produtos">
+                <i data-lucide="search" class="search-icon"></i>
+                <input type="text" id="search-input" class="search-input" placeholder="Buscar sabor de cookie, bolo, presentes..." oninput="window.handleSearch(event)">
+                <button type="button" class="btn-clear-search" id="btn-clear-search" onclick="window.clearSearch()" style="display:none;" aria-label="Limpar busca">
+                    <i data-lucide="x" style="width:16px;height:16px;"></i>
+                </button>
             </div>
 
-            <div class="category-scroll-container">
-                <div class="category-scroll-pills">
-                    <button class="cat-pill active" data-category="todos">
-                        <i data-lucide="grid" style="width:14px;height:14px;"></i>
+            <!-- Navegação Horizontal em Pílulas -->
+            <nav class="categories-nav" aria-label="Categorias do Cardápio">
+                <div class="categories-scroll-wrap">
+                    <button class="nav-category-btn active" data-category="todos" onclick="window.filterCategory('todos')">
+                        <i data-lucide="cookie" style="width:15px;height:15px;"></i>
                         <span>Todos os Itens</span>
                     </button>
-                    <button class="cat-pill" data-category="promocoes">
-                        <i data-lucide="sparkles" style="width:14px;height:14px;"></i>
+                    <button class="nav-category-btn" data-category="promocoes" onclick="window.filterCategory('promocoes')">
+                        <i data-lucide="sparkles" style="width:15px;height:15px;"></i>
                         <span>Mais Vendidos &amp; Promoções</span>
                     </button>
-                    <button class="cat-pill" data-category="cookies">
-                        <i data-lucide="cookie" style="width:14px;height:14px;"></i>
+                    <button class="nav-category-btn" data-category="cookies" onclick="window.filterCategory('cookies')">
+                        <i data-lucide="circle-dot" style="width:15px;height:15px;"></i>
                         <span>Cookies &amp; Viciantes</span>
                     </button>
-                    <button class="cat-pill" data-category="tortas">
-                        <i data-lucide="cake" style="width:14px;height:14px;"></i>
+                    <button class="nav-category-btn" data-category="tortas" onclick="window.filterCategory('tortas')">
+                        <i data-lucide="cake" style="width:15px;height:15px;"></i>
                         <span>Bolos &amp; Vitrine</span>
                     </button>
-                    <button class="cat-pill" data-category="presentes">
-                        <i data-lucide="gift" style="width:14px;height:14px;"></i>
+                    <button class="nav-category-btn" data-category="presentes" onclick="window.filterCategory('presentes')">
+                        <i data-lucide="gift" style="width:15px;height:15px;"></i>
                         <span>Boxes &amp; Presentes</span>
                     </button>
-                    <button class="cat-pill" data-category="congelados">
-                        <i data-lucide="snowflake" style="width:14px;height:14px;"></i>
-                        <span>Fafá Congelados</span>
+                    <button class="nav-category-btn" data-category="congelados" onclick="window.filterCategory('congelados')">
+                        <i data-lucide="snowflake" style="width:15px;height:15px;"></i>
+                        <span>Fafa Congelados</span>
                     </button>
-                    <button class="cat-pill" data-category="salgados">
-                        <i data-lucide="croissant" style="width:14px;height:14px;"></i>
+                    <button class="nav-category-btn" data-category="salgados" onclick="window.filterCategory('salgados')">
+                        <i data-lucide="croissant" style="width:15px;height:15px;"></i>
                         <span>Quiches &amp; Salgados</span>
                     </button>
-                    <button class="cat-pill" data-category="bebidas">
-                        <i data-lucide="coffee" style="width:14px;height:14px;"></i>
+                    <button class="nav-category-btn" data-category="bebidas" onclick="window.filterCategory('bebidas')">
+                        <i data-lucide="coffee" style="width:15px;height:15px;"></i>
                         <span>Cafés &amp; Bebidas</span>
                     </button>
                 </div>
-            </div>
+            </nav>
         </div>
     </section>
 
-    <!-- Upsell Hero Banner -->
-    <section class="upsell-banner-section">
-        <div class="container">
-            <div class="upsell-card">
-                <div class="upsell-left">
-                    <img src="assets/produtos/prod_12314145.jpg" alt="Cookie Gotas Chocolate Branco" class="upsell-img-thumb" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=200&q=80';">
-                    <div>
-                        <span class="upsell-tag">⚡ Dica da Casa</span>
-                        <h4 class="upsell-title">Que tal um Cookie Gotas de Chocolate Branco quentinho?</h4>
-                        <p class="upsell-sub">O clássico artesanal favorito da Fafá por apenas <strong>R$ 8,50</strong>.</p>
-                    </div>
-                </div>
-                <button type="button" class="btn-upsell-quick" onclick="window.addQuickUpsell('12314145')">
-                    <i data-lucide="plus-circle" style="width:18px;height:18px;"></i>
-                    <span>Adicionar em 1 Toque</span>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Catálogo de Produtos -->
+    <!-- Main Content: Upsell Inteligente & Grid de Produtos -->
     <main class="catalog-section">
         <div class="container">
+            
+            <!-- Banner de Upsell Levíssimo (Sem esforço visual pesado) -->
+            <div class="upsell-container" id="upsell-container">
+                <div class="upsell-card">
+                    <div class="upsell-left">
+                        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=300&q=80" alt="Cookie Tradicional Fafa" class="upsell-img-thumb">
+                        <div class="upsell-info">
+                            <span class="upsell-tag">⭐ Dica da Casa</span>
+                            <h2 class="upsell-title">Que tal um Cookie Gotas de Chocolate Branco quentinho?</h2>
+                            <p class="upsell-sub">O clássico artesanal favorito da Fafa por apenas <strong>R$ 8,50</strong>.</p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-upsell-quick" onclick="window.openProductModal('ck-01')">
+                        <i data-lucide="plus-circle" style="width:16px;height:16px;"></i>
+                        <span>Adicionar em 1 Toque</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Título da Categoria Ativa -->
+            <div class="catalog-header-bar">
+                <h2 class="catalog-current-title" id="current-category-name">Cardápio Completo</h2>
+                <span class="catalog-count-pill" id="products-count-badge">45 opções artesanais</span>
+            </div>
+
+            <!-- Grid de Produtos -->
             <div class="catalog-grid" id="catalog-grid">
-                <!-- Preenchido via JavaScript -->
+                <!-- Injetado dinamicamente via app.js -->
             </div>
         </div>
     </main>
@@ -148,7 +160,7 @@
                         <i data-lucide="heart" style="width:12px;height:12px;"></i> Confeitaria com Afeto
                     </span>
                     <h2 class="story-title">A arte da pâtisserie artesanal <span>nascida do coração de Caxias.</span></h2>
-                    <p class="story-p">Fundada em 2020 por <strong>Bruna Moura Gobbi Franzosi</strong> e <strong>Rafael Franzosi</strong>, a Fafá Doces Presentes transformou o amor pela confeitaria em uma experiência gastronômica afetiva e inesquecível.</p>
+                    <p class="story-p">Fundada em 2020 por <strong>Bruna Moura Gobbi Franzosi</strong> e <strong>Rafael Franzosi</strong>, a Fafa Doces Presentes transformou o amor pela confeitaria em uma experiência gastronômica afetiva e inesquecível.</p>
                     <p class="story-p">Em 2024, o chef Rafael Franzosi foi laureado como <strong>Melhor Chef Pâtissier de Caxias do Sul</strong> pelo Prêmio Revista Sabores do Sul, e a casa conquistou o troféu de <strong>Melhor Box / Platter</strong> por suas criações presenteáveis generosas e impecáveis.</p>
                     
                     <div class="story-stats-row">
@@ -168,7 +180,7 @@
                 </div>
 
                 <div class="story-img-wrap">
-                    <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80" alt="Confeitaria Afetiva Fafá Doces Presentes" class="story-img" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=800&q=80';">
+                    <img src="assets/fafa_founders.jpg" alt="Bruna Moura Gobbi Franzosi e Rafael Franzosi - Fafa Doces Presentes" class="story-img" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80';">
                 </div>
             </div>
         </div>
@@ -179,7 +191,7 @@
         <div class="container">
             <div class="section-header-center">
                 <span class="section-tag">Prova Social Consolidada</span>
-                <h2 class="section-title">O carinho de quem vive a experiência Fafá</h2>
+                <h2 class="section-title">O carinho de quem vive a experiência Fafa</h2>
             </div>
 
             <div class="reviews-grid">
@@ -291,7 +303,7 @@
                 </div>
 
                 <div class="map-embed-wrap">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3483.921389201479!2d-51.1872101!3d-29.1739107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x951ea30c0c000001%3A0x1!2sR.+Tronca%2C+2951+-+Rio+Branco%2C+Caxias+do+Sul+-+RS!5e0!3m2!1spt-BR!2sbr!4v1710000000000!5m2!1spt-BR!2sbr" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa Fafá Doces Presentes"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3483.921389201479!2d-51.1872101!3d-29.1739107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x951ea30c0c000001%3A0x1!2sR.+Tronca%2C+2951+-+Rio+Branco%2C+Caxias+do+Sul+-+RS!5e0!3m2!1spt-BR!2sbr!4v1710000000000!5m2!1spt-BR!2sbr" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa Fafa Doces Presentes"></iframe>
                 </div>
             </div>
         </div>
@@ -302,10 +314,10 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <img src="assets/logo.svg" alt="Fafá Doces Presentes" style="height:38px;filter:brightness(0) invert(1);">
+                    <img src="assets/logo.svg" alt="Fafa Doces Presentes" style="height:38px;filter:brightness(0) invert(1);">
                 </div>
                 <div class="footer-copy">
-                    &copy; 2026 Fafá Doces Presentes • Todos os direitos reservados.
+                    &copy; 2026 Fafa Doces Presentes • Todos os direitos reservados.
                 </div>
                 <div class="footer-admin-wrap">
                     <a href="admin.html" class="footer-admin-link" title="Acesso restrito ao Painel Admin">
@@ -314,7 +326,7 @@
                 </div>
             </div>
             <div class="footer-signature">
-                Tecnologia por <strong>Onira Labs</strong> • Canal Próprio de Alta Conversão
+                Tecnologia por <strong>Onira Labs</strong> • Engenharia de Negócios Digitais
             </div>
         </div>
     </footer>
@@ -497,7 +509,7 @@
             </button>
 
             <div class="cart-onira-tag">
-                Tecnologia por <strong>Onira Labs</strong>
+                Tecnologia por <strong>Onira Labs</strong> • Engenharia de Negócios Digitais
             </div>
         </div>
     </div>
@@ -528,6 +540,6 @@
     </a>
 
     <!-- Scripts -->
-    <script src="app.js?v=20260831a"></script>
+    <script src="app.js"></script>
 </body>
 </html>

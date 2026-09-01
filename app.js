@@ -1,12 +1,12 @@
 /**
- * Fafá Doces Presentes - Caxias do Sul - RS
+ * Fafa Doces Presentes - Caxias do Sul - RS
  * Cardápio Digital & Sistema de Pedidos Direto no WhatsApp
  * Confeitaria Afetiva, Cafeteria & Cestas Presenteáveis
  * Eleito Melhor Chef Pâtissier 2024 (Sabores do Sul) - Chef Rafael Franzosi
  * Powered by Onira Labs
  */
 
-// WhatsApp Oficial da Fafá Doces Presentes (Verificado via Linktree/Google)
+// WhatsApp Oficial da Fafa Doces Presentes (Verificado via Linktree/Google)
 const WHATSAPP_PHONE = '555432011633';
 const CHAVE_PIX_OFICIAL = '5432011633'; // Chave Pix Telefone Comercial
 
@@ -28,7 +28,7 @@ const DELIVERY_ZONES = [
     { neighborhood: 'Outro Bairro (Caxias do Sul)', fee: 15.00, time: '45-60 min' }
 ];
 
-// Catálogo Real Extraído da Fafá Doces Presentes (45 Produtos Oficiais com Fotos Reais)
+// Catálogo Real Extraído da Fafa Doces Presentes (45 Produtos Oficiais com Fotos Reais)
 const PRODUCTS = [
     {
         "id": "prod-12314145",
@@ -84,7 +84,7 @@ const PRODUCTS = [
         "category": "congelados",
         "group": "Fafa na sua casa - Congelados",
         "desc": "Cookies congelados no sabor cookie tradicional preto, para você assar e comer quando quiser na sua casa!\r\nÉ possível assar tanto Air Fryer quanto no forno, basta pré-aquecer 180 graus e assar de 10 a 13 minutos.\r\nOs cookies devem ser mantidos no congelador até o momento de colocar na assadeira, e não é necessário achatá-los. Basta dispor os cookies na assadeira com o papel manteiga que será enviado e se deliciar!",
-        "badge": "Fafá na Sua Casa ❄️",
+        "badge": "Fafa na Sua Casa ❄️",
         "rating": "5.0",
         "img": "assets/produtos/prod_12552870.jpg",
         "price": 31.9,
@@ -96,7 +96,7 @@ const PRODUCTS = [
         "category": "congelados",
         "group": "Fafa na sua casa - Congelados",
         "desc": "Cookies congelados no sabor cookie tradicional branco, para você assar e comer quando quiser na sua casa!\r\nÉ possível assar tanto Air Fryer quanto no forno, basta pré-aquecer 180 graus e assar de 10 a 13 minutos.\r\nOs cookies devem ser mantidos no congelador até o momento de colocar na assadeira, e não é necessário achatá-los. Basta dispor os cookies na assadeira com o papel manteiga que será enviado e se deliciar!",
-        "badge": "Fafá na Sua Casa ❄️",
+        "badge": "Fafa na Sua Casa ❄️",
         "rating": "5.0",
         "img": "assets/produtos/prod_12552873.jpg",
         "price": 31.9,
@@ -108,7 +108,7 @@ const PRODUCTS = [
         "category": "congelados",
         "group": "Fafa na sua casa - Congelados",
         "desc": "Cookies congelados no sabor cookie chocolate duplo que leva gotas de chocolate ao leite, gotas de chocolate meio amargo e nozes, para você assar e comer quando quiser na sua casa!\r\nÉ possível assar tanto Air Fryer quanto no forno, basta pré-aquecer 180 graus e assar de 10 a 13 minutos.\r\nOs cookies devem ser mantidos no congelador até o momento de colocar na assadeira, e não é necessário achatá-los. Basta dispor os cookies na assadeira com o papel manteiga que será enviado e se deliciar!",
-        "badge": "Fafá na Sua Casa ❄️",
+        "badge": "Fafa na Sua Casa ❄️",
         "rating": "5.0",
         "img": "assets/produtos/prod_12552879.jpg",
         "price": 31.9,
@@ -120,7 +120,7 @@ const PRODUCTS = [
         "category": "congelados",
         "group": "Fafa na sua casa - Congelados",
         "desc": "Cookies congelados no sabor cookie cacau com chocolate branco assar e comer quando quiser na sua casa!\r\nÉ possível assar tanto Air Fryer quanto no forno, basta pré-aquecer 180 graus e assar de 10 a 13 minutos.\r\nOs cookies devem ser mantidos no congelador até o momento de colocar na assadeira, e não é necessário achatá-los. Basta dispor os cookies na assadeira com o papel manteiga que será enviado e se deliciar!",
-        "badge": "Fafá na Sua Casa ❄️",
+        "badge": "Fafa na Sua Casa ❄️",
         "rating": "5.0",
         "img": "assets/produtos/prod_12552871.jpg",
         "price": 31.9,
@@ -132,7 +132,7 @@ const PRODUCTS = [
         "category": "congelados",
         "group": "Fafa na sua casa - Congelados",
         "desc": "Cookies congelados no sabores: 3 cookies tradicional preto, 3 cookies tradicional branco, 3 cookies cacau com chocolate branco,  para você assar e comer quando quiser na sua casa!\r\nÉ possível assar tanto Air Fryer quanto no forno, basta pré-aquecer 180 graus e assar de 10 a 13 minutos.\r\nOs cookies devem ser mantidos no congelador até o momento de colocar na assadeira, e não é necessário achatá-los. Basta dispor os cookies na assadeira com o papel manteiga que será enviado e se deliciar!",
-        "badge": "Fafá na Sua Casa ❄️",
+        "badge": "Fafa na Sua Casa ❄️",
         "rating": "5.0",
         "img": "assets/produtos/prod_12552893.jpg",
         "price": 67.9,
@@ -144,7 +144,7 @@ const PRODUCTS = [
         "category": "congelados",
         "group": "Fafa na sua casa - Congelados",
         "desc": "Nossas quiches já assadas para você ter no seu congelador são perfeitas para aquele lanche rápido a tarde ou para servir de entradinha em algum jantar!\r\nProduzidas nos sabores: Marguerita, Lorraine (queijo gruyere e bacon), Quatro queijos, Cebola Caramelizada e Alho poró\r\nConsulte sabores disponíveis",
-        "badge": "Fafá na Sua Casa ❄️",
+        "badge": "Fafa na Sua Casa ❄️",
         "rating": "5.0",
         "img": "assets/produtos/prod_12552897.jpg",
         "price": 16.5,
@@ -156,7 +156,7 @@ const PRODUCTS = [
         "category": "congelados",
         "group": "Fafa na sua casa - Congelados",
         "desc": "A Torta Cookie é uma opção prática para sobremesas e momentos especiais em casa. Ficam prontas em 5 a 10 minutos, com massa macia e recheio cremoso!\r\n\r\nSabores para consultar: Cookie preto e Nutella / Cookie branco e Nutella\r\nConsulte os sabores e tamanhos disponíveis.",
-        "badge": "Fafá na Sua Casa ❄️",
+        "badge": "Fafa na Sua Casa ❄️",
         "rating": "5.0",
         "img": "assets/produtos/prod_12746177.jpg",
         "price": 25.9,
@@ -168,7 +168,7 @@ const PRODUCTS = [
         "category": "congelados",
         "group": "Fafa na sua casa - Congelados",
         "desc": "A Torta Cookie é uma opção prática para sobremesas e momentos especiais em casa. Ficam prontas em 5 a 10 minutos, com massa macia e recheio cremoso!\r\n\r\nSabores para consultar: Cookie preto e Doce de Leite / Cookie branco e Doce de Leite\r\nConsulte os sabores e tamanhos disponíveis.",
-        "badge": "Fafá na Sua Casa ❄️",
+        "badge": "Fafa na Sua Casa ❄️",
         "rating": "5.0",
         "img": "assets/produtos/prod_12746181.jpg",
         "price": 19.9,
@@ -575,7 +575,7 @@ const PRODUCTS = [
 // Opcionais e Mimos Especiais
 const ADDON_OPTIONS = [
     { id: 'ad-cartao', name: '💌 Mensagem Dedicatória Escrita à Mão', price: 1.50 },
-    { id: 'ad-sacola', name: '🛍️ Sacola de Presente Especial da Fafá', price: 5.00 },
+    { id: 'ad-sacola', name: '🛍️ Sacola de Presente Especial da Fafa', price: 5.00 },
     { id: 'ad-aquecer', name: '🔥 Enviar Quentinho para Consumo Imediato', price: 0.00 }
 ];
 
@@ -1202,7 +1202,7 @@ window.submitOrderToWhatsApp = function() {
         msg += `${addressDetails}\n`;
     }
     msg += `${paymentText}\n\n`;
-    msg += `_Enviado pelo site da Fafá Doces Presentes_`;
+    msg += `_Enviado pelo site oficial da Fafa Doces Presentes • Onira.fly (Engenharia de Negócios Digitais)_`;
 
     const encodedMsg = encodeURIComponent(msg);
     const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodedMsg}`;

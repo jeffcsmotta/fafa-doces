@@ -1,5 +1,5 @@
 /**
- * Fafá Doces Presentes - Style System & Responsive Architecture
+ * Fafa Doces Presentes - Style System & Responsive Architecture
  * Confeitaria Afetiva, Cafeteria & Cestas Presenteáveis
  * Onira Labs - Design System Master (Paleta Pâtisserie Vibrante)
  */
@@ -512,12 +512,13 @@ body {
 }
 
 .card-title {
-    font-family: var(--font-heading);
-    font-size: 1.12rem;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
     font-weight: 800;
-    color: var(--text-dark);
+    color: var(--primary-dark);
     margin-bottom: 6px;
-    line-height: 1.3;
+    line-height: 1.32;
+    letter-spacing: -0.2px;
 }
 
 .card-desc {
@@ -590,13 +591,28 @@ body {
     grid-column: 1 / -1;
     text-align: center;
     padding: 60px 20px;
-    color: var(--text-muted);
+    background: #FFFFFF;
+    border-radius: var(--radius-lg);
+    border: 1px dashed var(--border);
 }
 
-.btn-clean-filter {
-    margin-top: 14px;
-    padding: 8px 18px;
-    background: var(--primary);
+.empty-catalog-msg h3 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin: 12px 0 6px 0;
+}
+
+.empty-catalog-msg p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+}
+
+.btn-reset-filters {
+    padding: 8px 20px;
+    background: var(--primary-dark);
     border: none;
     border-radius: var(--radius-pill);
     color: #FFFFFF;
@@ -605,13 +621,14 @@ body {
 }
 
 /* ==========================================================================
-   Chef Story & Differentials (Dark Section)
+   Chef Story & Differentials (Dark Velvet Wine Section)
    ========================================================================== */
 .story-section {
-    background: var(--bg-dark-section);
+    background: #360C14; /* Deep Velvet Wine - Fundo Sólido Nobre */
     color: #FFFFFF;
-    padding: 56px 0;
+    padding: 60px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .story-grid {
@@ -625,35 +642,39 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 4px 14px;
-    background: rgba(217, 119, 6, 0.2);
-    border: 1px solid rgba(245, 158, 11, 0.4);
+    padding: 5px 14px;
+    background: rgba(238, 82, 68, 0.2);
+    border: 1px solid rgba(238, 82, 68, 0.4);
     border-radius: var(--radius-pill);
-    color: #FBBF24;
+    color: #FFAAA0;
     font-size: 0.75rem;
     font-weight: 800;
     text-transform: uppercase;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
 .story-title {
     font-family: var(--font-heading);
     font-size: 1.85rem;
-    font-weight: 900;
+    font-weight: 800;
     color: #FFFFFF;
     line-height: 1.25;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
 }
 
 .story-title span {
-    color: #E6C8B2;
+    color: #F8C291;
 }
 
 .story-p {
-    color: #D3C5BC;
-    font-size: 0.94rem;
-    line-height: 1.6;
+    color: #E8DED9;
+    font-size: 0.95rem;
+    line-height: 1.65;
     margin-bottom: 14px;
+}
+
+.story-p strong {
+    color: #FFFFFF;
 }
 
 .story-stats-row {
@@ -664,24 +685,24 @@ body {
 }
 
 .stat-box {
-    background: var(--bg-dark-card);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #46111B;
+    border: 1px solid rgba(216, 74, 91, 0.25);
     border-radius: var(--radius-md);
     padding: 14px;
     text-align: center;
 }
 
 .stat-num {
-    font-family: var(--font-heading);
+    font-family: var(--font-price);
     font-size: 1.35rem;
-    font-weight: 900;
+    font-weight: 800;
     color: var(--emerald-light);
     display: block;
 }
 
 .stat-desc {
     font-size: 0.72rem;
-    color: #A8988F;
+    color: #D3C5BC;
     font-weight: 600;
 }
 
@@ -1020,11 +1041,13 @@ body {
 }
 
 .modal-title {
-    font-family: var(--font-heading);
-    font-size: 1.35rem;
-    font-weight: 900;
-    color: var(--text-dark);
+    font-family: var(--font-body);
+    font-size: 1.28rem;
+    font-weight: 800;
+    color: var(--primary-dark);
     margin-bottom: 6px;
+    letter-spacing: -0.3px;
+    line-height: 1.3;
 }
 
 .modal-desc {
