@@ -685,19 +685,31 @@
             50% { box-shadow: 0 8px 35px rgba(37, 211, 102, 0.75); }
         }
 
+        .back-text-short { display: none; }
+
         @media (max-width: 640px) {
             .offer-title { font-size: 1.75rem; }
+            .brand-logo-img { height: 28px; max-width: 130px; }
+            .back-link { padding: 6px 10px; font-size: 0.78rem; gap: 4px; }
+            .back-text-full { display: none; }
+            .back-text-short { display: inline; }
             .domain-strip { flex-direction: column; align-items: flex-start; }
             .domain-price { text-align: left; }
             .feature-grid, .financial-split, .numbers-grid, .benchmark-grid { grid-template-columns: 1fr; }
-            .dev-profile-header { flex-direction: column; text-align: center; }
+            .dev-profile-card { padding: 22px 16px; border-radius: 14px; }
+            .dev-profile-header { flex-direction: column; text-align: center; gap: 12px; }
+            .dev-profile-avatar { width: 72px; height: 72px; }
             .dev-profile-city { justify-content: center; }
-            .dev-links-grid { grid-template-columns: 1fr; }
+            .dev-profile-bio { font-size: 0.86rem; padding: 12px 14px; }
+            .dev-links-grid { grid-template-columns: 1fr; gap: 8px; }
+            .dev-link-pill { padding: 10px 12px; font-size: 0.80rem; }
+            .studio-signature-box { padding-top: 16px; }
+            .studio-logo-img { height: 36px; }
             .floating-whatsapp-btn {
-                bottom: 16px;
-                right: 16px;
+                bottom: 14px;
+                right: 14px;
                 padding: 10px 16px;
-                font-size: 0.85rem;
+                font-size: 0.84rem;
             }
         }
     </style>
@@ -711,12 +723,14 @@
                 <img src="assets/logo.svg" alt="Fafa Doces Presentes Logo" class="brand-logo-img">
             </a>
             <a href="index.html" class="back-link">
-                <i data-lucide="arrow-left" style="width:16px;height:16px;"></i> Ver Site de Demonstração
+                <i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
+                <span class="back-text-full">Ver Site de Demonstração</span>
+                <span class="back-text-short">Ver Site</span>
             </a>
         </div>
     </nav>
 
-    <main class="container">
+    <main class="container" style="padding-bottom: 96px;">
 
         <!-- Main Hero Hook -->
         <section class="offer-hero">
@@ -737,6 +751,37 @@
                 <span>Registro Oficial + Cloudflare SSL + CDN no RS</span>
             </div>
         </div>
+
+        <!-- Investimento & Condições (Posicionado em Destaque no Início) -->
+        <section class="section-card" id="investimento">
+            <h2 class="section-title"><i data-lucide="badge-dollar-sign"></i> Investimento & Condições</h2>
+
+            <div class="financial-split">
+                <!-- Oferta Principal -->
+                <div class="fin-box-main">
+                    <span class="fin-label">⭐ Oferta Principal • Canal Onira.fly</span>
+                    <div class="fin-total">3x de R$ 800,00</div>
+                    <div class="fin-item">
+                        💵 <strong>Implementação & Setup:</strong> R$ 2.400,00 à vista (Pix) ou parcelado em 3x de R$ 800,00 sem juros.
+                    </div>
+                    <div class="fin-item">
+                        ⚡ <strong>Acompanhamento Mensal & Nuvem:</strong> R$ 120,00/mês — inclui infraestrutura Cloudflare, SSL, domínio próprio, hospedagem de alta velocidade e suporte contínuo para cardápio e preços.
+                    </div>
+                </div>
+
+                <!-- Upsell Enxuto -->
+                <div class="fin-box-upsell">
+                    <span class="upsell-tag">🚀 Acelerador Local</span>
+                    <span class="fin-label" style="color: #7E22CE;">Google Meu Negócio & SEO</span>
+                    <div class="upsell-total">+ R$ 100/mês <small style="font-size:0.75rem; color:#6B21A8; display:block; font-weight:600;">(nos 3 primeiros meses)</small></div>
+                    <ul class="upsell-list">
+                        <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Otimização completa da ficha no Google Maps.</li>
+                        <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Posicionamento para termos como "Cookies Caxias do Sul" e "Cestas Café da Manhã".</li>
+                        <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Link direto do canal oficial na vitrine de buscas locais.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
         <!-- O Tamanho da Oportunidade & Audiência -->
         <section class="section-card">
@@ -801,7 +846,7 @@
             <div class="feature-grid">
                 <div class="feature-box">
                     <h4><i data-lucide="cookie"></i> Cardápio Interativo Completo</h4>
-                    <p>17 sabores de cookies artesanais, tortas, cheesecakes, croissants franceses e cestas presenteáveis com fotos em alta resolução e opções de mimos.</p>
+                    <p>45 opções de cookies artesanais, entremets, tortas da vitrine do Chef Rafael, quiches folhadas e caixas presenteáveis com fotos em alta resolução e opções de mimos.</p>
                 </div>
                 <div class="feature-box">
                     <h4><i data-lucide="globe"></i> Domínio Oficial da Marca</h4>
@@ -817,55 +862,13 @@
                 </div>
                 <div class="feature-box">
                     <h4><i data-lucide="zap"></i> Carregamento em menos de 0.5s</h4>
-                    <p>Arquitetura PWA ultra leve que abre instantaneamente no Instagram ou no WhatsApp do cliente sem travar e sem download de aplicativo.</p>
+                    <p>Arquitetura Jamstack ultra leve na Edge CDN que abre instantaneamente no Instagram ou no WhatsApp do cliente sem travar e sem download de aplicativo.</p>
                 </div>
                 <div class="feature-box">
-                    <h4><i data-lucide="refresh-cw"></i> Suporte Contínuo & Datas Especiais</h4>
-                    <p>Hospedagem de alta velocidade, certificado SSL e suporte ativo para campanhas sazonais (Páscoa, Dia das Mães, Dia dos Namorados e Natal).</p>
+                    <h4><i data-lucide="refresh-cw"></i> Painel do Dono & Suporte White-Glove</h4>
+                    <p>Autonomia total para o dono pausar produtos esgotados e alterar preços em tempo real, somado ao suporte ativo para campanhas sazonais (Páscoa, Dia das Mães, Namorados e Natal).</p>
                 </div>
             </div>
-        </section>
-
-        <!-- Investimento & Condições -->
-        <section class="section-card">
-            <h2 class="section-title"><i data-lucide="badge-dollar-sign"></i> Investimento & Condições</h2>
-
-            <div class="financial-split">
-                <!-- Oferta Principal -->
-                <div class="fin-box-main">
-                    <span class="fin-label">⭐ Oferta Principal • Canal Onira.fly</span>
-                    <div class="fin-total">3x de R$ 800,00</div>
-                    <div class="fin-item">
-                        💵 <strong>Implementação & Setup:</strong> R$ 2.400,00 à vista (Pix) ou parcelado em 3x de R$ 800,00 sem juros.
-                    </div>
-                    <div class="fin-item">
-                        ⚡ <strong>Acompanhamento Mensal & Nuvem:</strong> R$ 100,00/mês — inclui infraestrutura Cloudflare, SSL, domínio oficial e suporte contínuo para cardápio e preços.
-                    </div>
-                </div>
-
-                <!-- Upsell Enxuto -->
-                <div class="fin-box-upsell">
-                    <span class="upsell-tag">🚀 Acelerador Local</span>
-                    <span class="fin-label" style="color: #7E22CE;">Google Meu Negócio & SEO</span>
-                    <div class="upsell-total">+ R$ 100/mês <small style="font-size:0.75rem; color:#6B21A8; display:block; font-weight:600;">(nos 3 primeiros meses)</small></div>
-                    <ul class="upsell-list">
-                        <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Otimização completa da ficha no Google Maps.</li>
-                        <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Posicionamento para termos como "Cookies Caxias do Sul" e "Cestas Café da Manhã".</li>
-                        <li><i data-lucide="check-circle-2" style="width:16px; height:16px;"></i> Link direto do canal oficial na vitrine de buscas locais.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Novo CTA: Diagnóstico e Co-Criação Convidativa -->
-        <section class="cta-box">
-            <span class="cta-hook-badge"><i data-lucide="sparkles" style="width: 14px; height: 14px;"></i> Co-Criação & Diagnóstico</span>
-            <h3>Desenhamos essa primeira versão olhando o seu negócio de fora para dentro. Agora, queremos entender sua rotina por dentro.</h3>
-            <p>Ninguém conhece os cookies mais desejados, as cestas mais pedidas e as particularidades da produção da Fafa melhor do que vocês. Esta demonstração é uma base pronta para ser calibrada. Vamos conversar 10 minutos no WhatsApp para alinharmos os detalhes da sua operação?</p>
-            <a href="https://wa.me/5554996862169?text=Ol%C3%A1%20Jefferson!%20Vi%20a%20proposta%20do%20canal%20pr%C3%B3prio%20da%20Fafa%20Doces%20Presentes%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener noreferrer" class="btn-wa-action">
-                <i data-lucide="message-circle"></i>
-                <span>Conversar com o Jefferson no WhatsApp</span>
-            </a>
         </section>
 
         <!-- Developer & Studio Profile Container (Onira Labs Master Standard) -->
@@ -923,14 +926,14 @@
         </div>
 
         <!-- Developer Signature -->
-        <div style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 32px; margin-bottom: 24px;">
+        <div style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 28px; margin-bottom: 24px;">
             <p>Proposta comercial elaborada por <strong>Onira Labs</strong> • Engenharia de Negócios Digitais</p>
         </div>
 
     </main>
 
     <!-- Floating WhatsApp Action Button -->
-    <a href="https://wa.me/5554996862169?text=Ol%C3%A1%20Jefferson!%20Vi%20a%20proposta%20do%20canal%20pr%C3%B3prio%20da%20Faf%C3%A1%20Doces%20Presentes%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener noreferrer" class="floating-whatsapp-btn" id="floating-whatsapp-btn" aria-label="Falar com Jefferson no WhatsApp">
+    <a href="https://wa.me/5554996862169?text=Ol%C3%A1%20Jefferson!%20Vi%20a%20proposta%20do%20canal%20pr%C3%B3prio%20da%20Fafa%20Doces%20Presentes%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener noreferrer" class="floating-whatsapp-btn" id="floating-whatsapp-btn" aria-label="Falar com Jefferson no WhatsApp">
         <i data-lucide="message-circle"></i>
         <span>Falar com o Jefferson</span>
     </a>

@@ -45,7 +45,7 @@
                 <!-- Botão Compre esse site (Azul Royal Elétrico de Alto Contraste) -->
                 <a href="proposta.html" class="btn-buy-site" title="Compre esse site pronto para o seu negócio">
                     <i data-lucide="zap" style="width:14px;height:14px;color:#FEF08A;fill:#FEF08A;"></i>
-                    <span>Compre esse site</span>
+                    <span class="btn-buy-text">Compre este site</span>
                 </a>
 
                 <!-- Botão Lixeira no Cabeçalho (Outline) -->
@@ -116,27 +116,9 @@
         </div>
     </section>
 
-    <!-- Main Content: Upsell Inteligente, Conceito & Grid de Produtos -->
+    <!-- Main Content: Conceito, Grid de Produtos & Dica da Casa no Final -->
     <main class="catalog-section">
         <div class="container">
-            
-            <!-- Banner de Upsell Levíssimo -->
-            <div class="upsell-container" id="upsell-container">
-                <div class="upsell-card">
-                    <div class="upsell-left">
-                        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=300&q=80" alt="Cookie Tradicional Fafa" class="upsell-img-thumb">
-                        <div class="upsell-info">
-                            <span class="upsell-tag">⭐ Dica da Casa</span>
-                            <h2 class="upsell-title">Que tal um Cookie Gotas de Chocolate Branco quentinho?</h2>
-                            <p class="upsell-sub">O clássico artesanal favorito da Fafa por apenas <strong>R$ 8,50</strong>.</p>
-                        </div>
-                    </div>
-                    <button type="button" class="btn-upsell-quick" onclick="window.openProductModal('prod-12314145')">
-                        <i data-lucide="plus-circle" style="width:16px;height:16px;"></i>
-                        <span>Adicionar em 1 Toque</span>
-                    </button>
-                </div>
-            </div>
 
             <!-- Banner de Atmosfera e Conceito Afetivo da Categoria Ativa -->
             <div class="category-concept-banner" id="category-concept-banner">
@@ -153,6 +135,25 @@
             <div class="catalog-grid" id="catalog-grid">
                 <!-- Injetado dinamicamente via app.js -->
             </div>
+
+            <!-- Banner de Upsell / Dica da Casa (Posicionado no Final do Cardápio) -->
+            <div class="upsell-container" id="upsell-container" style="margin-top: 36px;">
+                <div class="upsell-card">
+                    <div class="upsell-left">
+                        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=300&q=80" alt="Cookie Tradicional Fafa" class="upsell-img-thumb">
+                        <div class="upsell-info">
+                            <span class="upsell-tag">⭐ Dica da Casa</span>
+                            <h2 class="upsell-title">Que tal um Cookie Gotas de Chocolate Branco quentinho?</h2>
+                            <p class="upsell-sub">O clássico artesanal favorito da Fafa por apenas <strong>R$ 8,50</strong>.</p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-upsell-quick" onclick="window.openProductModal('prod-12314145')">
+                        <i data-lucide="plus-circle" style="width:16px;height:16px;"></i>
+                        <span>Adicionar em 1 Toque</span>
+                    </button>
+                </div>
+            </div>
+
         </div>
     </main>
 

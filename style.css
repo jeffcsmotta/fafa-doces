@@ -2096,6 +2096,32 @@ body {
    Responsive Breakpoints
    ========================================================================== */
 @media (max-width: 768px) {
+    /* Empilhamento limpo dos filtros no Mobile */
+    .category-scroll-container,
+    .categories-nav,
+    .catalog-nav-section .categories-scroll-wrap {
+        overflow-x: visible !important;
+        width: 100% !important;
+        padding: 4px 0 6px 0 !important;
+    }
+
+    .category-scroll-pills,
+    .categories-scroll-wrap {
+        width: 100% !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 6px !important;
+        padding-right: 0 !important;
+    }
+
+    .cat-pill,
+    .nav-category-btn {
+        font-size: 0.76rem !important;
+        padding: 6px 12px !important;
+        gap: 5px !important;
+    }
+
     .story-grid, .location-grid {
         grid-template-columns: 1fr;
     }
@@ -2123,37 +2149,46 @@ body {
     .nav-container {
         padding-top: 8px;
         padding-bottom: 8px;
-        gap: 8px;
+        gap: 6px;
     }
 
     .brand-logo-img {
-        height: 30px;
-        max-width: 160px;
+        height: 28px;
+        max-width: 130px;
     }
 
     .status-compact {
         display: none;
     }
 
-    .btn-buy-site .btn-buy-text {
-        display: none;
+    .nav-actions {
+        gap: 6px;
     }
 
     .btn-buy-site {
-        padding: 6px 9px;
+        padding: 6px 10px;
+        font-size: 0.75rem;
+        gap: 4px;
+    }
+
+    .btn-buy-site .btn-buy-text {
+        display: inline-block;
+        font-size: 0.74rem;
     }
 
     .btn-header-trash {
         width: 32px;
         height: 32px;
+        flex-shrink: 0;
     }
 
     .btn-cart-trigger {
         padding: 6px 10px;
-        gap: 6px;
+        gap: 4px;
+        flex-shrink: 0;
     }
 
-    .btn-cart-trigger .cart-label,
+    .btn-cart-trigger .cart-btn-label,
     .btn-cart-trigger .cart-total-header {
         display: none;
     }
