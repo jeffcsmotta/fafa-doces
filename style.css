@@ -1501,7 +1501,8 @@ body {
     bottom: 0;
     width: 100%;
     max-width: 440px;
-    height: 100vh;
+    height: 100%;
+    height: 100dvh;
     background: #340B13; /* Deep Velvet Wine / Cocoa Burgundy */
     color: #FFFFFF;
     z-index: 1200;
@@ -1594,28 +1595,25 @@ body {
     display: flex;
     flex-direction: column;
     gap: 18px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
 
-/* Lista de Itens com Rolagem Dedicada para manter os dados de entrega acessíveis */
+.cart-body::-webkit-scrollbar {
+    width: 4px;
+}
+
+.cart-body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+/* Lista de Itens no Carrinho (Sem rolagem interna: expande e empurra o formulário para baixo naturalmente) */
 .cart-items-list {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    max-height: 250px;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding-right: 4px;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
-}
-
-.cart-items-list::-webkit-scrollbar {
-    width: 4px;
-}
-
-.cart-items-list::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.25);
-    border-radius: 4px;
+    width: 100%;
 }
 
 .cart-footer {
