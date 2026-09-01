@@ -5,12 +5,14 @@
  */
 
 :root {
-    --primary: #2E1F27;             /* Shadow Grey / Plum Cocoa */
-    --primary-light: #48343F;
-    --accent-rose: #CEB3AB;         /* Almond Silk */
-    --accent-rose-dark: #A57B72;
-    --accent-vanilla: #DEDCAD;      /* Vanilla Custard */
-    --accent-granite: #466365;      /* Granite */
+    --primary-dark: #360C14;       /* Deep Velvet Bordeaux */
+    --primary: #5C131E;            /* Rich Bordeaux Wine */
+    --primary-light: #7E1C2B;
+    
+    --accent-berry: #D84A5B;        /* Pâtisserie Raspberry / Berry Rose */
+    --accent-coral: #EE5244;        /* Vibrant Strawberry Coral */
+    --accent-coral-hover: #D83E31;
+    --accent-caramel: #A06A3B;      /* Warm Hazelnut Caramel */
     
     --emerald: #059669;
     --emerald-light: #10B981;
@@ -21,25 +23,26 @@
     --amber-light: #F59E0B;
     --amber-bg: #FFFBEB;
 
-    --bg-page: #FBF9F6;
+    --bg-page: #FBF8F5;
     --bg-card: #FFFFFF;
-    --bg-dark: #2E1F27;
-    --text-dark: #2E1F27;
-    --text-main: #4A3B34;
-    --text-muted: #826E65;
-    --border: #E8DED6;
-    --border-light: #F4ECE6;
+    --bg-dark: #360C14;
+    --text-dark: #360C14;
+    --text-main: #4A2E33;
+    --text-muted: #82666B;
+    --border: #EFE4DE;
+    --border-light: #F7EFEA;
 
     --font-heading: 'Playfair Display', Georgia, serif;
     --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-price: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-serif: 'Playfair Display', Georgia, serif;
 
     --radius-sm: 8px;
     --radius-md: 14px;
     --radius-lg: 20px;
     --radius-pill: 9999px;
-    --shadow-soft: 0 4px 18px rgba(46, 31, 39, 0.05);
-    --shadow-card: 0 6px 24px rgba(46, 31, 39, 0.07);
+    --shadow-soft: 0 4px 18px rgba(54, 12, 20, 0.05);
+    --shadow-card: 0 6px 24px rgba(54, 12, 20, 0.08);
 }
 
 *, *::before, *::after {
@@ -51,7 +54,7 @@
 
 body {
     background-color: var(--bg-page);
-    background-image: radial-gradient(circle, rgba(206, 179, 171, 0.45) 0.85px, transparent 0.85px);
+    background-image: radial-gradient(circle, rgba(216, 74, 91, 0.18) 0.85px, transparent 0.85px);
     background-size: 18px 18px;
     color: var(--text-main);
     font-family: var(--font-body);
@@ -261,8 +264,8 @@ body {
 }
 
 .owner-pill {
-    background: #2B1810;
-    color: #FDFBF7;
+    background: var(--primary-dark);
+    color: #FFFFFF;
     font-size: 0.72rem;
     font-weight: 700;
     padding: 4px 10px;
@@ -318,7 +321,7 @@ body {
 }
 
 .btn-primary-add {
-    background: #2B1810;
+    background: var(--accent-coral);
     color: #FFFFFF;
     border: none;
     padding: 8px 16px;
@@ -329,12 +332,12 @@ body {
     align-items: center;
     gap: 6px;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(43, 24, 16, 0.2);
+    box-shadow: 0 4px 12px rgba(238, 82, 68, 0.3);
     transition: all 0.2s ease;
 }
 
 .btn-primary-add:hover {
-    background: #4A2E20;
+    background: var(--accent-coral-hover);
     transform: translateY(-1px);
 }
 

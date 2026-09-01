@@ -369,6 +369,21 @@
         </div>
     </div>
 
+    <!-- Modal de Confirmação: Limpar Pedido -->
+    <div class="confirm-modal-overlay" id="confirm-clear-modal" onclick="window.closeClearModal(event)">
+        <div class="confirm-modal-card" onclick="event.stopPropagation()">
+            <div class="confirm-modal-icon">
+                <i data-lucide="trash-2" style="width:24px;height:24px;color:var(--accent-coral);"></i>
+            </div>
+            <h3 class="confirm-modal-title">Limpar seu pedido?</h3>
+            <p class="confirm-modal-text">Todos os itens e doces adicionados serão removidos do seu carrinho.</p>
+            <div class="confirm-modal-actions">
+                <button type="button" class="btn-confirm-cancel" onclick="window.closeClearModal()">Continuar com Pedido</button>
+                <button type="button" class="btn-confirm-danger" onclick="window.executeClearCart()">Sim, Limpar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Cart Overlay & Drawer (Padrão Master CLAEM / Onira Labs) -->
     <div class="cart-overlay" id="cart-overlay" onclick="window.closeCart()"></div>
     <div class="cart-drawer" id="cart-drawer">

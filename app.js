@@ -870,7 +870,7 @@ function updateModalTotal() {
     const total = (basePrice + addonsTotal) * qty;
     const totalBtn = document.getElementById('modal-add-btn');
     if (totalBtn) {
-        totalBtn.innerHTML = `<span>Adicionar ao Pedido</span> <strong>${formatCurrency(total)}</strong>`;
+        totalBtn.innerHTML = `<span>Adicionar ao Pedido</span> <strong class="modal-price-pill">${formatCurrency(total)}</strong>`;
     }
 }
 
@@ -955,14 +955,37 @@ window.closeCart = function() {
     }
 };
 
+// Limpeza de Carrinho com Modal Customizado
 window.clearCart = function() {
     if (cart.length === 0) return;
-    if (confirm('Deseja realmente limpar todos os itens do seu carrinho?')) {
+    const modal = document.getElementById('confirm-clear-modal');
+    if (modal) {
+        modal.classList.add('active');
+        if (window.lucide) window.lucide.createIcons();
+    } else {
         cart = [];
         saveCartToStorage();
         updateCartUI();
         showToast('Carrinho limpo.');
     }
+};
+
+window.closeClearModal = function(e) {
+    if (e && e.target && e.target.closest('.confirm-modal-card') && !e.target.closest('.btn-confirm-cancel')) {
+        return;
+    }
+    const modal = document.getElementById('confirm-clear-modal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+};
+
+window.executeClearCart = function() {
+    cart = [];
+    saveCartToStorage();
+    updateCartUI();
+    window.closeClearModal();
+    showToast('✓ Pedido limpo com sucesso.');
 };
 
 window.changeCartItemQty = function(cartId, delta) {

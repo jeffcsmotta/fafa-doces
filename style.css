@@ -1,18 +1,20 @@
 /**
  * Fafá Doces Presentes - Style System & Responsive Architecture
  * Confeitaria Afetiva, Cafeteria & Cestas Presenteáveis
- * Onira Labs - Design System Master
+ * Onira Labs - Design System Master (Paleta Pâtisserie Vibrante)
  */
 
 :root {
-    /* Brand Palette: Warm Artisan Pâtisserie */
-    --primary: #2E1F27;             /* Shadow Grey / Deep Cocoa Plum */
-    --primary-light: #48343F;       /* Rich Plum Cocoa */
-    --accent-rose: #CEB3AB;         /* Almond Silk / Confectionery Nude Rose */
-    --accent-rose-dark: #A57B72;    /* Warm Terracotta */
-    --accent-vanilla: #DEDCAD;      /* Vanilla Custard */
-    --accent-granite: #466365;      /* Granite */
-    --accent-yellow: #F8F272;       /* Canary Highlight */
+    /* Brand Palette: Pâtisserie Vibrante & Decadente */
+    --primary-dark: #360C14;       /* Deep Velvet Bordeaux / Cocoa Plum */
+    --primary: #5C131E;            /* Rich Bordeaux Wine */
+    --primary-light: #7E1C2B;
+    
+    --accent-berry: #D84A5B;        /* Pâtisserie Raspberry / Berry Rose */
+    --accent-coral: #EE5244;        /* Vibrant Strawberry Coral (High-Contrast Action CTA) */
+    --accent-coral-hover: #D83E31;
+    --accent-caramel: #A06A3B;      /* Warm Hazelnut Caramel / Gold */
+    --accent-caramel-light: #F5EAE0;
     
     /* Positive Numbers & Value (Strict Standard: Emerald Green) */
     --emerald: #059669;
@@ -21,28 +23,28 @@
     --emerald-border: rgba(16, 185, 129, 0.35);
 
     /* Backgrounds & Neutrals */
-    --bg-page: #FBF9F6;
+    --bg-page: #FBF8F5;            /* Warm Vanilla Silk Off-white */
     --bg-card: #FFFFFF;
-    --bg-dark-section: #2E1F27;
-    --bg-dark-card: #382730;
-    --text-dark: #2E1F27;
-    --text-main: #4A3B34;
-    --text-muted: #826E65;
-    --border: #E8DED6;
-    --border-light: #F4ECE6;
+    --bg-dark-drawer: #360C14;     /* Deep Wine Contrast for Drawer (No more generic black!) */
+    --bg-dark-card: #48121C;       /* Velvet Plum Card for Cart Items */
+    --text-dark: #360C14;
+    --text-main: #4A2E33;
+    --text-muted: #82666B;
+    --border: #EFE4DE;
+    --border-light: #F7EFEA;
 
     /* Fonts */
-    --font-serif: 'Playfair Display', Georgia, serif;
     --font-heading: 'Playfair Display', Georgia, serif;
     --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-price: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 
     /* Spacing & Radius */
     --radius-sm: 8px;
     --radius-md: 14px;
     --radius-lg: 20px;
     --radius-pill: 9999px;
-    --shadow-soft: 0 4px 18px rgba(46, 31, 39, 0.05);
-    --shadow-hover: 0 10px 28px rgba(46, 31, 39, 0.10);
+    --shadow-soft: 0 4px 18px rgba(54, 12, 20, 0.05);
+    --shadow-hover: 0 10px 28px rgba(54, 12, 20, 0.12);
 }
 
 /* Base Reset */
@@ -60,7 +62,7 @@ html {
 
 body {
     background-color: var(--bg-page);
-    background-image: radial-gradient(circle, rgba(206, 179, 171, 0.45) 0.85px, transparent 0.85px);
+    background-image: radial-gradient(circle, rgba(216, 74, 91, 0.18) 0.85px, transparent 0.85px);
     background-size: 18px 18px;
     color: var(--text-main);
     font-family: var(--font-body);
@@ -98,7 +100,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 900;
-    box-shadow: 0 2px 10px rgba(46, 31, 39, 0.03);
+    box-shadow: 0 2px 10px rgba(54, 12, 20, 0.03);
 }
 
 .nav-container {
@@ -156,20 +158,20 @@ body {
     align-items: center;
     gap: 6px;
     padding: 7px 14px;
-    background: #FAF3EE;
-    border: 1px solid var(--border);
+    background: #FFF2F0;
+    border: 1px solid rgba(238, 82, 68, 0.3);
     border-radius: var(--radius-pill);
     color: var(--primary);
     font-family: var(--font-body);
     font-size: 0.78rem;
-    font-weight: 700;
+    font-weight: 800;
     text-decoration: none;
     transition: all 0.2s ease;
 }
 
 .btn-buy-site:hover {
-    background: #F0E2D8;
-    border-color: var(--accent-rose);
+    background: #FFE5E2;
+    border-color: var(--accent-coral);
     transform: translateY(-1px);
 }
 
@@ -189,7 +191,7 @@ body {
 
 .btn-header-trash:hover {
     background: #FDF2F2;
-    color: #DC2626;
+    color: var(--accent-coral);
     border-color: #FCA5A5;
 }
 
@@ -198,7 +200,7 @@ body {
     align-items: center;
     gap: 8px;
     padding: 7px 14px;
-    background: var(--primary);
+    background: var(--primary-dark);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-pill);
     color: #FFFFFF;
@@ -207,11 +209,11 @@ body {
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 3px 10px rgba(46, 31, 39, 0.18);
+    box-shadow: 0 3px 10px rgba(54, 12, 20, 0.2);
 }
 
 .btn-cart-trigger:hover {
-    background: var(--primary-light);
+    background: var(--primary);
     transform: translateY(-1px);
 }
 
@@ -219,15 +221,17 @@ body {
     color: var(--emerald-light);
     font-weight: 800;
     font-size: 0.82rem;
+    font-family: var(--font-price);
 }
 
 .cart-count-badge {
-    background: var(--accent-rose) !important;
-    color: var(--primary) !important;
+    background: var(--accent-coral) !important;
+    color: #FFFFFF !important;
     padding: 2px 7px;
     border-radius: var(--radius-pill);
     font-size: 0.72rem;
     font-weight: 800;
+    box-shadow: 0 1px 4px rgba(238, 82, 68, 0.4);
 }
 
 /* ==========================================================================
@@ -344,8 +348,8 @@ body {
 }
 
 .upsell-card {
-    background: linear-gradient(135deg, #FFF8F5 0%, #FBF0EB 100%);
-    border: 1.5px dashed var(--accent-rose);
+    background: linear-gradient(135deg, #FFF6F4 0%, #FEEDEA 100%);
+    border: 1.5px dashed var(--accent-coral);
     border-radius: var(--radius-lg);
     padding: 18px 24px;
     display: flex;
@@ -367,14 +371,14 @@ body {
     border-radius: var(--radius-md);
     object-fit: cover;
     border: 2px solid #FFFFFF;
-    box-shadow: 0 4px 10px rgba(43, 24, 16, 0.1);
+    box-shadow: 0 4px 10px rgba(54, 12, 20, 0.12);
 }
 
 .upsell-tag {
     display: inline-block;
     font-size: 0.72rem;
     font-weight: 800;
-    color: var(--accent-rose);
+    color: var(--accent-coral);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 2px;
@@ -384,7 +388,7 @@ body {
     font-family: var(--font-heading);
     font-size: 1.05rem;
     font-weight: 800;
-    color: var(--text-dark);
+    color: var(--primary-dark);
 }
 
 .upsell-sub {
@@ -397,7 +401,7 @@ body {
     align-items: center;
     gap: 8px;
     padding: 10px 20px;
-    background: var(--accent-rose);
+    background: var(--accent-coral);
     border: none;
     border-radius: var(--radius-pill);
     color: #FFFFFF;
@@ -407,12 +411,13 @@ body {
     cursor: pointer;
     white-space: nowrap;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 12px rgba(162, 103, 82, 0.25);
+    box-shadow: 0 4px 14px rgba(238, 82, 68, 0.35);
 }
 
 .btn-upsell-quick:hover {
-    background: #8E5643;
+    background: var(--accent-coral-hover);
     transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(238, 82, 68, 0.45);
 }
 
 /* ==========================================================================
@@ -550,10 +555,11 @@ body {
 }
 
 .price-value {
-    font-family: var(--font-heading);
+    font-family: var(--font-price);
     font-size: 1.25rem;
-    font-weight: 900;
-    color: var(--emerald); /* Regra Mandatória: Numeral em Verde */
+    font-weight: 800;
+    color: var(--emerald); /* Numeral em Verde Positivo com fonte arredondada */
+    letter-spacing: -0.2px;
 }
 
 .btn-add-item {
@@ -561,10 +567,10 @@ body {
     align-items: center;
     gap: 6px;
     padding: 8px 16px;
-    background: var(--bg-page);
-    border: 1.5px solid var(--border);
+    background: #FFF2F0;
+    border: 1.5px solid rgba(238, 82, 68, 0.35);
     border-radius: var(--radius-pill);
-    color: var(--text-dark);
+    color: var(--primary-dark);
     font-family: var(--font-body);
     font-size: 0.85rem;
     font-weight: 800;
@@ -573,10 +579,11 @@ body {
 }
 
 .btn-add-item:hover {
-    background: var(--accent-rose);
-    border-color: var(--accent-rose);
+    background: var(--accent-coral);
+    border-color: var(--accent-coral);
     color: #FFFFFF;
     transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(238, 82, 68, 0.3);
 }
 
 .empty-catalog-msg {
@@ -1142,15 +1149,15 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding-top: 14px;
+    padding-top: 16px;
     border-top: 1px solid var(--border);
 }
 
 .qty-control-box {
     display: inline-flex;
     align-items: center;
-    background: var(--bg-page);
-    border: 1px solid var(--border);
+    background: #F7ECE8;
+    border: 1px solid #ECD9D2;
     border-radius: var(--radius-pill);
     padding: 4px;
 }
@@ -1160,21 +1167,28 @@ body {
     height: 32px;
     border-radius: 50%;
     background: #FFFFFF;
-    border: 1px solid var(--border);
+    border: none;
     font-size: 1rem;
     font-weight: 800;
-    color: var(--text-dark);
+    color: var(--primary-dark);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 1px 3px rgba(54, 12, 20, 0.1);
+    transition: all 0.2s ease;
+}
+
+.qty-btn-modal:hover {
+    background: var(--primary-dark);
+    color: #FFFFFF;
 }
 
 .qty-modal-val {
     padding: 0 12px;
     font-weight: 800;
     font-size: 0.95rem;
-    color: var(--text-dark);
+    color: var(--primary-dark);
 }
 
 .btn-confirm-add {
@@ -1182,31 +1196,143 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 20px;
-    background: var(--accent-rose);
+    padding: 12px 18px;
+    background: linear-gradient(135deg, #EE5244 0%, #E04335 100%);
     border: none;
     border-radius: var(--radius-pill);
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     font-family: var(--font-body);
     font-size: 0.95rem;
     font-weight: 800;
     cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 14px rgba(162, 103, 82, 0.3);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 16px rgba(238, 82, 68, 0.38);
 }
 
 .btn-confirm-add:hover {
-    background: #8E5643;
+    background: #D83E31;
     transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(238, 82, 68, 0.48);
+}
+
+.modal-price-pill {
+    background: rgba(255, 255, 255, 0.24);
+    color: #FFFFFF !important;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 0.92rem;
+    font-weight: 800;
+    font-family: var(--font-price);
 }
 
 /* ==========================================================================
-   Cart Drawer (ESTILO CLAEM / MASTER DARK DRAWER)
+   Modal de Confirmação: Limpar Pedido
+   ========================================================================== */
+.confirm-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(54, 12, 20, 0.65);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.confirm-modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.confirm-modal-card {
+    background: #FFFFFF;
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 45px rgba(54, 12, 20, 0.25);
+    animation: modalIn 0.2s ease;
+}
+
+.confirm-modal-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #FEECE8;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+}
+
+.confirm-modal-title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+    margin-bottom: 6px;
+}
+
+.confirm-modal-text {
+    font-size: 0.86rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+    margin-bottom: 22px;
+}
+
+.confirm-modal-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-confirm-cancel {
+    flex: 1;
+    padding: 10px 14px;
+    background: #F5EBE6;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    color: var(--primary-dark);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-confirm-cancel:hover {
+    background: #EADBCE;
+}
+
+.btn-confirm-danger {
+    flex: 1;
+    padding: 10px 14px;
+    background: var(--accent-coral);
+    border: none;
+    border-radius: var(--radius-pill);
+    color: #FFFFFF;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 10px rgba(238, 82, 68, 0.3);
+}
+
+.btn-confirm-danger:hover {
+    background: #D83E31;
+}
+
+/* ==========================================================================
+   Cart Drawer (Tons de Rosa/Vinho Decadente — Sem Preto Genérico)
    ========================================================================== */
 .cart-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(54, 12, 20, 0.7);
     backdrop-filter: blur(4px);
     z-index: 1100;
     display: none;
@@ -1226,14 +1352,14 @@ body {
     bottom: 0;
     width: 100%;
     max-width: 440px;
-    background: #111115; /* Dark Drawer Body */
+    background: #340B13; /* Deep Velvet Wine / Cocoa Burgundy */
     color: #FFFFFF;
     z-index: 1200;
     display: flex;
     flex-direction: column;
     transform: translateX(100%);
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+    box-shadow: -10px 0 40px rgba(54, 12, 20, 0.5);
 }
 
 .cart-drawer.active {
@@ -1241,9 +1367,9 @@ body {
 }
 
 .cart-header {
-    background: #0B0B0C;
+    background: #28070E;
     padding: 16px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(216, 74, 91, 0.25);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1290,9 +1416,9 @@ body {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #CBD5E1;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #F5EAE0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1301,7 +1427,8 @@ body {
 }
 
 .btn-clear-cart-circle:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(238, 82, 68, 0.3);
+    border-color: var(--accent-coral);
     color: #FFFFFF;
 }
 
@@ -1321,8 +1448,8 @@ body {
 }
 
 .cart-item-card {
-    background: #18181B;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #46111B;
+    border: 1px solid rgba(216, 74, 91, 0.25);
     border-radius: var(--radius-md);
     padding: 14px;
     display: flex;
@@ -1348,13 +1475,13 @@ body {
 
 .cart-item-details {
     font-size: 0.75rem;
-    color: #94A3B8;
+    color: #E2D0C8;
     margin-bottom: 4px;
 }
 
 .detail-pill {
     display: inline-block;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.12);
     padding: 2px 6px;
     border-radius: 4px;
     font-size: 0.72rem;
@@ -1362,19 +1489,19 @@ body {
 }
 
 .addon-line {
-    color: #38BDF8;
+    color: #F8C291;
     margin-top: 2px;
 }
 
 .obs-line {
-    color: #CBD5E1;
+    color: #D3C5BC;
     font-size: 0.72rem;
     margin-top: 2px;
 }
 
 .cart-item-price {
-    font-family: var(--font-heading);
-    font-size: 0.95rem;
+    font-family: var(--font-price);
+    font-size: 0.98rem;
     font-weight: 800;
     color: var(--emerald-light);
 }
@@ -1389,7 +1516,7 @@ body {
     width: 26px;
     height: 26px;
     border-radius: 6px;
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.15);
     border: none;
     color: #FFFFFF;
     font-weight: 800;
@@ -1400,7 +1527,7 @@ body {
 }
 
 .qty-btn:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .qty-val {
@@ -1416,7 +1543,7 @@ body {
     border-radius: 6px;
     background: transparent;
     border: none;
-    color: #94A3B8;
+    color: #D3C5BC;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1424,7 +1551,7 @@ body {
 }
 
 .trash-btn:hover {
-    color: #EF4444;
+    color: var(--accent-coral);
 }
 
 .cart-empty-state {
@@ -1441,7 +1568,7 @@ body {
 
 .empty-sub {
     font-size: 0.82rem;
-    color: #94A3B8;
+    color: #D3C5BC;
     margin-top: 4px;
 }
 
@@ -1450,10 +1577,10 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
-    background: #18181B;
+    background: #28070E;
     padding: 4px;
     border-radius: var(--radius-pill);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(216, 74, 91, 0.25);
 }
 
 .delivery-type-btn {
@@ -1461,7 +1588,7 @@ body {
     border-radius: var(--radius-pill);
     border: none;
     background: transparent;
-    color: #94A3B8;
+    color: #D3C5BC;
     font-family: var(--font-body);
     font-size: 0.82rem;
     font-weight: 700;
@@ -1470,8 +1597,9 @@ body {
 }
 
 .delivery-type-btn.active {
-    background: var(--primary-light);
+    background: var(--accent-coral);
     color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(238, 82, 68, 0.3);
 }
 
 /* Form Styles in Cart */
@@ -1484,7 +1612,7 @@ body {
 .cart-label {
     font-size: 0.75rem;
     font-weight: 700;
-    color: #94A3B8;
+    color: #E2D0C8;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -1492,8 +1620,8 @@ body {
 .cart-input, .cart-select {
     width: 100%;
     padding: 10px 14px;
-    background: #18181B;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #28070E;
+    border: 1px solid rgba(216, 74, 91, 0.25);
     border-radius: var(--radius-md);
     color: #FFFFFF;
     font-family: var(--font-body);
@@ -1502,7 +1630,8 @@ body {
 }
 
 .cart-input:focus, .cart-select:focus {
-    border-color: var(--accent-rose);
+    border-color: var(--accent-coral);
+    box-shadow: 0 0 0 2px rgba(238, 82, 68, 0.2);
 }
 
 .form-row-2 {
@@ -1520,10 +1649,10 @@ body {
 
 .pay-method-btn {
     padding: 10px 6px;
-    background: #18181B;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #28070E;
+    border: 1px solid rgba(216, 74, 91, 0.25);
     border-radius: var(--radius-md);
-    color: #CBD5E1;
+    color: #EFE4DE;
     font-family: var(--font-body);
     font-size: 0.8rem;
     font-weight: 700;
@@ -1536,15 +1665,15 @@ body {
 }
 
 .pay-method-btn.active {
-    background: rgba(162, 103, 82, 0.25);
-    border-color: var(--accent-rose);
+    background: rgba(238, 82, 68, 0.2);
+    border-color: var(--accent-coral);
     color: #FFFFFF;
 }
 
 /* Cart Footer & Totals */
 .cart-footer {
-    background: #0B0B0C;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: #28070E;
+    border-top: 1px solid rgba(216, 74, 91, 0.25);
     padding: 18px 20px;
     display: flex;
     flex-direction: column;
@@ -1556,21 +1685,22 @@ body {
     align-items: center;
     justify-content: space-between;
     font-size: 0.85rem;
-    color: #94A3B8;
+    color: #D3C5BC;
 }
 
 .cart-total-row {
     font-size: 1.1rem;
     font-weight: 900;
     color: #FFFFFF;
-    border-top: 1px dashed rgba(255, 255, 255, 0.15);
+    border-top: 1px dashed rgba(216, 74, 91, 0.3);
     padding-top: 8px;
 }
 
 .cart-total-value {
     color: var(--emerald-light) !important; /* Regra Mandatória: Total Verde Esmeralda */
     font-size: 1.35rem;
-    font-family: var(--font-heading);
+    font-family: var(--font-price);
+    font-weight: 800;
 }
 
 .btn-submit-order {
@@ -1600,7 +1730,7 @@ body {
 .cart-onira-tag {
     text-align: center;
     font-size: 0.72rem;
-    color: #64748B;
+    color: #A38F86;
     margin-top: 4px;
 }
 
