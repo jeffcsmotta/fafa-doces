@@ -1482,11 +1482,11 @@ body {
    Cart Overlay, Drawer & Parallax Background Motion
    ========================================================================== */
 body {
-    transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.48s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Efeito Parallax de Profundidade quando o carrinho está aberto */
-body.cart-drawer-open .nav-header,
+body.cart-drawer-open .site-header,
 body.cart-drawer-open .catalog-nav-section,
 body.cart-drawer-open .catalog-section,
 body.cart-drawer-open .story-section,
@@ -1495,7 +1495,7 @@ body.cart-drawer-open .location-section,
 body.cart-drawer-open .site-footer {
     transform: scale(0.97) translate3d(-10px, 0, 0);
     filter: brightness(0.82);
-    transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
+    transition: transform 0.48s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
     pointer-events: none;
     user-select: none;
 }
@@ -1508,7 +1508,7 @@ body.cart-drawer-open .site-footer {
     z-index: 1100;
     display: none;
     opacity: 0;
-    transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cart-overlay.active {
@@ -1533,7 +1533,7 @@ body.cart-drawer-open .site-footer {
     overflow: hidden;
     transform: translate3d(100%, 0, 0);
     will-change: transform;
-    transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.48s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: -12px 0 45px rgba(35, 7, 12, 0.6);
 }
 
@@ -1544,49 +1544,48 @@ body.cart-drawer-open .site-footer {
 .cart-header {
     flex-shrink: 0;
     background: #28070E;
-    padding: 12px 18px;
+    padding: 14px 16px;
     border-bottom: 1px solid rgba(216, 74, 91, 0.25);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-}
-
-.cart-header-actions-left {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: 8px;
 }
 
 .cart-header-title {
     font-family: var(--font-heading);
-    font-size: 1.12rem;
+    font-size: 1.05rem;
     font-weight: 800;
     color: #FFFFFF;
     display: flex;
     align-items: center;
+    justify-content: center;
+    text-align: center;
     gap: 6px;
+    white-space: nowrap;
 }
 
-/* Botão Voltar / Cardápio Neutro & Elegante à Esquerda */
+/* Botão Cardápio em modo Preenchido Branco Estático */
 .btn-continue-shopping {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    color: #F5EAE0;
-    padding: 6px 12px;
+    background: #FFFFFF !important;
+    border: none !important;
+    color: #1E120D !important; /* Texto escuro contrastante */
+    padding: 6px 14px;
     border-radius: var(--radius-pill);
     font-size: 0.78rem;
-    font-weight: 700;
+    font-weight: 800;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    white-space: nowrap;
 }
 
 .btn-continue-shopping:hover {
-    background: rgba(255, 255, 255, 0.18);
-    color: #FFFFFF;
+    opacity: 0.92;
+    transform: translateY(-1px);
 }
 
 .btn-clear-cart-circle {
@@ -1601,6 +1600,7 @@ body.cart-drawer-open .site-footer {
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
+    justify-self: end;
 }
 
 .btn-clear-cart-circle:hover {
@@ -2097,39 +2097,6 @@ body.has-cart-items .onira-cta {
     font-weight: 700;
 }
 
-.onira-cta-close {
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    color: #94A3B8;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 0.75rem;
-    margin-left: 4px;
-}
-
-.onira-cta.collapsed {
-    padding: 6px 12px;
-    background: #0F172A;
-}
-
-.onira-cta.collapsed .onira-avatar,
-.onira-cta.collapsed .onira-text-col,
-.onira-cta.collapsed .onira-cta-close {
-    display: none;
-}
-
-.onira-cta.collapsed::before {
-    content: "💼 Compre esse site";
-    font-size: 0.78rem;
-    font-weight: 800;
-    color: #F59E0B;
-}
-
 /* ==========================================================================
    Toast Notification Box
    ========================================================================== */
@@ -2211,15 +2178,22 @@ body.has-cart-items .onira-cta {
 }
 
 @media (max-width: 640px) {
+    .container {
+        padding: 0 12px !important;
+    }
+
     .nav-container {
-        padding-top: 8px;
-        padding-bottom: 8px;
+        padding-top: 6px;
+        padding-bottom: 6px;
         gap: 6px;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .brand-logo-img {
-        height: 36px;
-        max-width: 175px;
+        height: 26px !important;
+        max-width: 105px !important;
+        flex-shrink: 1;
     }
 
     .status-compact {
@@ -2227,35 +2201,52 @@ body.has-cart-items .onira-cta {
     }
 
     .nav-actions {
-        gap: 6px;
+        gap: 4px;
+        margin-left: auto;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
     }
 
     .btn-buy-site {
-        padding: 6px 10px;
-        font-size: 0.75rem;
-        gap: 4px;
+        padding: 5px 8px;
+        font-size: 0.72rem;
+        gap: 3px;
+        flex-shrink: 0;
     }
 
     .btn-buy-site .btn-buy-text {
         display: inline-block;
-        font-size: 0.74rem;
+        font-size: 0.71rem;
     }
 
     .btn-header-trash {
-        width: 32px;
-        height: 32px;
+        width: 28px;
+        height: 28px;
         flex-shrink: 0;
     }
 
     .btn-cart-trigger {
-        padding: 6px 10px;
-        gap: 4px;
+        padding: 5px 8px;
+        gap: 3px;
         flex-shrink: 0;
+        margin-right: 0;
     }
 
     .btn-cart-trigger .cart-btn-label,
     .btn-cart-trigger .cart-total-header {
         display: none;
+    }
+
+    .btn-cart-trigger i,
+    .btn-cart-trigger svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .cart-count-badge {
+        padding: 1px 5px !important;
+        font-size: 0.68rem !important;
     }
 
     .catalog-grid {

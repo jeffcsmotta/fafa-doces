@@ -406,22 +406,22 @@
     <div class="cart-overlay" id="cart-overlay" onclick="window.closeCart()"></div>
     <div class="cart-drawer" id="cart-drawer">
         <div class="cart-header">
-            <!-- Grupo Esquerdo: Botão Cardápio + Botão Limpar Pedido entre Cardápio e Título -->
-            <div class="cart-header-actions-left">
-                <button type="button" class="btn-continue-shopping" onclick="window.closeCart()" aria-label="Voltar para o Cardápio">
-                    <i data-lucide="arrow-left" style="width:15px;height:15px;"></i>
-                    <span>Cardápio</span>
-                </button>
-                <button type="button" class="btn-clear-cart-circle" onclick="window.clearCart()" title="Limpar pedido" aria-label="Limpar pedido">
-                    <i data-lucide="trash-2" style="width:15px;height:15px;"></i>
-                </button>
-            </div>
+            <!-- Botão Cardápio à Esquerda (Modo Preenchido Branco Estático) -->
+            <button type="button" class="btn-continue-shopping" onclick="window.closeCart()" aria-label="Voltar para o Cardápio">
+                <i data-lucide="arrow-left" style="width:15px;height:15px;"></i>
+                <span>Cardápio</span>
+            </button>
 
-            <!-- Título à Direita -->
+            <!-- Título Centralizado Between Them -->
             <div class="cart-header-title">
                 <i data-lucide="shopping-bag" style="width:17px;height:17px;color:var(--emerald-light);"></i>
                 <span>Seu Pedido Fafa</span>
             </div>
+
+            <!-- Botão Lixeira à Direita -->
+            <button type="button" class="btn-clear-cart-circle" onclick="window.clearCart()" title="Limpar pedido" aria-label="Limpar pedido">
+                <i data-lucide="trash-2" style="width:16px;height:16px;"></i>
+            </button>
         </div>
 
         <!-- Corpo do Carrinho com Rolagem 100% Fluida e Unificada (Itens empurram o formulário, totais e botão WhatsApp) -->
@@ -526,16 +526,13 @@
         </div>
     </div>
 
-    <!-- Floating Proposal Widget (.onira-cta) -->
+    <!-- Floating Proposal Widget (.onira-cta) sem botão fechar -->
     <a href="proposta.html" class="onira-cta" id="onira-floating-cta" title="Ver proposta comercial do site">
         <img src="assets/jeff-avatar.webp" alt="Jefferson Motta" class="onira-avatar">
         <div class="onira-text-col">
             <span class="onira-hook">Gostou deste cardápio digital?</span>
             <span class="onira-call">A partir de 3x R$ 800 • Ver Proposta &rarr;</span>
         </div>
-        <button type="button" class="onira-cta-close" onclick="window.toggleProposalWidget(event)" title="Minimizar">
-            &times;
-        </button>
     </a>
 
     <!-- Scripts -->
