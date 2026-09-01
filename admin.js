@@ -135,10 +135,10 @@ function loadAdminProducts() {
 
                 if (p.category === 'congelados' || badge.includes('Congelados') || badge.includes('na sua Casa') || badge.includes('na Sua Casa') || badge.includes('Fafá')) {
                     badge = 'Fafa na sua Casa ❄️';
-                } else if (p.category === 'presentes' || badge.includes('Presente') || badge.includes('Ideal')) {
-                    badge = 'Ideal para Presentear 🎁';
+                } else if (p.category === 'presentes' || badge.includes('Presente') || badge.includes('Ideal') || badge.includes('Doces Presentes')) {
+                    badge = 'Doces Presentes 🎁';
                 } else if (p.category === 'tortas' || badge.includes('Pâtisserie') || badge.includes('Patisserie') || badge.includes('Chef')) {
-                    badge = 'Alta Pâtisserie do Chef 👑';
+                    badge = 'Pâtisserie do Chef 👑';
                 } else if (p.category === 'promocoes' || name.startsWith('*PROMO') || badge.includes('Promoção') || badge.includes('Relâmpago')) {
                     badge = 'Receita Relâmpago ⚡';
                 } else if (badge.includes('Mais Vendido')) {

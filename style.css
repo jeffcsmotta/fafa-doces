@@ -290,7 +290,7 @@ body {
     box-shadow: 0 0 0 3px rgba(206, 179, 171, 0.25);
 }
 
-/* Container de Rolagem Perfeita das Categorias */
+/* Container de Rolagem e Disposição das Categorias */
 .category-scroll-container,
 .categories-nav,
 .catalog-nav-section .categories-scroll-wrap {
@@ -353,6 +353,78 @@ body {
     border-color: var(--primary-dark);
     color: #FFFFFF;
     box-shadow: 0 3px 10px rgba(54, 12, 20, 0.25);
+}
+
+/* No Desktop: Distribuição perfeita sem rolagem truncada no mouse */
+@media (min-width: 1024px) {
+    .category-scroll-container,
+    .categories-nav,
+    .catalog-nav-section .categories-scroll-wrap {
+        overflow-x: visible;
+    }
+
+    .category-scroll-pills,
+    .categories-scroll-wrap {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        padding-right: 0;
+    }
+}
+
+/* ==========================================================================
+   Banner de Atmosfera e Conceito da Categoria
+   ========================================================================== */
+.category-concept-banner {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px 22px;
+    margin: 16px 0 24px 0;
+    box-shadow: 0 2px 10px rgba(54, 12, 20, 0.03);
+    border-left: 4px solid var(--primary-dark);
+    transition: all 0.25s ease;
+}
+
+.concept-banner-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+.concept-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+    letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.concept-desc {
+    font-size: 0.90rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.catalog-count-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    background: #FAF3EE;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--primary);
+    white-space: nowrap;
 }
 
 /* ==========================================================================
@@ -489,13 +561,52 @@ body {
     position: absolute;
     top: 12px;
     left: 12px;
-    background: var(--primary);
-    color: #FFFFFF;
-    padding: 4px 10px;
+    padding: 5px 12px;
     border-radius: var(--radius-pill);
-    font-size: 0.72rem;
+    font-family: var(--font-body);
+    font-size: 0.74rem;
     font-weight: 800;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    letter-spacing: 0.2px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.16);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: transform 0.2s ease;
+}
+
+/* 🎁 Doces Presentes (Rosa Pâtisserie & Rubi) */
+.badge-doces-presentes {
+    background: #FDF2F8 !important;
+    border: 1px solid #FBCFE8 !important;
+    color: #9D174D !important;
+}
+
+/* 👑 Pâtisserie do Chef (Velvet Dark & Dourado Glamour) */
+.badge-patisserie-chef {
+    background: #28070E !important;
+    border: 1px solid rgba(254, 240, 138, 0.45) !important;
+    color: #FEF08A !important;
+}
+
+/* ❄️ Fafa na sua Casa (Glacê / Menta Suave & Esmeralda) */
+.badge-fafa-casa {
+    background: #F0FDF4 !important;
+    border: 1px solid #BBF7D0 !important;
+    color: #047857 !important;
+}
+
+/* ⚡ Receita Relâmpago (Âmbar / Laranja Queimado Quente) */
+.badge-relampago {
+    background: #FFF7ED !important;
+    border: 1px solid #FED7AA !important;
+    color: #C2410C !important;
+}
+
+/* ⭐ Mais Vendido (Baunilha & Caramelo Ouro) */
+.badge-mais-vendido {
+    background: #FEFCE8 !important;
+    border: 1px solid #FEF08A !important;
+    color: #A16207 !important;
 }
 
 .card-rating {

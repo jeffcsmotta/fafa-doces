@@ -588,6 +588,53 @@ let activeCategory = 'todos';
 let searchQuery = '';
 let currentModalProduct = null;
 
+// Conceitos e Atmosferas Afetivas de Cada Categoria
+const CATEGORY_CONCEPTS = {
+    'todos': {
+        title: 'Cardápio Completo',
+        desc: 'Cardápio artesanal completo da Fafa Doces Presentes. Escolha seus favoritos para entrega rápida ou retirada no balcão.'
+    },
+    'presentes': {
+        title: '🎁 Doces Presentes & Boxes',
+        desc: 'Caixas exclusivas e mimos montados com elegância para presentear quem você ama, prontas para encantar.'
+    },
+    'tortas': {
+        title: '🎂 Pâtisserie do Chef & Vitrine',
+        desc: 'Criações autorais e entremets premiados do Chef Rafael Franzosi, preparados com técnica clássica francesa e ingredientes nobres.'
+    },
+    'cookies': {
+        title: '🍪 Cookies & Viciantes',
+        desc: 'Massa artesanal de baunilha com pedaços generosos de chocolate nobre, assados diariamente com casquinha crocante e centro macio.'
+    },
+    'promocoes': {
+        title: '⚡ Receitas Relâmpago & Promoções',
+        desc: 'Sabores sazonais, receitas relâmpago e combinações especiais da semana para aproveitar agora.'
+    },
+    'congelados': {
+        title: '❄️ Fafa na sua Casa (Congelados)',
+        desc: 'Nossas massas de cookies e quiches artesanais congeladas para você assar no forno ou Air Fryer e sentir o aroma de confeitaria em casa.'
+    },
+    'salgados': {
+        title: '🥐 Quiches & Salgados Folhados',
+        desc: 'Massas folhadas e quiches de fermentação lenta com queijos selecionados, ideais para o café da tarde ou lanches especiais.'
+    },
+    'bebidas': {
+        title: '☕ Cafés & Bebidas Especiais',
+        desc: 'Bebidas quentes e refrescantes preparadas para harmonizar perfeitamente com nossos doces.'
+    }
+};
+
+// Classe Cromática da Badge de Acordo com a Categoria
+function getBadgeClass(badgeText) {
+    if (!badgeText) return '';
+    if (badgeText.includes('Doces Presentes') || badgeText.includes('Presente') || badgeText.includes('Ideal')) return 'badge-doces-presentes';
+    if (badgeText.includes('Pâtisserie') || badgeText.includes('Patisserie') || badgeText.includes('Chef')) return 'badge-patisserie-chef';
+    if (badgeText.includes('Fafa na sua Casa') || badgeText.includes('Congelados')) return 'badge-fafa-casa';
+    if (badgeText.includes('Receita Relâmpago') || badgeText.includes('Promoção')) return 'badge-relampago';
+    if (badgeText.includes('Mais Vendido')) return 'badge-mais-vendido';
+    return '';
+}
+
 // Normalização & Migração de Badges para a Nova Taxonomia
 function sanitizeProductList(list) {
     if (!Array.isArray(list)) return PRODUCTS;
@@ -600,10 +647,10 @@ function sanitizeProductList(list) {
         // Migração e padronização inteligente de selos
         if (p.category === 'congelados' || badge.includes('Congelados') || badge.includes('na sua Casa') || badge.includes('na Sua Casa') || badge.includes('Fafá')) {
             badge = 'Fafa na sua Casa ❄️';
-        } else if (p.category === 'presentes' || badge.includes('Presente') || badge.includes('Ideal')) {
-            badge = 'Ideal para Presentear 🎁';
+        } else if (p.category === 'presentes' || badge.includes('Presente') || badge.includes('Ideal') || badge.includes('Doces Presentes')) {
+            badge = 'Doces Presentes 🎁';
         } else if (p.category === 'tortas' || badge.includes('Pâtisserie') || badge.includes('Patisserie') || badge.includes('Chef')) {
-            badge = 'Alta Pâtisserie do Chef 👑';
+            badge = 'Pâtisserie do Chef 👑';
         } else if (p.category === 'promocoes' || name.startsWith('*PROMO') || badge.includes('Promoção') || badge.includes('Relâmpago')) {
             badge = 'Receita Relâmpago ⚡';
         } else if (badge.includes('Mais Vendido') || p.id === 'prod-12314145' || p.id === 'prod-12314146') {
@@ -745,7 +792,7 @@ window.handleSearch = function(event) {
     renderProducts();
 };
 
-// Renderizar Lista de Produtos no Grid
+// Renderizar Lista de Produtos no Grid e Atualizar Banner de Atmosfera
 function renderProducts() {
     const catalogGrid = document.getElementById('catalog-grid');
     if (!catalogGrid) return;
@@ -763,6 +810,16 @@ function renderProducts() {
         return matchesCategory && matchesSearch;
     });
 
+    // Atualiza o Banner de Conceito da Categoria Ativa
+    const conceptInfo = CATEGORY_CONCEPTS[activeCategory] || CATEGORY_CONCEPTS['todos'];
+    const titleEl = document.getElementById('current-category-name');
+    const descEl = document.getElementById('category-concept-desc');
+    const countEl = document.getElementById('products-count-badge');
+
+    if (titleEl) titleEl.innerHTML = searchQuery ? `Busca: "${searchQuery}"` : conceptInfo.title;
+    if (descEl) descEl.textContent = searchQuery ? `Mostrando produtos que correspondem ao termo "${searchQuery}".` : conceptInfo.desc;
+    if (countEl) countEl.textContent = `${filtered.length} ${filtered.length === 1 ? 'opção' : 'opções artesanais'}`;
+
     if (filtered.length === 0) {
         catalogGrid.innerHTML = `
             <div class="empty-catalog-msg">
@@ -777,12 +834,13 @@ function renderProducts() {
 
     catalogGrid.innerHTML = filtered.map(prod => {
         const priceFormatted = formatCurrency(prod.price);
+        const badgeClass = getBadgeClass(prod.badge);
 
         return `
             <article class="menu-card" data-id="${prod.id}">
                 <div class="card-img-box" onclick="window.openProductModal('${prod.id}')">
                     <img src="${prod.img}" alt="${prod.name}" class="card-img" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=600&q=80';">
-                    ${prod.badge ? `<span class="card-badge">${prod.badge}</span>` : ''}
+                    ${prod.badge ? `<span class="card-badge ${badgeClass}">${prod.badge}</span>` : ''}
                     <div class="card-rating">
                         <i data-lucide="star" style="width:12px;height:12px;fill:#F59E0B;stroke:none;"></i> ${prod.rating || '5.0'}
                     </div>

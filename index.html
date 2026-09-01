@@ -76,7 +76,7 @@
                 </button>
             </div>
 
-            <!-- Navegação Horizontal em Pílulas -->
+            <!-- Navegação Horizontal / Chips de Categorias -->
             <nav class="category-scroll-container" aria-label="Categorias do Cardápio">
                 <div class="category-scroll-pills">
                     <button type="button" class="cat-pill active" data-category="todos" onclick="window.filterCategory('todos')">
@@ -93,15 +93,15 @@
                     </button>
                     <button type="button" class="cat-pill" data-category="tortas" onclick="window.filterCategory('tortas')">
                         <i data-lucide="cake" style="width:15px;height:15px;"></i>
-                        <span>Bolos &amp; Vitrine</span>
+                        <span>Pâtisserie do Chef &amp; Vitrine</span>
                     </button>
                     <button type="button" class="cat-pill" data-category="presentes" onclick="window.filterCategory('presentes')">
                         <i data-lucide="gift" style="width:15px;height:15px;"></i>
-                        <span>Boxes &amp; Presentes</span>
+                        <span>Doces Presentes &amp; Boxes</span>
                     </button>
                     <button type="button" class="cat-pill" data-category="congelados" onclick="window.filterCategory('congelados')">
                         <i data-lucide="snowflake" style="width:15px;height:15px;"></i>
-                        <span>Fafa Congelados</span>
+                        <span>Fafa na sua Casa</span>
                     </button>
                     <button type="button" class="cat-pill" data-category="salgados" onclick="window.filterCategory('salgados')">
                         <i data-lucide="croissant" style="width:15px;height:15px;"></i>
@@ -116,11 +116,11 @@
         </div>
     </section>
 
-    <!-- Main Content: Upsell Inteligente & Grid de Produtos -->
+    <!-- Main Content: Upsell Inteligente, Conceito & Grid de Produtos -->
     <main class="catalog-section">
         <div class="container">
             
-            <!-- Banner de Upsell Levíssimo (Sem esforço visual pesado) -->
+            <!-- Banner de Upsell Levíssimo -->
             <div class="upsell-container" id="upsell-container">
                 <div class="upsell-card">
                     <div class="upsell-left">
@@ -131,17 +131,22 @@
                             <p class="upsell-sub">O clássico artesanal favorito da Fafa por apenas <strong>R$ 8,50</strong>.</p>
                         </div>
                     </div>
-                    <button type="button" class="btn-upsell-quick" onclick="window.openProductModal('ck-01')">
+                    <button type="button" class="btn-upsell-quick" onclick="window.openProductModal('prod-12314145')">
                         <i data-lucide="plus-circle" style="width:16px;height:16px;"></i>
                         <span>Adicionar em 1 Toque</span>
                     </button>
                 </div>
             </div>
 
-            <!-- Título da Categoria Ativa -->
-            <div class="catalog-header-bar">
-                <h2 class="catalog-current-title" id="current-category-name">Cardápio Completo</h2>
-                <span class="catalog-count-pill" id="products-count-badge">45 opções artesanais</span>
+            <!-- Banner de Atmosfera e Conceito Afetivo da Categoria Ativa -->
+            <div class="category-concept-banner" id="category-concept-banner">
+                <div class="concept-banner-header">
+                    <h2 class="concept-title" id="current-category-name">Cardápio Completo</h2>
+                    <span class="catalog-count-pill" id="products-count-badge">45 opções artesanais</span>
+                </div>
+                <p class="concept-desc" id="category-concept-desc">
+                    Cardápio artesanal completo da Fafa Doces Presentes. Escolha seus favoritos para entrega rápida ou retirada no balcão.
+                </p>
             </div>
 
             <!-- Grid de Produtos -->
