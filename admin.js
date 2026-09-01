@@ -126,7 +126,34 @@ function loadAdminProducts() {
     try {
         const customData = localStorage.getItem('fafa_products_custom');
         if (customData) {
-            adminProducts = JSON.parse(customData);
+            const raw = JSON.parse(customData);
+            adminProducts = raw.map(p => {
+                let name = (p.name || '').replace(/Fafá/g, 'Fafa');
+                let desc = (p.desc || '').replace(/Fafá/g, 'Fafa');
+                let group = (p.group || '').replace(/Fafá/g, 'Fafa');
+                let badge = p.badge || '';
+
+                if (p.category === 'congelados' || badge.includes('Congelados') || badge.includes('na sua Casa') || badge.includes('na Sua Casa') || badge.includes('Fafá')) {
+                    badge = 'Fafa na sua Casa ❄️';
+                } else if (p.category === 'presentes' || badge.includes('Presente') || badge.includes('Ideal')) {
+                    badge = 'Ideal para Presentear 🎁';
+                } else if (p.category === 'tortas' || badge.includes('Pâtisserie') || badge.includes('Patisserie') || badge.includes('Chef')) {
+                    badge = 'Alta Pâtisserie do Chef 👑';
+                } else if (p.category === 'promocoes' || name.startsWith('*PROMO') || badge.includes('Promoção') || badge.includes('Relâmpago')) {
+                    badge = 'Receita Relâmpago ⚡';
+                } else if (badge.includes('Mais Vendido')) {
+                    badge = 'Mais Vendido ⭐';
+                }
+
+                return {
+                    ...p,
+                    name,
+                    desc,
+                    group,
+                    badge,
+                    visible: p.visible !== false
+                };
+            });
         } else if (typeof PRODUCTS !== 'undefined' && Array.isArray(PRODUCTS)) {
             // Inicializa a partir da lista original de 45 produtos
             adminProducts = PRODUCTS.map(item => ({

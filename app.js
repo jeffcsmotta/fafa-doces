@@ -588,20 +588,52 @@ let activeCategory = 'todos';
 let searchQuery = '';
 let currentModalProduct = null;
 
-// Obter Lista de Produtos Atualizada (Sincronizada com Painel do Dono & Supabase)
+// Normalização & Migração de Badges para a Nova Taxonomia
+function sanitizeProductList(list) {
+    if (!Array.isArray(list)) return PRODUCTS;
+    return list.map(p => {
+        let name = (p.name || '').replace(/Fafá/g, 'Fafa');
+        let desc = (p.desc || '').replace(/Fafá/g, 'Fafa');
+        let group = (p.group || '').replace(/Fafá/g, 'Fafa');
+        let badge = p.badge || '';
+
+        // Migração e padronização inteligente de selos
+        if (p.category === 'congelados' || badge.includes('Congelados') || badge.includes('na sua Casa') || badge.includes('na Sua Casa') || badge.includes('Fafá')) {
+            badge = 'Fafa na sua Casa ❄️';
+        } else if (p.category === 'presentes' || badge.includes('Presente') || badge.includes('Ideal')) {
+            badge = 'Ideal para Presentear 🎁';
+        } else if (p.category === 'tortas' || badge.includes('Pâtisserie') || badge.includes('Patisserie') || badge.includes('Chef')) {
+            badge = 'Alta Pâtisserie do Chef 👑';
+        } else if (p.category === 'promocoes' || name.startsWith('*PROMO') || badge.includes('Promoção') || badge.includes('Relâmpago')) {
+            badge = 'Receita Relâmpago ⚡';
+        } else if (badge.includes('Mais Vendido') || p.id === 'prod-12314145' || p.id === 'prod-12314146') {
+            badge = 'Mais Vendido ⭐';
+        }
+
+        return {
+            ...p,
+            name,
+            desc,
+            group,
+            badge
+        };
+    });
+}
+
+// Obter Lista de Produtos Atualizada (Sincronizada com Painel do Dono)
 function getLiveProducts() {
     try {
         const custom = localStorage.getItem('fafa_products_custom');
         if (custom) {
             const parsed = JSON.parse(custom);
             if (Array.isArray(parsed) && parsed.length > 0) {
-                return parsed;
+                return sanitizeProductList(parsed);
             }
         }
     } catch (e) {
         console.warn('Usando catálogo padrão embutido', e);
     }
-    return PRODUCTS;
+    return sanitizeProductList(PRODUCTS);
 }
 
 // Inicialização ao carregar a página
@@ -686,7 +718,7 @@ function initStoreStatus() {
 
 // Renderizar Categorias de Produtos
 function renderCategories() {
-    const categoryButtons = document.querySelectorAll('.cat-pill');
+    const categoryButtons = document.querySelectorAll('.cat-pill, .nav-category-btn');
     categoryButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             categoryButtons.forEach(b => b.classList.remove('active'));
@@ -696,6 +728,16 @@ function renderCategories() {
         });
     });
 }
+
+// Manipulador de Seleção de Categoria Global
+window.filterCategory = function(cat) {
+    activeCategory = cat;
+    const categoryButtons = document.querySelectorAll('.cat-pill, .nav-category-btn');
+    categoryButtons.forEach(b => {
+        b.classList.toggle('active', b.dataset.category === cat);
+    });
+    renderProducts();
+};
 
 // Manipulador da Barra de Busca
 window.handleSearch = function(event) {
@@ -776,7 +818,7 @@ window.resetFilters = function() {
     searchQuery = '';
     const searchInput = document.querySelector('.search-input');
     if (searchInput) searchInput.value = '';
-    const categoryButtons = document.querySelectorAll('.cat-pill');
+    const categoryButtons = document.querySelectorAll('.cat-pill, .nav-category-btn');
     categoryButtons.forEach(b => {
         b.classList.toggle('active', b.dataset.category === 'todos');
     });

@@ -157,22 +157,25 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 7px 14px;
-    background: #FFF2F0;
-    border: 1px solid rgba(238, 82, 68, 0.3);
+    padding: 8px 16px;
+    background: #1D4ED8; /* Electric Royal Blue para alto contraste e clique imediato */
+    border: 1px solid #2563EB;
     border-radius: var(--radius-pill);
-    color: var(--primary);
+    color: #FFFFFF !important;
     font-family: var(--font-body);
-    font-size: 0.78rem;
+    font-size: 0.82rem;
     font-weight: 800;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 3px 12px rgba(29, 78, 216, 0.35);
 }
 
 .btn-buy-site:hover {
-    background: #FFE5E2;
-    border-color: var(--accent-coral);
+    background: #1E40AF;
+    border-color: #1D4ED8;
+    color: #FFFFFF !important;
     transform: translateY(-1px);
+    box-shadow: 0 5px 16px rgba(29, 78, 216, 0.45);
 }
 
 .btn-header-trash {
@@ -288,56 +291,68 @@ body {
 }
 
 /* Container de Rolagem Perfeita das Categorias */
-.category-scroll-container {
+.category-scroll-container,
+.categories-nav,
+.catalog-nav-section .categories-scroll-wrap {
     width: 100%;
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-x: contain;
-    padding: 2px 0 6px 0;
+    padding: 6px 0 8px 0;
 }
 
-.category-scroll-container::-webkit-scrollbar {
+.category-scroll-container::-webkit-scrollbar,
+.categories-nav::-webkit-scrollbar,
+.categories-scroll-wrap::-webkit-scrollbar {
     display: none;
 }
 
-.category-scroll-pills {
+.category-scroll-pills,
+.categories-scroll-wrap {
     display: flex;
+    align-items: center;
     gap: 8px;
     width: max-content;
     padding-right: 16px;
 }
 
-.cat-pill {
+.cat-pill,
+.nav-category-btn {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 7px 14px;
+    gap: 7px;
+    padding: 8px 16px;
     background: #FFFFFF;
     border: 1px solid var(--border);
     border-radius: var(--radius-pill);
     color: var(--text-dark);
     font-family: var(--font-body);
-    font-size: 0.80rem;
+    font-size: 0.82rem;
     font-weight: 700;
     white-space: nowrap;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 1px 4px rgba(46, 31, 39, 0.02);
+    box-shadow: 0 1px 4px rgba(46, 31, 39, 0.04);
     flex-shrink: 0;
+    outline: none;
 }
 
-.cat-pill:hover {
+.cat-pill:hover,
+.nav-category-btn:hover {
     background: #FAF3EE;
     border-color: var(--accent-rose);
+    color: var(--primary-dark);
+    transform: translateY(-1px);
 }
 
-.cat-pill.active {
-    background: var(--primary);
-    border-color: var(--primary);
+.cat-pill.active,
+.nav-category-btn.active {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
     color: #FFFFFF;
-    box-shadow: 0 3px 10px rgba(46, 31, 39, 0.18);
+    box-shadow: 0 3px 10px rgba(54, 12, 20, 0.25);
 }
 
 /* ==========================================================================
@@ -1375,11 +1390,13 @@ body {
     bottom: 0;
     width: 100%;
     max-width: 440px;
+    height: 100vh;
     background: #340B13; /* Deep Velvet Wine / Cocoa Burgundy */
     color: #FFFFFF;
     z-index: 1200;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     transform: translateX(100%);
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: -10px 0 40px rgba(54, 12, 20, 0.5);
@@ -1390,6 +1407,7 @@ body {
 }
 
 .cart-header {
+    flex-shrink: 0;
     background: #28070E;
     padding: 16px 20px;
     border-bottom: 1px solid rgba(216, 74, 91, 0.25);
@@ -1457,17 +1475,43 @@ body {
 
 .cart-body {
     flex: 1;
+    min-height: 0;
     overflow-y: auto;
-    padding: 20px;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    padding: 18px 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 18px;
 }
 
+/* Lista de Itens com Rolagem Dedicada para manter os dados de entrega acessíveis */
 .cart-items-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-right: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+
+.cart-items-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.cart-items-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+}
+
+.cart-footer {
+    flex-shrink: 0;
+    background: #28070E;
+    padding: 16px 20px;
+    border-top: 1px solid rgba(216, 74, 91, 0.25);
 }
 
 .cart-item-card {
