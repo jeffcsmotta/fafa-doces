@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 48" fill="none">
+    <defs>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap');
+            .h-brand-main {
+                font-family: 'Playfair Display', Georgia, serif;
+                font-weight: 800;
+                font-size: 26px;
+                letter-spacing: 1.5px;
+                fill: #2E1F27;
+            }
+            .h-brand-sparkle {
+                fill: #CEB3AB;
+            }
+            .h-brand-tag {
+                font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+                font-weight: 700;
+                font-size: 9.5px;
+                letter-spacing: 2.2px;
+                fill: #8E6F65;
+            }
+            .h-brand-sub {
+                font-family: 'Playfair Display', Georgia, serif;
+                font-style: italic;
+                font-size: 9px;
+                letter-spacing: 0.4px;
+                fill: #B09289;
+            }
+        </style>
+    </defs>
+
+    <!-- FAFA Logo Wordmark -->
+    <text x="4" y="32" class="h-brand-main">FAFA</text>
+    
+    <!-- Sparkle Accent -->
+    <path d="M 94 22 Q 98 22 98 17 Q 98 22 102 22 Q 98 22 98 27 Q 98 22 94 22 Z" class="h-brand-sparkle"/>
+
+    <!-- Horizontal Tagline & Subtitle Stacked cleanly -->
+    <text x="108" y="21" class="h-brand-tag">DOCES PRESENTES</text>
+    <text x="108" y="33" class="h-brand-sub">confeitaria afetiva &amp; café</text>
+</svg>

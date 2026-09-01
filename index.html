@@ -14,107 +14,98 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="apple-touch-icon" href="assets/logo.svg">
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Serif Elegante Playfair Display + Sans Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=20260831a">
+    <link rel="stylesheet" href="style.css?v=20260831b">
 </head>
 <body>
 
-    <!-- Header Navigation -->
+    <!-- Header Navigation Despoluído -->
     <header class="site-header">
         <div class="container nav-container">
             <a href="index.html" class="brand-wrapper" aria-label="Página Inicial Fafá Doces Presentes">
-                <img src="assets/logo.svg" alt="Fafá Doces Presentes" class="brand-logo-img">
+                <img src="assets/logo_fafa_horizontal.svg" alt="Fafá Doces Presentes" class="brand-logo-img" onerror="this.onerror=null;this.src='assets/logo.svg';">
                 <h1 class="sr-only">Fafá Doces Presentes - Caxias do Sul</h1>
             </a>
 
-            <div class="status-pill">
+            <div class="status-compact">
                 <span class="status-dot"></span>
-                <span id="store-status-text">Aberto Agora • até 18:30</span>
+                <span class="status-compact-text" id="store-status-text">Aberto Agora • até 18:30</span>
             </div>
 
             <div class="nav-actions">
-                <a href="proposta.html" class="nav-link-btn" title="Conheça a proposta do canal próprio">Proposta</a>
+                <!-- Botão Compre Esse Site -->
+                <a href="proposta.html" class="btn-buy-site" title="Conheça a proposta e compre este canal próprio">
+                    <i data-lucide="sparkles" style="width:14px;height:14px;"></i>
+                    <span class="btn-buy-text">Compre esse site</span>
+                </a>
 
-                <!-- Botão Carrinho Trigger -->
-                <button type="button" class="btn-cart-trigger" id="btn-cart-nav" onclick="window.openCart()" aria-label="Abrir carrinho de pedidos">
-                    <i data-lucide="shopping-bag" style="width:18px; height:18px;"></i>
-                    <span class="cart-label">Carrinho</span>
-                    <span class="cart-total-header" id="cart-total-header">R$ 0,00</span>
+                <!-- Lixeira Outline no Cabeçalho -->
+                <button type="button" class="btn-header-trash" id="btn-header-trash" onclick="window.clearCart()" title="Limpar pedido" style="display:none;" aria-label="Limpar pedido">
+                    <i data-lucide="trash-2" style="width:16px;height:16px;"></i>
+                </button>
+
+                <!-- Botão Carrinho / Pedido Trigger -->
+                <button type="button" class="btn-cart-trigger" id="btn-cart-nav" onclick="window.openCart()" aria-label="Abrir pedido">
+                    <i data-lucide="shopping-bag" style="width:17px; height:17px;"></i>
+                    <span class="cart-label">Pedido</span>
                     <span class="cart-count-badge" id="cart-count">0</span>
+                    <span class="cart-total-header" id="cart-total-header">R$ 0,00</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Compact Brand Identity Strip -->
-    <section class="hero-compact-strip">
-        <div class="container hero-strip-layout">
-            <div class="hero-tagline-col">
-                <span class="hero-tagline-badge">
-                    <i data-lucide="award" style="width:12px;height:12px;"></i> Melhor Chef Pâtissier 2024 • Sabores do Sul
-                </span>
-                <span class="hero-tagline-text">Afeto, memórias e <span>experiências doces inesquecíveis!</span></span>
-            </div>
-            <div class="hero-meta-badges">
-                <span class="hero-meta-pill">
-                    <i data-lucide="map-pin" style="width:13px;height:13px;color:#E6C8B2;"></i> Rua Tronca, 2951 • Rio Branco
-                </span>
-                <span class="hero-meta-pill">
-                    <i data-lucide="zap" style="width:13px;height:13px;color:var(--emerald-light);"></i> Pedido Direto no WhatsApp
-                </span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Toolbar: Busca & Categorias -->
+    <!-- Toolbar: Busca & Categorias (Primeira Dobra Limpa) -->
     <section class="catalog-toolbar-section">
         <div class="container toolbar-layout">
             <div class="search-box-wrap">
                 <i data-lucide="search" class="search-icon-inside" style="width:18px;height:18px;"></i>
-                <input type="text" class="search-input" placeholder="Buscar sabor de cookie, torta, cesta presente..." oninput="window.handleSearch(event)" aria-label="Buscar produtos">
+                <input type="text" class="search-input" placeholder="Buscar sabor de cookie, bolo, presente..." oninput="window.handleSearch(event)" aria-label="Buscar produtos">
             </div>
 
-            <div class="category-scroll-pills">
-                <button class="cat-pill active" data-category="todos">
-                    <i data-lucide="grid" style="width:14px;height:14px;"></i>
-                    <span>Todos os Itens</span>
-                </button>
-                <button class="cat-pill" data-category="promocoes">
-                    <i data-lucide="sparkles" style="width:14px;height:14px;"></i>
-                    <span>Mais Vendidos &amp; Promoções</span>
-                </button>
-                <button class="cat-pill" data-category="cookies">
-                    <i data-lucide="cookie" style="width:14px;height:14px;"></i>
-                    <span>Cookies &amp; Viciantes</span>
-                </button>
-                <button class="cat-pill" data-category="tortas">
-                    <i data-lucide="cake" style="width:14px;height:14px;"></i>
-                    <span>Bolos &amp; Vitrine</span>
-                </button>
-                <button class="cat-pill" data-category="presentes">
-                    <i data-lucide="gift" style="width:14px;height:14px;"></i>
-                    <span>Boxes &amp; Presentes</span>
-                </button>
-                <button class="cat-pill" data-category="congelados">
-                    <i data-lucide="snowflake" style="width:14px;height:14px;"></i>
-                    <span>Fafá Congelados</span>
-                </button>
-                <button class="cat-pill" data-category="salgados">
-                    <i data-lucide="croissant" style="width:14px;height:14px;"></i>
-                    <span>Quiches &amp; Salgados</span>
-                </button>
-                <button class="cat-pill" data-category="bebidas">
-                    <i data-lucide="coffee" style="width:14px;height:14px;"></i>
-                    <span>Cafés &amp; Bebidas</span>
-                </button>
+            <div class="category-scroll-container">
+                <div class="category-scroll-pills">
+                    <button class="cat-pill active" data-category="todos">
+                        <i data-lucide="grid" style="width:14px;height:14px;"></i>
+                        <span>Todos os Itens</span>
+                    </button>
+                    <button class="cat-pill" data-category="promocoes">
+                        <i data-lucide="sparkles" style="width:14px;height:14px;"></i>
+                        <span>Mais Vendidos &amp; Promoções</span>
+                    </button>
+                    <button class="cat-pill" data-category="cookies">
+                        <i data-lucide="cookie" style="width:14px;height:14px;"></i>
+                        <span>Cookies &amp; Viciantes</span>
+                    </button>
+                    <button class="cat-pill" data-category="tortas">
+                        <i data-lucide="cake" style="width:14px;height:14px;"></i>
+                        <span>Bolos &amp; Vitrine</span>
+                    </button>
+                    <button class="cat-pill" data-category="presentes">
+                        <i data-lucide="gift" style="width:14px;height:14px;"></i>
+                        <span>Boxes &amp; Presentes</span>
+                    </button>
+                    <button class="cat-pill" data-category="congelados">
+                        <i data-lucide="snowflake" style="width:14px;height:14px;"></i>
+                        <span>Fafá Congelados</span>
+                    </button>
+                    <button class="cat-pill" data-category="salgados">
+                        <i data-lucide="croissant" style="width:14px;height:14px;"></i>
+                        <span>Quiches &amp; Salgados</span>
+                    </button>
+                    <button class="cat-pill" data-category="bebidas">
+                        <i data-lucide="coffee" style="width:14px;height:14px;"></i>
+                        <span>Cafés &amp; Bebidas</span>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -315,6 +306,11 @@
                 </div>
                 <div class="footer-copy">
                     &copy; 2026 Fafá Doces Presentes • Todos os direitos reservados.
+                </div>
+                <div class="footer-admin-wrap">
+                    <a href="admin.html" class="footer-admin-link" title="Acesso restrito ao Painel Admin">
+                        <i data-lucide="shield-check" style="width:13px;height:13px;"></i> Admin
+                    </a>
                 </div>
             </div>
             <div class="footer-signature">

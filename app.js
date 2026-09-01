@@ -588,6 +588,22 @@ let activeCategory = 'todos';
 let searchQuery = '';
 let currentModalProduct = null;
 
+// Obter Lista de Produtos Atualizada (Sincronizada com Painel do Dono & Supabase)
+function getLiveProducts() {
+    try {
+        const custom = localStorage.getItem('fafa_products_custom');
+        if (custom) {
+            const parsed = JSON.parse(custom);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+                return parsed;
+            }
+        }
+    } catch (e) {
+        console.warn('Usando catálogo padrão embutido', e);
+    }
+    return PRODUCTS;
+}
+
 // Inicialização ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
     loadCartFromStorage();
@@ -596,6 +612,16 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartUI();
     initStoreStatus();
     initProposalFloatingWidget();
+
+    // Sincronização em Tempo Real quando o Dono altera preços ou visibilidade
+    window.addEventListener('fafa_products_updated', () => {
+        renderProducts();
+    });
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'fafa_products_custom') {
+            renderProducts();
+        }
+    });
 
     if (window.lucide) {
         window.lucide.createIcons();
@@ -682,11 +708,16 @@ function renderProducts() {
     const catalogGrid = document.getElementById('catalog-grid');
     if (!catalogGrid) return;
 
-    let filtered = PRODUCTS.filter(prod => {
+    const allProducts = getLiveProducts();
+
+    let filtered = allProducts.filter(prod => {
+        // Se o produto foi ocultado / pausado pelo dono, não exibe no cardápio público
+        if (prod.visible === false) return false;
+
         const matchesCategory = activeCategory === 'todos' || prod.category === activeCategory;
         const matchesSearch = !searchQuery || 
             prod.name.toLowerCase().includes(searchQuery) || 
-            prod.desc.toLowerCase().includes(searchQuery);
+            (prod.desc && prod.desc.toLowerCase().includes(searchQuery));
         return matchesCategory && matchesSearch;
     });
 
@@ -718,7 +749,7 @@ function renderProducts() {
                     <div class="card-title-row" onclick="window.openProductModal('${prod.id}')">
                         <h3 class="card-title">${prod.name}</h3>
                     </div>
-                    <p class="card-desc" onclick="window.openProductModal('${prod.id}')">${prod.desc}</p>
+                    <p class="card-desc" onclick="window.openProductModal('${prod.id}')">${prod.desc || ''}</p>
                     <div class="card-bottom">
                         <div class="card-price-block" onclick="window.openProductModal('${prod.id}')">
                             <span class="price-label">Valor:</span>
@@ -754,7 +785,8 @@ window.resetFilters = function() {
 
 // Modal de Detalhes do Produto
 window.openProductModal = function(productId) {
-    const product = PRODUCTS.find(p => p.id === productId);
+    const allProducts = getLiveProducts();
+    const product = allProducts.find(p => p.id === productId);
     if (!product) return;
 
     currentModalProduct = product;
@@ -880,7 +912,8 @@ window.confirmAddModalToCart = function() {
 
 // Adição Rápida de Upsell (1 Toque)
 window.addQuickUpsell = function(productId) {
-    const product = PRODUCTS.find(p => p.id === productId || p.id === 'prod-' + productId);
+    const allProducts = getLiveProducts();
+    const product = allProducts.find(p => p.id === productId || p.id === 'prod-' + productId);
     if (!product) return;
 
     const cartItem = {
@@ -991,6 +1024,7 @@ function updateCartUI() {
     const cartItemsContainer = document.getElementById('cart-items-list');
     const cartCountBadge = document.getElementById('cart-count');
     const cartTotalHeader = document.getElementById('cart-total-header');
+    const headerTrash = document.getElementById('btn-header-trash');
     const floatingBar = document.getElementById('cart-floating-bar');
     const floatingCount = document.getElementById('floating-cart-count');
     const floatingTotal = document.getElementById('floating-cart-total');
@@ -1002,6 +1036,10 @@ function updateCartUI() {
 
     if (cartCountBadge) cartCountBadge.textContent = totalItems;
     if (cartTotalHeader) cartTotalHeader.textContent = formatCurrency(subtotal);
+
+    if (headerTrash) {
+        headerTrash.style.display = totalItems > 0 ? 'inline-flex' : 'none';
+    }
 
     if (floatingBar) {
         if (totalItems > 0) {
