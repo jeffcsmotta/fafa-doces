@@ -238,33 +238,28 @@ body {
 }
 
 /* ==========================================================================
-   Catalog Toolbar: Search & Categories (Primeira Dobra Limpa)
+   Catalog Toolbar: Search & Categories (Primeira Dobra Limpa & Compacta)
    ========================================================================== */
-.catalog-toolbar-section {
-    background: rgba(255, 255, 255, 0.85);
+.catalog-nav-section {
+    background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--border);
-    padding: 14px 0 10px 0;
+    padding: 8px 0 4px 0;
     position: sticky;
-    top: 57px;
+    top: 52px;
     z-index: 850;
-    box-shadow: 0 2px 10px rgba(46, 31, 39, 0.02);
-}
-
-.toolbar-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    box-shadow: 0 2px 8px rgba(46, 31, 39, 0.02);
 }
 
 .search-box-wrap {
     position: relative;
     width: 100%;
+    margin-bottom: 6px;
 }
 
 .search-icon-inside {
     position: absolute;
-    left: 16px;
+    left: 14px;
     top: 50%;
     transform: translateY(-50%);
     color: var(--text-muted);
@@ -273,15 +268,15 @@ body {
 
 .search-input {
     width: 100%;
-    padding: 11px 16px 11px 44px;
+    padding: 8px 16px 8px 38px;
     background: #FFFFFF;
     border: 1px solid var(--border);
     border-radius: var(--radius-pill);
     font-family: var(--font-body);
-    font-size: 0.88rem;
+    font-size: 0.84rem;
     color: var(--text-dark);
     outline: none;
-    box-shadow: 0 2px 6px rgba(46, 31, 39, 0.02);
+    box-shadow: 0 1px 4px rgba(46, 31, 39, 0.02);
     transition: all 0.2s ease;
 }
 
@@ -290,51 +285,42 @@ body {
     box-shadow: 0 0 0 3px rgba(206, 179, 171, 0.25);
 }
 
-/* Container de Rolagem e Disposição das Categorias */
+/* Container de Rolagem e Disposição Compacta das Categorias */
 .category-scroll-container,
 .categories-nav,
 .catalog-nav-section .categories-scroll-wrap {
     width: 100%;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-x: contain;
-    padding: 6px 0 8px 0;
-}
-
-.category-scroll-container::-webkit-scrollbar,
-.categories-nav::-webkit-scrollbar,
-.categories-scroll-wrap::-webkit-scrollbar {
-    display: none;
+    padding: 2px 0 4px 0;
 }
 
 .category-scroll-pills,
 .categories-scroll-wrap {
     display: flex;
     align-items: center;
-    gap: 8px;
-    width: max-content;
-    padding-right: 16px;
+    gap: 6px;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-right: 0;
 }
 
 .cat-pill,
 .nav-category-btn {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
-    padding: 8px 16px;
+    gap: 5px;
+    padding: 5px 12px;
     background: #FFFFFF;
     border: 1px solid var(--border);
     border-radius: var(--radius-pill);
     color: var(--text-dark);
     font-family: var(--font-body);
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 700;
     white-space: nowrap;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 1px 4px rgba(46, 31, 39, 0.04);
+    box-shadow: 0 1px 3px rgba(46, 31, 39, 0.03);
     flex-shrink: 0;
     outline: none;
 }
@@ -352,39 +338,20 @@ body {
     background: var(--primary-dark);
     border-color: var(--primary-dark);
     color: #FFFFFF;
-    box-shadow: 0 3px 10px rgba(54, 12, 20, 0.25);
-}
-
-/* No Desktop: Distribuição perfeita sem rolagem truncada no mouse */
-@media (min-width: 1024px) {
-    .category-scroll-container,
-    .categories-nav,
-    .catalog-nav-section .categories-scroll-wrap {
-        overflow-x: visible;
-    }
-
-    .category-scroll-pills,
-    .categories-scroll-wrap {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-        padding-right: 0;
-    }
+    box-shadow: 0 2px 8px rgba(54, 12, 20, 0.22);
 }
 
 /* ==========================================================================
-   Banner de Atmosfera e Conceito da Categoria
+   Banner de Atmosfera e Conceito Compacto
    ========================================================================== */
 .category-concept-banner {
     background: #FFFFFF;
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 18px 22px;
-    margin: 16px 0 24px 0;
-    box-shadow: 0 2px 10px rgba(54, 12, 20, 0.03);
-    border-left: 4px solid var(--primary-dark);
+    border-radius: var(--radius-md);
+    padding: 8px 14px;
+    margin: 6px 0 12px 0;
+    box-shadow: 0 2px 8px rgba(54, 12, 20, 0.02);
+    border-left: 3.5px solid var(--primary-dark);
     transition: all 0.25s ease;
 }
 
@@ -392,36 +359,37 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 6px;
+    gap: 8px;
+    margin-bottom: 2px;
 }
 
 .concept-title {
     font-family: var(--font-heading);
-    font-size: 1.35rem;
+    font-size: 1.12rem;
     font-weight: 800;
     color: var(--primary-dark);
-    letter-spacing: -0.3px;
+    letter-spacing: -0.2px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    margin: 0;
 }
 
 .concept-desc {
-    font-size: 0.90rem;
+    font-size: 0.78rem;
     color: var(--text-muted);
-    line-height: 1.5;
+    line-height: 1.35;
     margin: 0;
 }
 
 .catalog-count-pill {
     display: inline-flex;
     align-items: center;
-    padding: 4px 10px;
+    padding: 2px 8px;
     background: #FAF3EE;
     border: 1px solid var(--border);
     border-radius: var(--radius-pill);
-    font-size: 0.75rem;
+    font-size: 0.70rem;
     font-weight: 800;
     color: var(--primary);
     white-space: nowrap;
@@ -2073,28 +2041,54 @@ body.has-cart-items .onira-cta {
 }
 
 .onira-avatar {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--accent-rose);
+    flex-shrink: 0;
 }
 
 .onira-text-col {
     display: flex;
     flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+    text-align: left;
 }
 
 .onira-hook {
-    font-size: 0.7rem;
+    font-size: 0.70rem;
     color: #94A3B8;
     font-weight: 600;
+    line-height: 1.2;
 }
 
 .onira-call {
-    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 0.80rem;
+    line-height: 1.2;
+}
+
+.onira-price-label {
     color: #FFFFFF;
-    font-weight: 700;
+    font-weight: 600;
+}
+
+.onira-price-label strong {
+    color: #FBBF24;
+    font-weight: 800;
+}
+
+.onira-link-text {
+    color: #60A5FA;
+    font-weight: 800;
+    font-size: 0.78rem;
+    white-space: nowrap;
 }
 
 /* ==========================================================================
@@ -2132,13 +2126,11 @@ body.has-cart-items .onira-cta {
    Responsive Breakpoints
    ========================================================================== */
 @media (max-width: 768px) {
-    /* Empilhamento limpo dos filtros no Mobile */
     .category-scroll-container,
     .categories-nav,
     .catalog-nav-section .categories-scroll-wrap {
-        overflow-x: visible !important;
         width: 100% !important;
-        padding: 4px 0 6px 0 !important;
+        padding: 2px 0 4px 0 !important;
     }
 
     .category-scroll-pills,
@@ -2147,15 +2139,23 @@ body.has-cart-items .onira-cta {
         display: flex !important;
         flex-wrap: wrap !important;
         justify-content: center !important;
-        gap: 6px !important;
+        gap: 3px !important;
         padding-right: 0 !important;
     }
 
     .cat-pill,
     .nav-category-btn {
-        font-size: 0.76rem !important;
-        padding: 6px 12px !important;
-        gap: 5px !important;
+        font-size: 0.70rem !important;
+        padding: 4px 6px !important;
+        gap: 2px !important;
+    }
+
+    .cat-pill i,
+    .cat-pill svg,
+    .nav-category-btn i,
+    .nav-category-btn svg {
+        width: 12px !important;
+        height: 12px !important;
     }
 
     .story-grid, .location-grid {
@@ -2179,21 +2179,21 @@ body.has-cart-items .onira-cta {
 
 @media (max-width: 640px) {
     .container {
-        padding: 0 12px !important;
+        padding: 0 14px !important;
     }
 
     .nav-container {
-        padding-top: 6px;
-        padding-bottom: 6px;
-        gap: 6px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        gap: 8px;
         width: 100%;
         box-sizing: border-box;
     }
 
     .brand-logo-img {
-        height: 26px !important;
-        max-width: 105px !important;
-        flex-shrink: 1;
+        height: 34px !important;
+        max-width: 140px !important;
+        flex-shrink: 0;
     }
 
     .status-compact {
@@ -2201,7 +2201,7 @@ body.has-cart-items .onira-cta {
     }
 
     .nav-actions {
-        gap: 4px;
+        gap: 6px;
         margin-left: auto;
         flex-shrink: 0;
         display: flex;
@@ -2209,26 +2209,26 @@ body.has-cart-items .onira-cta {
     }
 
     .btn-buy-site {
-        padding: 5px 8px;
-        font-size: 0.72rem;
-        gap: 3px;
+        padding: 6px 10px;
+        font-size: 0.74rem;
+        gap: 4px;
         flex-shrink: 0;
     }
 
     .btn-buy-site .btn-buy-text {
         display: inline-block;
-        font-size: 0.71rem;
+        font-size: 0.73rem;
     }
 
     .btn-header-trash {
-        width: 28px;
-        height: 28px;
+        width: 30px;
+        height: 30px;
         flex-shrink: 0;
     }
 
     .btn-cart-trigger {
-        padding: 5px 8px;
-        gap: 3px;
+        padding: 6px 10px;
+        gap: 4px;
         flex-shrink: 0;
         margin-right: 0;
     }
@@ -2245,8 +2245,8 @@ body.has-cart-items .onira-cta {
     }
 
     .cart-count-badge {
-        padding: 1px 5px !important;
-        font-size: 0.68rem !important;
+        padding: 1px 6px !important;
+        font-size: 0.70rem !important;
     }
 
     .catalog-grid {

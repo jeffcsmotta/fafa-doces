@@ -76,40 +76,40 @@
                 </button>
             </div>
 
-            <!-- Navegação Horizontal / Chips de Categorias -->
+            <!-- Navegação Compacta / Chips Otimizados de Categorias -->
             <nav class="category-scroll-container" aria-label="Categorias do Cardápio">
                 <div class="category-scroll-pills">
                     <button type="button" class="cat-pill active" data-category="todos" onclick="window.filterCategory('todos')">
-                        <i data-lucide="cookie" style="width:15px;height:15px;"></i>
-                        <span>Todos os Itens</span>
+                        <i data-lucide="cookie" style="width:14px;height:14px;"></i>
+                        <span>Todos</span>
                     </button>
                     <button type="button" class="cat-pill" data-category="promocoes" onclick="window.filterCategory('promocoes')">
-                        <i data-lucide="sparkles" style="width:15px;height:15px;"></i>
-                        <span>Mais Vendidos &amp; Promoções</span>
+                        <i data-lucide="sparkles" style="width:14px;height:14px;"></i>
+                        <span>Mais Vendidos</span>
                     </button>
                     <button type="button" class="cat-pill" data-category="cookies" onclick="window.filterCategory('cookies')">
-                        <i data-lucide="circle-dot" style="width:15px;height:15px;"></i>
-                        <span>Cookies &amp; Viciantes</span>
+                        <i data-lucide="circle-dot" style="width:14px;height:14px;"></i>
+                        <span>Cookies</span>
                     </button>
                     <button type="button" class="cat-pill" data-category="tortas" onclick="window.filterCategory('tortas')">
-                        <i data-lucide="cake" style="width:15px;height:15px;"></i>
-                        <span>Pâtisserie do Chef &amp; Vitrine</span>
+                        <i data-lucide="cake" style="width:14px;height:14px;"></i>
+                        <span>Pâtisserie</span>
                     </button>
                     <button type="button" class="cat-pill" data-category="presentes" onclick="window.filterCategory('presentes')">
-                        <i data-lucide="gift" style="width:15px;height:15px;"></i>
-                        <span>Doces Presentes &amp; Boxes</span>
+                        <i data-lucide="gift" style="width:14px;height:14px;"></i>
+                        <span>Presentes</span>
                     </button>
                     <button type="button" class="cat-pill" data-category="congelados" onclick="window.filterCategory('congelados')">
-                        <i data-lucide="snowflake" style="width:15px;height:15px;"></i>
-                        <span>Fafa na sua Casa</span>
+                        <i data-lucide="snowflake" style="width:14px;height:14px;"></i>
+                        <span>Congelados</span>
                     </button>
                     <button type="button" class="cat-pill" data-category="salgados" onclick="window.filterCategory('salgados')">
-                        <i data-lucide="croissant" style="width:15px;height:15px;"></i>
-                        <span>Quiches &amp; Salgados</span>
+                        <i data-lucide="croissant" style="width:14px;height:14px;"></i>
+                        <span>Salgados</span>
                     </button>
                     <button type="button" class="cat-pill" data-category="bebidas" onclick="window.filterCategory('bebidas')">
-                        <i data-lucide="coffee" style="width:15px;height:15px;"></i>
-                        <span>Cafés &amp; Bebidas</span>
+                        <i data-lucide="coffee" style="width:14px;height:14px;"></i>
+                        <span>Bebidas</span>
                     </button>
                 </div>
             </nav>
@@ -120,14 +120,14 @@
     <main class="catalog-section">
         <div class="container">
 
-            <!-- Banner de Atmosfera e Conceito Afetivo da Categoria Ativa -->
+            <!-- Banner de Atmosfera Compacto da Categoria Ativa -->
             <div class="category-concept-banner" id="category-concept-banner">
                 <div class="concept-banner-header">
                     <h2 class="concept-title" id="current-category-name">Cardápio Completo</h2>
                     <span class="catalog-count-pill" id="products-count-badge">45 opções artesanais</span>
                 </div>
                 <p class="concept-desc" id="category-concept-desc">
-                    Cardápio artesanal completo da Fafa Doces Presentes. Escolha seus favoritos para entrega rápida ou retirada no balcão.
+                    Cardápio artesanal da Fafa Doces Presentes para entrega rápida ou retirada.
                 </p>
             </div>
 
@@ -526,12 +526,15 @@
         </div>
     </div>
 
-    <!-- Floating Proposal Widget (.onira-cta) sem botão fechar -->
+    <!-- Floating Proposal Widget (.onira-cta) -->
     <a href="proposta.html" class="onira-cta" id="onira-floating-cta" title="Ver proposta comercial do site">
         <img src="assets/jeff-avatar.webp" alt="Jefferson Motta" class="onira-avatar">
         <div class="onira-text-col">
             <span class="onira-hook">Gostou deste cardápio digital?</span>
-            <span class="onira-call">A partir de 3x R$ 800 • Ver Proposta &rarr;</span>
+            <span class="onira-call">
+                <span class="onira-price-label">A partir de <strong>3x R$ 800</strong></span>
+                <span class="onira-link-text">Ver Proposta &rarr;</span>
+            </span>
         </div>
     </a>
 
