@@ -1117,6 +1117,38 @@ input:checked + .slider:before {
 }
 
 /* Responsividade Mobile */
+/* Botão Flutuante Mobile */
+.mobile-float-add {
+    position: fixed;
+    bottom: 24px;
+    right: 20px;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: #2B1810;
+    color: #FFFFFF;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(43, 24, 16, 0.45);
+    z-index: 900;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease;
+}
+
+.mobile-float-add:active {
+    transform: scale(0.92);
+    background: #4A2E20;
+}
+
+/* Responsividade Mobile */
+@media (max-width: 768px) {
+    .mobile-float-add {
+        display: flex;
+    }
+}
+
 @media (max-width: 640px) {
     .header-row {
         flex-wrap: wrap;
@@ -1154,4 +1186,9 @@ input:checked + .slider:before {
     .form-row-2 {
         grid-template-columns: 1fr;
     }
+    .modal-card {
+        padding: 18px 16px;
+        max-height: 85vh;
+    }
 }
+

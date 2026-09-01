@@ -100,7 +100,7 @@ window.submitPin = function() {
     const savedPin = localStorage.getItem('fafa_owner_pin') || DEFAULT_PIN;
     if (currentPinInput === savedPin) {
         sessionStorage.setItem('fafa_owner_auth', 'true');
-        showAdminToast('✓ Bem-vindo ao Painel da Fáfa!');
+        showAdminToast('✓ Bem-vindo ao Painel da Fafa!');
         
         const pinModal = document.getElementById('pin-modal');
         const adminApp = document.getElementById('admin-app');
@@ -435,7 +435,7 @@ window.saveQuickPrice = function() {
 window.openProductModal = function(id = null) {
     const modal = document.getElementById('product-modal');
     const form = document.getElementById('product-form');
-    const titleEl = document.getElementById('modal-title');
+    const titleEl = document.getElementById('modal-form-title') || document.getElementById('modal-title');
     if (!modal || !form) return;
 
     if (id) {
@@ -443,25 +443,26 @@ window.openProductModal = function(id = null) {
         const prod = adminProducts.find(p => p.id === id);
         if (!prod) return;
 
-        titleEl.textContent = 'Editar Produto';
-        document.getElementById('form-prod-id').value = prod.id;
-        document.getElementById('form-prod-name').value = prod.name;
-        document.getElementById('form-prod-category').value = prod.category;
-        document.getElementById('form-prod-price').value = prod.price;
+        if (titleEl) titleEl.textContent = 'Editar Produto';
+        document.getElementById('form-prod-id').value = prod.id || '';
+        document.getElementById('form-prod-name').value = prod.name || '';
+        document.getElementById('form-prod-category').value = prod.category || 'cookies';
+        document.getElementById('form-prod-price').value = prod.price || '';
         document.getElementById('form-prod-desc').value = prod.desc || '';
         document.getElementById('form-prod-badge').value = prod.badge || '';
         document.getElementById('form-prod-img').value = prod.img || '';
         document.getElementById('form-prod-visible').checked = prod.visible !== false;
     } else {
         // Modo Novo Produto
-        titleEl.textContent = 'Adicionar Novo Doce / Produto';
+        if (titleEl) titleEl.textContent = 'Cadastrar Novo Doce / Produto';
         form.reset();
         document.getElementById('form-prod-id').value = '';
-        document.getElementById('form-prod-category').value = activeAdminCategory !== 'todos' ? activeAdminCategory : 'cookies';
+        document.getElementById('form-prod-category').value = activeAdminCategory !== 'todos' && activeAdminCategory !== 'pausados' ? activeAdminCategory : 'cookies';
         document.getElementById('form-prod-visible').checked = true;
     }
 
     modal.style.display = 'flex';
+    if (window.lucide) window.lucide.createIcons();
 };
 
 window.closeProductModal = function() {
@@ -475,20 +476,20 @@ window.closeProductModalOnBackdrop = function(event) {
     }
 };
 
-window.handleSaveProduct = function(event) {
+window.handleProductFormSubmit = function(event) {
     event.preventDefault();
 
-    const id = document.getElementById('form-prod-id').value.trim();
-    const name = document.getElementById('form-prod-name').value.trim();
+    const id = (document.getElementById('form-prod-id').value || '').trim();
+    const name = (document.getElementById('form-prod-name').value || '').trim();
     const category = document.getElementById('form-prod-category').value;
     const price = parseFloat(document.getElementById('form-prod-price').value);
-    const desc = document.getElementById('form-prod-desc').value.trim();
+    const desc = (document.getElementById('form-prod-desc').value || '').trim();
     const badge = document.getElementById('form-prod-badge').value;
-    let img = document.getElementById('form-prod-img').value.trim();
+    let img = (document.getElementById('form-prod-img').value || '').trim();
     const visible = document.getElementById('form-prod-visible').checked;
 
     if (!name || isNaN(price)) {
-        showAdminToast('⚠️ Preencha os campos obrigatórios.');
+        showAdminToast('⚠️ Preencha o nome e o preço do produto.');
         return;
     }
 
@@ -537,6 +538,8 @@ window.handleSaveProduct = function(event) {
     renderProductList();
     closeProductModal();
 };
+
+window.handleSaveProduct = window.handleProductFormSubmit;
 
 // ==========================================================================
 // 5. Filtros e Busca
