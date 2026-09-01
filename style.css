@@ -2191,8 +2191,9 @@ body.has-cart-items .onira-cta {
     }
 
     .brand-logo-img {
-        height: 34px !important;
-        max-width: 140px !important;
+        height: 28px !important;
+        max-width: 115px !important;
+        object-fit: contain;
         flex-shrink: 0;
     }
 
@@ -2209,26 +2210,20 @@ body.has-cart-items .onira-cta {
     }
 
     .btn-buy-site {
-        padding: 6px 10px;
-        font-size: 0.74rem;
+        padding: 5px 9px;
+        font-size: 0.72rem;
         gap: 4px;
         flex-shrink: 0;
     }
 
     .btn-buy-site .btn-buy-text {
         display: inline-block;
-        font-size: 0.73rem;
-    }
-
-    .btn-header-trash {
-        width: 30px;
-        height: 30px;
-        flex-shrink: 0;
+        font-size: 0.72rem;
     }
 
     .btn-cart-trigger {
-        padding: 6px 10px;
-        gap: 4px;
+        padding: 5px 9px;
+        gap: 5px;
         flex-shrink: 0;
         margin-right: 0;
     }
@@ -2245,8 +2240,8 @@ body.has-cart-items .onira-cta {
     }
 
     .cart-count-badge {
-        padding: 1px 6px !important;
-        font-size: 0.70rem !important;
+        padding: 1px 5px !important;
+        font-size: 0.68rem !important;
     }
 
     .catalog-grid {
