@@ -1152,8 +1152,26 @@ function updateCartUI() {
     const deliveryFee = selectedDeliveryType === 'delivery' ? 8.00 : 0;
     const finalTotal = subtotal + deliveryFee;
 
-    if (cartCountBadge) cartCountBadge.textContent = totalItems;
-    if (cartTotalHeader) cartTotalHeader.textContent = formatCurrency(subtotal);
+    const cartNavBtn = document.getElementById('btn-cart-nav');
+    if (cartNavBtn) {
+        if (totalItems > 0) {
+            cartNavBtn.classList.add('has-items');
+            cartNavBtn.classList.remove('cart-empty');
+            if (cartCountBadge) {
+                cartCountBadge.style.display = 'inline-block';
+                cartCountBadge.textContent = totalItems;
+            }
+            if (cartTotalHeader) {
+                cartTotalHeader.style.display = 'inline-block';
+                cartTotalHeader.textContent = formatCurrency(subtotal);
+            }
+        } else {
+            cartNavBtn.classList.remove('has-items');
+            cartNavBtn.classList.add('cart-empty');
+            if (cartCountBadge) cartCountBadge.style.display = 'none';
+            if (cartTotalHeader) cartTotalHeader.style.display = 'none';
+        }
+    }
 
     if (headerTrash) {
         headerTrash.style.display = totalItems > 0 ? 'inline-flex' : 'none';

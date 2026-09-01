@@ -42,18 +42,23 @@
                     <span id="status-text-header">Aberto Hoje • 13h30 às 18h30</span>
                 </div>
 
-                <!-- Botão Compre esse site (Azul Royal Elétrico de Alto Contraste) -->
+                <!-- Botão Compre esse site (Azul Royal Elétrico de Alto Contraste no Desktop) -->
                 <a href="proposta.html" class="btn-buy-site" title="Compre esse site pronto para o seu negócio">
                     <i data-lucide="zap" style="width:14px;height:14px;color:#FEF08A;fill:#FEF08A;"></i>
                     <span class="btn-buy-text">Compre este site</span>
                 </a>
 
-                <!-- Botão Carrinho Desktop ("Pedido") / Mobile (Ícone com Badge) -->
-                <button type="button" class="btn-cart-trigger" id="btn-cart-nav" onclick="window.openCart()" aria-label="Ver Carrinho de Compras">
+                <!-- Botão Limpar Pedido (Lixeirinha Outline ao lado do Pedido) -->
+                <button type="button" class="btn-header-trash" id="btn-header-trash" onclick="window.clearCart()" title="Limpar Pedido" aria-label="Limpar Pedido" style="display:none;">
+                    <i data-lucide="trash-2" style="width:16px;height:16px;"></i>
+                </button>
+
+                <!-- Botão Carrinho Desktop ("Pedido") / Mobile (Outline quando vazio, Preenchido com itens) -->
+                <button type="button" class="btn-cart-trigger cart-empty" id="btn-cart-nav" onclick="window.openCart()" aria-label="Ver Carrinho de Compras">
                     <i data-lucide="shopping-bag" style="width:17px;height:17px;"></i>
                     <span class="cart-btn-label">Pedido</span>
-                    <span class="cart-total-header" id="cart-total-nav">R$ 0,00</span>
-                    <span class="cart-count-badge" id="cart-count">0</span>
+                    <span class="cart-total-header" id="cart-total-nav" style="display:none;">R$ 0,00</span>
+                    <span class="cart-count-badge" id="cart-count" style="display:none;">0</span>
                 </button>
             </div>
         </div>
