@@ -1534,7 +1534,7 @@ body.cart-drawer-open .site-footer {
     max-width: 440px;
     height: 100%;
     height: 100dvh;
-    background: #340B13; /* Deep Velvet Wine / Cocoa Burgundy */
+    background: #1C050A; /* Fundo mais escuro e nobre conforme solicitação */
     color: #FFFFFF;
     z-index: 1200;
     display: flex;
@@ -1543,7 +1543,7 @@ body.cart-drawer-open .site-footer {
     transform: translate3d(100%, 0, 0);
     will-change: transform;
     transition: transform 0.48s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: -12px 0 45px rgba(35, 7, 12, 0.6);
+    box-shadow: -14px 0 50px rgba(10, 2, 4, 0.85);
 }
 
 .cart-drawer.active {
@@ -1552,9 +1552,9 @@ body.cart-drawer-open .site-footer {
 
 .cart-header {
     flex-shrink: 0;
-    background: #28070E;
+    background: #140307;
     padding: 14px 16px;
-    border-bottom: 1px solid rgba(216, 74, 91, 0.25);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
@@ -1587,7 +1587,7 @@ body.cart-drawer-open .site-footer {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
     transition: transform 0.15s ease, opacity 0.15s ease;
     white-space: nowrap;
 }
@@ -1643,13 +1643,13 @@ body.cart-drawer-open .site-footer {
 
 /* 1. Tipo de Pedido (Tele-Entrega vs Retirada) no topo */
 .delivery-top-group {
-    background: rgba(0, 0, 0, 0.22);
+    background: rgba(0, 0, 0, 0.28);
     padding: 12px 14px;
     border-radius: var(--radius-md);
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Lista de Itens no Carrinho (Sem rolagem interna: expande e empurra todo o formulário para baixo naturalmente) */
+/* Lista de Itens no Carrinho: Boxes com fundo claro conforme solicitado */
 .cart-items-list {
     display: flex;
     flex-direction: column;
@@ -1658,14 +1658,16 @@ body.cart-drawer-open .site-footer {
 }
 
 .cart-item-card {
-    background: #46111B;
-    border: 1px solid rgba(216, 74, 91, 0.25);
+    background: #FFF9F5; /* Box com fundo claro e acabamento refinado de confeitaria */
+    border: 1.5px solid #EBDCD0;
     border-radius: var(--radius-md);
     padding: 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.32);
+    transition: transform 0.2s ease;
 }
 
 .cart-item-info {
@@ -1673,43 +1675,47 @@ body.cart-drawer-open .site-footer {
 }
 
 .cart-item-name {
-    font-size: 0.92rem;
-    font-weight: 700;
-    color: #FFFFFF;
+    font-size: 0.93rem;
+    font-weight: 800;
+    color: #1E120D; /* Texto escuro de altíssimo contraste */
     margin-bottom: 3px;
+    line-height: 1.3;
 }
 
 .cart-item-details {
     font-size: 0.75rem;
-    color: #E2D0C8;
+    color: #5C4A42;
     margin-bottom: 4px;
 }
 
 .detail-pill {
     display: inline-block;
-    background: rgba(255, 255, 255, 0.12);
-    padding: 2px 6px;
+    background: #F1E5DC;
+    color: #381E15;
+    border: 1px solid #E2D2C4;
+    padding: 2px 7px;
     border-radius: 4px;
     font-size: 0.72rem;
+    font-weight: 700;
     margin-right: 4px;
 }
 
 .addon-line {
-    color: #F8C291;
+    color: #8C5035;
     margin-top: 2px;
 }
 
 .obs-line {
-    color: #D3C5BC;
-    font-size: 0.72rem;
+    color: #6E5A50;
+    font-size: 0.74rem;
     margin-top: 2px;
 }
 
 .cart-item-price {
     font-family: var(--font-price);
-    font-size: 0.98rem;
+    font-size: 1.02rem;
     font-weight: 800;
-    color: var(--emerald-light);
+    color: #047857; /* Verde esmeralda nítido sobre o box claro */
 }
 
 .cart-item-actions {
@@ -1718,23 +1724,24 @@ body.cart-drawer-open .site-footer {
     gap: 8px;
 }
 
-/* Container Cápsula Branca para os controles de quantidade */
+/* Container Cápsula para os controles de quantidade */
 .cart-qty-pill {
     display: inline-flex;
     align-items: center;
-    background: #FFFFFF;
+    background: #F4E8E0;
+    border: 1px solid #DFCEBF;
     border-radius: var(--radius-pill);
     padding: 2px 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
 
-/* Botões Stepper + e - : sem contorno e sinais em verde esmeralda */
+/* Botões Stepper + e - : Azul Turquesa vibrante com alto contraste */
 .qty-btn {
     width: 26px;
     height: 26px;
     border: none !important;
     background: transparent !important;
-    color: #10B981 !important; /* Apenas o sinal + ou - em verde */
+    color: #0891B2 !important; /* Azul Turquesa */
     font-family: var(--font-body);
     font-size: 1.15rem;
     font-weight: 900;
@@ -1749,13 +1756,13 @@ body.cart-drawer-open .site-footer {
 
 .qty-btn:hover, .qty-btn:active {
     transform: scale(1.18);
-    background: rgba(16, 185, 129, 0.12) !important;
+    background: rgba(8, 145, 178, 0.18) !important;
 }
 
 .qty-val {
     font-size: 0.88rem;
     font-weight: 800;
-    color: #1E120D; /* Número escuro legível sobre o fundo branco */
+    color: #1E120D;
     min-width: 20px;
     text-align: center;
 }
@@ -1766,7 +1773,7 @@ body.cart-drawer-open .site-footer {
     border-radius: 6px;
     background: transparent;
     border: none;
-    color: #D3C5BC;
+    color: #8C7B75;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1775,7 +1782,7 @@ body.cart-drawer-open .site-footer {
 }
 
 .trash-btn:hover {
-    color: var(--accent-coral);
+    color: #DC2626;
     transform: scale(1.1);
 }
 
@@ -1786,7 +1793,7 @@ body.cart-drawer-open .site-footer {
     gap: 12px;
     margin-top: 8px;
     padding-top: 18px;
-    border-top: 1px solid rgba(216, 74, 91, 0.25);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .cart-empty-state {
@@ -1807,19 +1814,20 @@ body.cart-drawer-open .site-footer {
     margin-top: 4px;
 }
 
-/* Delivery Type Buttons */
+/* Delivery & Schedule Type Buttons com Seleção em Azul Turquesa */
 .delivery-toggle-wrap {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
-    background: #28070E;
+    background: #140307;
     padding: 4px;
     border-radius: var(--radius-pill);
-    border: 1px solid rgba(216, 74, 91, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.delivery-type-btn {
-    padding: 8px;
+.delivery-type-btn,
+.schedule-type-btn {
+    padding: 9px 8px;
     border-radius: var(--radius-pill);
     border: none;
     background: transparent;
@@ -1828,13 +1836,25 @@ body.cart-drawer-open .site-footer {
     font-size: 0.82rem;
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.22s ease;
 }
 
-.delivery-type-btn.active {
-    background: var(--accent-coral);
+.delivery-type-btn:hover:not(.active),
+.schedule-type-btn:hover:not(.active) {
     color: #FFFFFF;
-    box-shadow: 0 2px 8px rgba(238, 82, 68, 0.3);
+}
+
+/* Estado Ativo: Azul Turquesa que sustenta contraste com texto branco */
+.delivery-type-btn.active,
+.schedule-type-btn.active {
+    background: #0891B2 !important; /* Azul Turquesa Vibrante */
+    color: #FFFFFF !important;
+    font-weight: 800 !important;
+    box-shadow: 0 2px 10px rgba(8, 145, 178, 0.48) !important;
 }
 
 /* Form Styles in Cart */
@@ -1855,18 +1875,20 @@ body.cart-drawer-open .site-footer {
 .cart-input, .cart-select {
     width: 100%;
     padding: 10px 14px;
-    background: #28070E;
-    border: 1px solid rgba(216, 74, 91, 0.25);
+    background: #140307;
+    border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: var(--radius-md);
     color: #FFFFFF;
     font-family: var(--font-body);
     font-size: 0.85rem;
     outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Foco em Azul Turquesa */
 .cart-input:focus, .cart-select:focus {
-    border-color: var(--accent-coral);
-    box-shadow: 0 0 0 2px rgba(238, 82, 68, 0.2);
+    border-color: #0891B2;
+    box-shadow: 0 0 0 2px rgba(8, 145, 178, 0.35);
 }
 
 .form-row-2 {
@@ -1875,7 +1897,7 @@ body.cart-drawer-open .site-footer {
     gap: 8px;
 }
 
-/* Payment Method Options */
+/* Payment Method Options com Seleção em Azul Turquesa */
 .payment-methods-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1884,8 +1906,8 @@ body.cart-drawer-open .site-footer {
 
 .pay-method-btn {
     padding: 10px 6px;
-    background: #28070E;
-    border: 1px solid rgba(216, 74, 91, 0.25);
+    background: #140307;
+    border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: var(--radius-md);
     color: #EFE4DE;
     font-family: var(--font-body);
@@ -1899,15 +1921,22 @@ body.cart-drawer-open .site-footer {
     transition: all 0.2s ease;
 }
 
-.pay-method-btn.active {
-    background: rgba(238, 82, 68, 0.2);
-    border-color: var(--accent-coral);
+.pay-method-btn:hover:not(.active) {
+    border-color: rgba(8, 145, 178, 0.5);
     color: #FFFFFF;
 }
 
-/* Cart Footer & Totals */
+.pay-method-btn.active {
+    background: #0891B2 !important; /* Azul Turquesa */
+    border-color: #06B6D4 !important;
+    color: #FFFFFF !important;
+    font-weight: 800 !important;
+    box-shadow: 0 2px 10px rgba(8, 145, 178, 0.45) !important;
+}
+
+/* Cart Footer & Totais */
 .cart-footer {
-    background: #28070E;
+    background: #140307;
     border-top: 1px solid rgba(216, 74, 91, 0.25);
     padding: 18px 20px;
     display: flex;
@@ -2070,14 +2099,16 @@ body.has-cart-items .onira-cta {
 
 /* Movimento em bloco quando rolando a página */
 .cart-floating-bar.scroll-hidden,
-.onira-cta.scroll-hidden {
+.onira-cta.scroll-hidden,
+.concierge-floating-widget.scroll-hidden {
     transform: translateY(180%) !important;
     opacity: 0 !important;
     pointer-events: none !important;
 }
 
 .cart-floating-bar.scrolling-active,
-.onira-cta.scrolling-active {
+.onira-cta.scrolling-active,
+.concierge-floating-widget.scrolling-active {
     opacity: 0.88;
 }
 
@@ -2754,12 +2785,28 @@ body.store-catalog-only .btn-header-trash {
     display: flex;
     gap: 16px;
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: x proximity; /* Proximity no desktop elimina a rigidez e permite deslize suave */
     scroll-behavior: smooth;
     padding: 8px 4px 18px 4px;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: rgba(160, 106, 59, 0.3) transparent;
+    cursor: grab;
+    user-select: none;
+}
+
+.streaming-rail-track.is-dragging {
+    cursor: grabbing !important;
+    scroll-snap-type: none !important;
+    scroll-behavior: auto !important;
+}
+
+@media (max-width: 768px) {
+    .streaming-rail-track {
+        scroll-snap-type: x mandatory; /* Mantém encaixe touch preciso no mobile */
+        scroll-padding-left: 8px;
+        cursor: default;
+    }
 }
 
 .streaming-rail-track::-webkit-scrollbar {
@@ -2821,7 +2868,7 @@ body.store-catalog-only .btn-header-trash {
 }
 
 /* ==========================================================================
-   Widget Flutuante do Concierge Afetivo (Chef Rafael Franzosi)
+   Widget Flutuante do Concierge Afetivo (Chef Rafael Franzosi - Estilo Cápsula Onira)
    ========================================================================== */
 .concierge-floating-widget {
     position: fixed;
@@ -2829,63 +2876,52 @@ body.store-catalog-only .btn-header-trash {
     left: 24px;
     z-index: 990;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    align-items: center;
+    transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
     font-family: var(--font-body);
 }
 
-.concierge-floating-widget.widget-cart-hidden {
+.concierge-floating-widget.widget-cart-hidden,
+.concierge-floating-widget.widget-dismissed {
     opacity: 0 !important;
     pointer-events: none !important;
-    transform: translateY(24px) scale(0.9) !important;
+    transform: translateY(24px) scale(0.92) !important;
+    display: none !important;
 }
 
-.concierge-card-popup {
-    background: #FFFFFF;
-    border: 1.5px solid rgba(160, 106, 59, 0.25);
-    border-radius: 20px;
-    box-shadow: 0 16px 40px rgba(54, 12, 20, 0.18);
-    padding: 16px 18px;
-    width: 320px;
-    max-width: calc(100vw - 48px);
-    margin-bottom: 10px;
-    position: relative;
-    transform-origin: bottom left;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.concierge-floating-widget.is-collapsed .concierge-card-popup {
-    opacity: 0;
-    pointer-events: none;
-    transform: scale(0.85) translateY(12px);
-    display: none;
-}
-
-.concierge-popup-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-.concierge-avatar-row {
+.concierge-floating-pill {
     display: flex;
     align-items: center;
     gap: 12px;
+    background: linear-gradient(135deg, #2A0812 0%, #150308 100%); /* Fundo contrastante escuro e nobre */
+    border: 1.5px solid rgba(245, 158, 11, 0.5);
+    border-radius: var(--radius-pill);
+    padding: 10px 16px 10px 10px; /* Ligeiramente mais alto conforme solicitado */
+    box-shadow: 0 14px 34px rgba(21, 3, 8, 0.55), 0 2px 10px rgba(245, 158, 11, 0.2);
+    cursor: pointer;
+    text-decoration: none;
+    color: #FFFFFF;
+    position: relative;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    max-width: 440px;
 }
 
-.concierge-avatar-wrap {
+.concierge-floating-pill:hover {
+    transform: translateY(-2px);
+    border-color: #F59E0B;
+    box-shadow: 0 18px 40px rgba(21, 3, 8, 0.65), 0 4px 14px rgba(245, 158, 11, 0.35);
+}
+
+.concierge-pill-avatar-wrap {
     position: relative;
-    width: 48px;
-    height: 48px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
-    border: 2px solid var(--accent-coral);
-    overflow: visible;
+    border: 2px solid #F59E0B;
     flex-shrink: 0;
 }
 
-.concierge-avatar-img {
+.concierge-pill-avatar {
     width: 100%;
     height: 100%;
     border-radius: 50%;
@@ -2900,127 +2936,88 @@ body.store-catalog-only .btn-header-trash {
     width: 12px;
     height: 12px;
     background: #10B981;
-    border: 2px solid #FFFFFF;
+    border: 2px solid #2A0812;
     border-radius: 50%;
-    box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+    box-shadow: 0 0 6px rgba(16, 185, 129, 0.8);
 }
 
-.concierge-info-col {
+.concierge-pill-text-col {
     display: flex;
     flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+    text-align: left;
 }
 
-.concierge-info-name {
-    font-size: 0.9rem;
-    font-weight: 800;
-    color: var(--primary-dark);
-    margin: 0;
-}
-
-.concierge-info-role {
-    font-size: 0.72rem;
-    color: var(--accent-caramel);
+.concierge-pill-hook {
+    font-size: 0.74rem;
     font-weight: 700;
+    color: #F59E0B; /* Dourado afetivo */
+    letter-spacing: 0.2px;
+    line-height: 1.2;
+}
+
+.concierge-pill-call {
     display: flex;
     align-items: center;
-    gap: 4px;
-}
-
-.btn-concierge-minimize {
-    background: transparent;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    padding: 6px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-}
-
-.btn-concierge-minimize:hover {
-    background: rgba(0, 0, 0, 0.06);
-    color: var(--primary-dark);
-}
-
-.concierge-popup-copy {
-    font-size: 0.82rem;
-    line-height: 1.45;
-    color: #4B4545;
-    margin: 0 0 12px 0;
-}
-
-.btn-concierge-talk {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: #25D366;
+    gap: 6px;
+    font-size: 0.84rem;
+    font-weight: 700;
     color: #FFFFFF;
+    line-height: 1.25;
+}
+
+.concierge-pill-sub {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.concierge-pill-arrow {
+    color: #F59E0B;
     font-weight: 800;
-    font-size: 0.82rem;
-    padding: 10px 14px;
-    border-radius: var(--radius-pill);
-    text-decoration: none;
-    border: none;
+    font-size: 0.95rem;
+    transition: transform 0.2s ease;
+}
+
+.concierge-floating-pill:hover .concierge-pill-arrow {
+    transform: translateX(3px);
+}
+
+.btn-concierge-pill-dismiss {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #D3C5BC;
     cursor: pointer;
-    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    flex-shrink: 0;
     transition: all 0.2s ease;
 }
 
-.btn-concierge-talk:hover {
-    background: #1EBE5D;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4);
-}
-
-.concierge-trigger-pill {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #FFFFFF;
-    border: 1.5px solid rgba(160, 106, 59, 0.35);
-    border-radius: var(--radius-pill);
-    padding: 6px 14px 6px 6px;
-    box-shadow: 0 6px 20px rgba(54, 12, 20, 0.12);
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.concierge-trigger-pill:hover {
-    transform: scale(1.04);
-    box-shadow: 0 8px 24px rgba(54, 12, 20, 0.18);
+.btn-concierge-pill-dismiss:hover {
+    background: rgba(238, 82, 68, 0.3);
+    color: #FFFFFF;
     border-color: var(--accent-coral);
-}
-
-.concierge-floating-widget:not(.is-collapsed) .concierge-trigger-pill {
-    display: none;
-}
-
-.concierge-pill-avatar {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: 72% 18%;
-    border: 1.5px solid var(--accent-coral);
-}
-
-.concierge-pill-text {
-    font-size: 0.82rem;
-    font-weight: 800;
-    color: var(--primary-dark);
 }
 
 @media (max-width: 640px) {
     .concierge-floating-widget {
-        bottom: 80px;
-        left: 14px;
+        bottom: 74px;
+        left: 16px;
+        right: 16px;
+        width: calc(100% - 32px);
+        max-width: 440px;
+        margin: 0 auto;
     }
-    .concierge-card-popup {
-        width: 290px;
+    .concierge-floating-pill {
+        width: 100%;
     }
 }
 
@@ -3242,5 +3239,60 @@ body.store-catalog-only .btn-header-trash {
     color: var(--accent-coral);
 }
 
+/* ==========================================================================
+   Botão e Mecânica Diferenciada de Presentes Incríveis & Boxes Comemorativas
+   (Sob Medida Afetivo - Atendimento Consultivo Direto com o Chef Rafael)
+   ========================================================================== */
+.btn-item-personalizar {
+    background: linear-gradient(135deg, #DE493E 0%, #B82E24 100%) !important;
+    border: 1px solid #DE493E !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 3px 12px rgba(222, 73, 62, 0.32) !important;
+    font-weight: 800 !important;
+}
 
+.btn-item-personalizar:hover {
+    background: linear-gradient(135deg, #E85A50 0%, #C9372D 100%) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(222, 73, 62, 0.45) !important;
+}
 
+.modal-gift-exclusive-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #FFF7ED;
+    border: 1.5px solid #FED7AA;
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    color: #9A3412;
+}
+
+.modal-gift-exclusive-box strong {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: #C2410C;
+    margin-bottom: 2px;
+}
+
+.modal-gift-exclusive-box p {
+    font-size: 0.78rem;
+    line-height: 1.4;
+    margin: 0;
+    color: #7C2D12;
+}
+
+.btn-modal-gift-wa {
+    background: linear-gradient(135deg, #25D366 0%, #16A34A 100%) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35) !important;
+    font-weight: 900 !important;
+}
+
+.btn-modal-gift-wa:hover {
+    background: linear-gradient(135deg, #22C55E 0%, #15803D 100%) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.48) !important;
+}

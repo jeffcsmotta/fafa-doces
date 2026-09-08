@@ -911,6 +911,33 @@ window.filterCategory = function(cat) {
     renderProducts();
 };
 
+// Ordenação Curada de Presentes Incríveis (Fotos de Alto Impacto Primeiro: Experiência Fafá, Mini Experiência, Box Cookies)
+function sortPresentes(items) {
+    return [...items].sort((a, b) => {
+        const nameA = (a.name || '').toLowerCase();
+        const nameB = (b.name || '').toLowerCase();
+
+        const isMiniA = nameA.includes('mini');
+        const isMiniB = nameB.includes('mini');
+
+        let rankA = 999;
+        let rankB = 999;
+
+        if (nameA.includes('experi') && !isMiniA) rankA = 1;
+        else if (nameA.includes('experi') && isMiniA) rankA = 2;
+        else if (nameA.includes('box') || nameA.includes('cookie')) rankA = 3;
+
+        if (nameB.includes('experi') && !isMiniB) rankB = 1;
+        else if (nameB.includes('experi') && isMiniB) rankB = 2;
+        else if (nameB.includes('box') || nameB.includes('cookie')) rankB = 3;
+
+        if (rankA !== rankB) {
+            return rankA - rankB;
+        }
+        return (a.name || '').localeCompare(b.name || '');
+    });
+}
+
 // Manipulador da Barra de Busca
 window.handleSearch = function(event) {
     searchQuery = event.target.value.toLowerCase().trim();
@@ -947,6 +974,11 @@ function renderProducts() {
         return matchesCategory && matchesSearch;
     });
 
+    // Se categoria ativa for 'presentes', ordena os cards com foco no apelo visual das fotos
+    if (activeCategory === 'presentes') {
+        filtered = sortPresentes(filtered);
+    }
+
     // Atualiza o Banner de Conceito da Categoria Ativa
     const conceptInfo = CATEGORY_CONCEPTS[activeCategory] || {
         title: 'Cardápio Completo',
@@ -979,6 +1011,7 @@ function renderProducts() {
         const badgeClass = getBadgeClass(badgeLabel);
         const isSoldOut = prod.stock === 0;
         const isPatisserie = prod.category === 'tortas' || (prod.badge && prod.badge.includes('Pâtisserie')) || (prod.group && prod.group.toLowerCase().includes('tortas'));
+        const isGiftItem = prod.category === 'presentes' || (prod.group && prod.group.toLowerCase().includes('presente'));
 
         // Escassez restrita exclusivamente à Pâtisserie do Chef (sem termo "fornada", unidades puras)
         let scarcityHtml = '';
@@ -1020,6 +1053,14 @@ function renderProducts() {
                 <button type="button" class="btn-add-item btn-item-soldout" onclick="window.openProductModal('${prod.id}')" aria-label="${prod.name} esgotado">
                     <i data-lucide="lock" style="width:14px;height:14px;"></i>
                     <span>Esgotado Hoje</span>
+                </button>
+            `;
+        } else if (isGiftItem) {
+            // Presentes Incríveis & Boxes: CTA diferenciado que remete a encomenda afetiva consultiva
+            actionBtn = `
+                <button type="button" class="btn-add-item btn-item-personalizar" onclick="window.openProductModal('${prod.id}')" aria-label="Personalizar ${prod.name}">
+                    <i data-lucide="sparkles" style="width:14px;height:14px;"></i>
+                    <span>Personalizar</span>
                 </button>
             `;
         } else {
@@ -1098,8 +1139,9 @@ function renderProducts() {
 
         let railsHtml = '';
 
-        // Trilho 1: Presentes Incríveis
-        const presentesProds = filtered.filter(p => p.category === 'presentes' || (p.group && p.group.toLowerCase().includes('presente')));
+        // Trilho 1: Presentes Incríveis (Fotos de Alto Impacto em Destaque)
+        let presentesProds = filtered.filter(p => p.category === 'presentes' || (p.group && p.group.toLowerCase().includes('presente')));
+        presentesProds = sortPresentes(presentesProds);
         railsHtml += renderStreamingRail(
             'presentes',
             'presentes',
@@ -1146,6 +1188,7 @@ function renderProducts() {
 
         catalogGrid.innerHTML = railsHtml;
         if (window.lucide) window.lucide.createIcons();
+        initDesktopRailScroll();
         return;
     }
 
@@ -1206,13 +1249,25 @@ window.openProductModal = function(productId) {
     document.getElementById('modal-desc').textContent = product.desc;
     document.getElementById('modal-badge').textContent = product.badge || (product.isFeatured ? '⭐ Destaque' : 'Confeitaria Artesanal');
 
-    // Informação de Disponibilidade da Pâtisserie no Modal (Restrito ao Chef, sem palavra fornada)
+    // Informação de Disponibilidade / Exclusividade no Modal
     const scarcityNoticeEl = document.getElementById('modal-scarcity-notice');
     const isSoldOut = product.stock === 0;
     const isPatisserie = product.category === 'tortas' || (product.badge && product.badge.includes('Pâtisserie')) || (product.group && product.group.toLowerCase().includes('tortas'));
+    const isGiftItem = product.category === 'presentes' || (product.group && product.group.toLowerCase().includes('presente'));
 
     if (scarcityNoticeEl) {
-        if (isPatisserie && product.stock !== undefined && product.stock !== null) {
+        if (isGiftItem) {
+            scarcityNoticeEl.innerHTML = `
+                <div class="modal-gift-exclusive-box">
+                    <i data-lucide="gift" style="width:18px;height:18px;color:var(--accent-coral);flex-shrink:0;"></i>
+                    <div class="gift-exclusive-text">
+                        <strong>Presente Artesanal Sob Medida</strong>
+                        <p>Produção sob encomenda afetiva com atendimento consultivo direto do Chef Rafael Franzosi para agendamento de data e dedicatória exclusiva.</p>
+                    </div>
+                </div>
+            `;
+            scarcityNoticeEl.style.display = 'block';
+        } else if (isPatisserie && product.stock !== undefined && product.stock !== null) {
             if (product.stock > 3) {
                 scarcityNoticeEl.innerHTML = `
                     <div class="modal-scarcity-box">
@@ -1293,18 +1348,29 @@ window.openProductModal = function(productId) {
     const addBtn = document.getElementById('modal-add-btn');
     if (addBtn) {
         if (isCatalogOnly) {
+            addBtn.className = 'btn-confirm-add';
             addBtn.innerHTML = `
                 <i data-lucide="message-circle" style="width:17px;height:17px;"></i>
                 <span>Consultar no WhatsApp</span>
             `;
             addBtn.onclick = () => window.consultProductOnWhatsApp(product.id);
         } else if (isSoldOut) {
+            addBtn.className = 'btn-confirm-add btn-item-soldout';
             addBtn.innerHTML = `
                 <i data-lucide="message-circle" style="width:17px;height:17px;"></i>
                 <span>Encomendar no WhatsApp</span>
             `;
             addBtn.onclick = () => window.consultProductOnWhatsApp(product.id);
+        } else if (isGiftItem) {
+            // Presentes Incríveis não vão para o carrinho comum: atendimento consultivo no WhatsApp
+            addBtn.className = 'btn-confirm-add btn-modal-gift-wa';
+            addBtn.innerHTML = `
+                <i data-lucide="message-circle" style="width:18px;height:18px;"></i>
+                <span>Personalizar com Concierge no WhatsApp</span>
+            `;
+            addBtn.onclick = () => window.orderGiftOnWhatsApp(product.id);
         } else {
+            addBtn.className = 'btn-confirm-add';
             addBtn.innerHTML = `
                 <span>Adicionar ao Pedido</span> 
                 <strong class="modal-price-pill">${formatCurrency(product.price)}</strong>
@@ -1348,19 +1414,74 @@ function updateModalTotal() {
 
     const storeConfig = getStoreConfig();
     const isCatalogOnly = storeConfig.mode === 'catalog';
+    const isGiftItem = currentModalProduct && (currentModalProduct.category === 'presentes' || (currentModalProduct.group && currentModalProduct.group.toLowerCase().includes('presente')));
     const totalBtn = document.getElementById('modal-add-btn');
 
     if (totalBtn) {
         if (isCatalogOnly) {
+            totalBtn.className = 'btn-confirm-add';
             totalBtn.innerHTML = `
                 <i data-lucide="message-circle" style="width:17px;height:17px;"></i>
                 <span>Consultar no WhatsApp</span>
             `;
+            totalBtn.onclick = () => window.consultProductOnWhatsApp(currentModalProduct.id);
+        } else if (isGiftItem) {
+            totalBtn.className = 'btn-confirm-add btn-modal-gift-wa';
+            totalBtn.innerHTML = `
+                <i data-lucide="sparkles" style="width:17px;height:17px;"></i>
+                <span>Personalizar no WhatsApp • ${formatCurrency(total)}</span>
+            `;
+            totalBtn.onclick = () => window.orderGiftOnWhatsApp(currentModalProduct.id);
         } else {
+            totalBtn.className = 'btn-confirm-add';
             totalBtn.innerHTML = `<span>Adicionar ao Pedido</span> <strong class="modal-price-pill">${formatCurrency(total)}</strong>`;
+            totalBtn.onclick = window.confirmAddModalToCart;
         }
     }
 }
+
+// Atendimento Consultivo Direto com o Concierge para Presentes e Cestas Especiais
+window.orderGiftOnWhatsApp = function(productId) {
+    const allProducts = getLiveProducts();
+    const product = allProducts.find(p => p.id === productId);
+    if (!product) return;
+
+    const qty = parseInt(document.getElementById('modal-qty')?.textContent) || 1;
+    const obs = (document.getElementById('modal-obs')?.value || '').trim();
+
+    // Coleta mimos e adicionais especiais marcados
+    const selectedAddons = [];
+    document.querySelectorAll('.modal-addon-chk:checked').forEach(chk => {
+        selectedAddons.push({
+            name: chk.dataset.name,
+            price: parseFloat(chk.dataset.price) || 0
+        });
+    });
+    const addonsTotal = selectedAddons.reduce((sum, a) => sum + a.price, 0);
+    const unitPrice = product.price + addonsTotal;
+    const total = unitPrice * qty;
+
+    let msg = `Olá Chef Rafael Franzosi e equipe Fafá! 👋✨\n\nGostaria de encomendar e personalizar este presente do catálogo:\n\n`;
+    msg += `🎁 *${product.name}*\n`;
+    msg += `💰 *Valor Estimado:* ${formatCurrency(total)} (${qty > 1 ? qty + 'x ' + formatCurrency(unitPrice) : formatCurrency(unitPrice)})\n`;
+
+    if (selectedAddons.length > 0) {
+        msg += `\n✨ *Mimos & Adicionais Selecionados:*\n`;
+        selectedAddons.forEach(a => {
+            msg += ` • ${a.name} (+${formatCurrency(a.price)})\n`;
+        });
+    }
+
+    if (obs) {
+        msg += `\n💌 *Dedicatória para o Cartão / Ocasião:*\n"${obs}"\n`;
+    }
+
+    msg += `\n🗓️ Gostaria de agendar a data de entrega/retirada e tirar dúvidas sobre a personalização!`;
+
+    const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+    closeProductModal();
+};
 
 // Consulta Direta no WhatsApp no Modo Catálogo
 window.consultProductOnWhatsApp = function(productId) {
@@ -1450,7 +1571,8 @@ window.confirmAddModalToCart = function() {
 window.scrollRail = function(railId, offset) {
     const track = document.getElementById('rail-' + railId);
     if (track) {
-        track.scrollBy({ left: offset, behavior: 'smooth' });
+        const scrollAmount = offset || (window.innerWidth > 768 ? 480 : 300);
+        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
 };
 
@@ -1831,7 +1953,8 @@ window.submitOrderToWhatsApp = function() {
 function initProposalFloatingWidget() {
     const ctaWidget = document.getElementById('onira-floating-cta');
     const cartBar = document.getElementById('cart-floating-bar');
-    if (!ctaWidget && !cartBar) return;
+    const conciergeWidget = document.getElementById('concierge-widget');
+    if (!ctaWidget && !cartBar && !conciergeWidget) return;
 
     let lastScrollY = window.scrollY;
     let scrollTimeout = null;
@@ -1843,22 +1966,26 @@ function initProposalFloatingWidget() {
         // Leve efeito de opacidade em movimento ativo
         if (ctaWidget) ctaWidget.classList.add('scrolling-active');
         if (cartBar) cartBar.classList.add('scrolling-active');
+        if (conciergeWidget) conciergeWidget.classList.add('scrolling-active');
 
-        // Rolando para baixo: recolhe ambos suavemente para dar visibilidade total aos doces
+        // Rolando para baixo: recolhe suavemente para dar visibilidade total aos doces
         if (scrollDelta > 10 && currentScrollY > 100) {
             if (ctaWidget) ctaWidget.classList.add('scroll-hidden');
             if (cartBar) cartBar.classList.add('scroll-hidden');
+            if (conciergeWidget) conciergeWidget.classList.add('scroll-hidden');
         } 
         // Rolando para cima ou perto do topo: reexibe ambos em bloco
         else if (scrollDelta < -6 || currentScrollY <= 80) {
             if (ctaWidget) ctaWidget.classList.remove('scroll-hidden');
             if (cartBar) cartBar.classList.remove('scroll-hidden');
+            if (conciergeWidget) conciergeWidget.classList.remove('scroll-hidden');
         }
 
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
             if (ctaWidget) ctaWidget.classList.remove('scrolling-active');
             if (cartBar) cartBar.classList.remove('scrolling-active');
+            if (conciergeWidget) conciergeWidget.classList.remove('scrolling-active');
         }, 220);
 
         lastScrollY = currentScrollY;
@@ -1915,13 +2042,12 @@ function showToast(message) {
 // ==========================================================================
 // Concierge Afetivo & Presentes Especiais (Chef Rafael Franzosi)
 // ==========================================================================
-window.toggleConciergeWidget = function(forceCollapse) {
+window.dismissConciergeWidget = function(event) {
+    if (event) event.stopPropagation();
     const widget = document.getElementById('concierge-widget');
-    if (!widget) return;
-    if (typeof forceCollapse === 'boolean') {
-        widget.classList.toggle('is-collapsed', forceCollapse);
-    } else {
-        widget.classList.toggle('is-collapsed');
+    if (widget) {
+        widget.classList.add('widget-dismissed');
+        sessionStorage.setItem('fafa_concierge_dismissed', 'true');
     }
 };
 
@@ -1935,3 +2061,71 @@ window.openConciergeWhatsApp = function() {
     const url = `https://wa.me/${phone}?text=${encoded}`;
     window.open(url, '_blank');
 };
+
+// Ativação de Movimento Fluido com Mouse Drag & Wheel nos Trilhos de Streaming no Desktop
+function initDesktopRailScroll() {
+    const tracks = document.querySelectorAll('.streaming-rail-track');
+    tracks.forEach(track => {
+        if (track.dataset.dragInitialized) return;
+        track.dataset.dragInitialized = 'true';
+
+        let isDown = false;
+        let startX = 0;
+        let scrollLeft = 0;
+        let hasDragged = false;
+
+        track.addEventListener('mousedown', (e) => {
+            if (e.button !== 0) return;
+            isDown = true;
+            hasDragged = false;
+            track.classList.add('is-dragging');
+            startX = e.pageX - track.offsetLeft;
+            scrollLeft = track.scrollLeft;
+        });
+
+        track.addEventListener('mouseleave', () => {
+            if (isDown) {
+                isDown = false;
+                track.classList.remove('is-dragging');
+            }
+        });
+
+        track.addEventListener('mouseup', () => {
+            if (isDown) {
+                isDown = false;
+                track.classList.remove('is-dragging');
+            }
+        });
+
+        track.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - track.offsetLeft;
+            const walk = (x - startX) * 1.8;
+            if (Math.abs(walk) > 6) {
+                hasDragged = true;
+            }
+            track.scrollLeft = scrollLeft - walk;
+        });
+
+        // Previne clique involuntário nos cards ao soltar o arrasto do mouse
+        track.addEventListener('click', (e) => {
+            if (hasDragged) {
+                e.preventDefault();
+                e.stopPropagation();
+                hasDragged = false;
+            }
+        }, true);
+
+        // Traduz o rolamento vertical do scroll do mouse para rolamento horizontal fluido
+        track.addEventListener('wheel', (e) => {
+            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                e.preventDefault();
+                track.scrollBy({
+                    left: e.deltaY * 1.6,
+                    behavior: 'smooth'
+                });
+            }
+        }, { passive: false });
+    });
+}

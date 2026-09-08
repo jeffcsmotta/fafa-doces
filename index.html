@@ -579,40 +579,24 @@
         </div>
     </a>
 
-    <!-- Widget Flutuante do Concierge Afetivo (Chef Rafael Franzosi) -->
+    <!-- Widget Flutuante do Concierge Afetivo (Chef Rafael Franzosi - Estilo Cápsula Onira) -->
     <aside class="concierge-floating-widget" id="concierge-widget" aria-label="Concierge Especializado Fafá">
-        <!-- Popup do Concierge (Expandido) -->
-        <div class="concierge-card-popup" id="concierge-popup">
-            <div class="concierge-popup-header">
-                <div class="concierge-avatar-row">
-                    <div class="concierge-avatar-wrap">
-                        <img src="assets/fafa_founders.jpg" alt="Chef Rafael Franzosi - Concierge Fafá" class="concierge-avatar-img">
-                        <span class="concierge-online-dot" title="Concierge disponível agora"></span>
-                    </div>
-                    <div class="concierge-info-col">
-                        <h4 class="concierge-info-name">Chef Rafael Franzosi</h4>
-                        <span class="concierge-info-role"><i data-lucide="sparkles" style="width:12px;height:12px;"></i> Concierge de Presentes</span>
-                    </div>
-                </div>
-                <button type="button" class="btn-concierge-minimize" onclick="window.toggleConciergeWidget(true)" aria-label="Minimizar Concierge" title="Minimizar">
-                    <i data-lucide="minus" style="width:16px;height:16px;"></i>
-                </button>
+        <div class="concierge-floating-pill" onclick="window.openConciergeWhatsApp()" role="button" tabindex="0" title="Falar com o Chef Rafael Franzosi no WhatsApp">
+            <div class="concierge-pill-avatar-wrap">
+                <img src="assets/fafa_founders.jpg" alt="Chef Rafael Franzosi" class="concierge-pill-avatar">
+                <span class="concierge-online-dot" title="Concierge disponível agora"></span>
             </div>
-            <p class="concierge-popup-copy">
-                "Se o momento for especial, chame nosso time. Nossa equipe sabe exatamente como lhe ajudar a escolher a composição perfeita."
-            </p>
-            <button type="button" class="btn-concierge-talk" onclick="window.openConciergeWhatsApp()">
-                <i data-lucide="message-circle" style="width:16px;height:16px;"></i>
-                <span>Chamar Nosso Time no WhatsApp</span>
+            <div class="concierge-pill-text-col">
+                <span class="concierge-pill-hook">Momento especial? Fale com o Chef Rafael</span>
+                <span class="concierge-pill-call">
+                    <span class="concierge-pill-sub">Nosso time sabe exatamente como te ajudar</span>
+                    <span class="concierge-pill-arrow">&rarr;</span>
+                </span>
+            </div>
+            <button type="button" class="btn-concierge-pill-dismiss" onclick="window.dismissConciergeWidget(event)" title="Dispensar aviso temporariamente" aria-label="Fechar widget">
+                <i data-lucide="x" style="width:14px;height:14px;"></i>
             </button>
         </div>
-
-        <!-- Pílula Discreta de Ativação (Quando Colapsado) -->
-        <button type="button" class="concierge-trigger-pill" id="concierge-pill-trigger" onclick="window.toggleConciergeWidget(false)" title="Falar com o Concierge Fafá">
-            <img src="assets/fafa_founders.jpg" alt="Chef Rafael Franzosi" class="concierge-pill-avatar">
-            <span class="concierge-pill-text">Concierge Fafá</span>
-            <i data-lucide="sparkles" style="width:14px;height:14px;color:var(--accent-coral);"></i>
-        </button>
     </aside>
 
     <!-- Scripts -->
