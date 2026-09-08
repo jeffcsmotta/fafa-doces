@@ -110,41 +110,17 @@
         </div>
     </section>
 
-    <!-- Seção de Concierge Afetivo & Encomendas de Ocasião -->
-    <section class="concierge-highlight-section" id="concierge-section">
-        <div class="container">
-            <div class="concierge-card">
-                <div class="concierge-badge-pill">
-                    <i data-lucide="sparkles" style="width:14px;height:14px;color:#D84A5B;"></i>
-                    <span>Concierge Fafá • Ocasiões Especiais</span>
-                </div>
-                <div class="concierge-content-grid">
-                    <div class="concierge-text-col">
-                        <h2 class="concierge-title">Presenteie com afeto, elegância e curadoria artesanal.</h2>
-                        <p class="concierge-desc">
-                            Cestas de café da manhã premiadas, platters e presentes personalizados não são produtos de entrega rápida: são experiências feitas sob medida. Fale com nosso Concierge no WhatsApp para planejar sua surpresa ou agendar com antecedência.
-                        </p>
-                        <div class="concierge-features-row">
-                            <span class="c-feat"><i data-lucide="gift" style="width:14px;height:14px;"></i> Personalizado &amp; Exclusivo</span>
-                            <span class="c-feat"><i data-lucide="calendar" style="width:14px;height:14px;"></i> Entrega Programada com Prazo</span>
-                            <span class="c-feat"><i data-lucide="store" style="width:14px;height:14px;"></i> Retirada Recomendada no Balcão</span>
-                        </div>
-                    </div>
-                    <div class="concierge-action-col">
-                        <a href="https://wa.me/555432011633?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20o%20Concierge%20Faf%C3%A1%20para%20planejar%20uma%20ocasi%C3%A3o%20especial%20sob%20encomenda." target="_blank" class="btn-concierge-cta" aria-label="Falar com o Concierge no WhatsApp">
-                            <i data-lucide="message-circle" style="width:18px;height:18px;"></i>
-                            <span>Falar com o Concierge</span>
-                        </a>
-                        <span class="concierge-subtext">Atendimento direto e humano no WhatsApp</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Main Content: Conceito, Grid de Produtos & Dica da Casa no Final -->
     <main class="catalog-section">
         <div class="container">
+
+            <!-- Botão de Retorno ao Modo Trilhos Streaming (Exibido somente quando categoria ou busca ativa) -->
+            <div id="back-to-rails-wrap" style="display: none;">
+                <button type="button" class="btn-back-to-rails" onclick="window.filterCategory('todos')">
+                    <i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
+                    <span>Voltar para todos os trilhos (Modo Streaming)</span>
+                </button>
+            </div>
 
             <!-- Banner de Atmosfera Compacto da Categoria Ativa -->
             <div class="category-concept-banner" id="category-concept-banner">
@@ -153,7 +129,7 @@
                     <span class="catalog-count-pill" id="products-count-badge">45 opções artesanais</span>
                 </div>
                 <p class="concept-desc" id="category-concept-desc">
-                    Cardápio artesanal da Fafa Doces Presentes para entrega rápida ou retirada.
+                    Navegue pelos trilhos exclusivos da nossa vitrine: presentes afetivos, pâtisserie do chef, pronta-entrega para hoje e congelados para assar em casa.
                 </p>
             </div>
 
@@ -602,6 +578,42 @@
             </span>
         </div>
     </a>
+
+    <!-- Widget Flutuante do Concierge Afetivo (Chef Rafael Franzosi) -->
+    <aside class="concierge-floating-widget" id="concierge-widget" aria-label="Concierge Especializado Fafá">
+        <!-- Popup do Concierge (Expandido) -->
+        <div class="concierge-card-popup" id="concierge-popup">
+            <div class="concierge-popup-header">
+                <div class="concierge-avatar-row">
+                    <div class="concierge-avatar-wrap">
+                        <img src="assets/fafa_founders.jpg" alt="Chef Rafael Franzosi - Concierge Fafá" class="concierge-avatar-img">
+                        <span class="concierge-online-dot" title="Concierge disponível agora"></span>
+                    </div>
+                    <div class="concierge-info-col">
+                        <h4 class="concierge-info-name">Chef Rafael Franzosi</h4>
+                        <span class="concierge-info-role"><i data-lucide="sparkles" style="width:12px;height:12px;"></i> Concierge de Presentes</span>
+                    </div>
+                </div>
+                <button type="button" class="btn-concierge-minimize" onclick="window.toggleConciergeWidget(true)" aria-label="Minimizar Concierge" title="Minimizar">
+                    <i data-lucide="minus" style="width:16px;height:16px;"></i>
+                </button>
+            </div>
+            <p class="concierge-popup-copy">
+                Atendimento especializado em grandes momentos. Montamos caixas afetivas e presentes sob medida para aniversários, maternidade, bodas e corporativos.
+            </p>
+            <button type="button" class="btn-concierge-talk" onclick="window.openConciergeWhatsApp()">
+                <i data-lucide="message-circle" style="width:16px;height:16px;"></i>
+                <span>Falar com o Concierge</span>
+            </button>
+        </div>
+
+        <!-- Pílula Discreta de Ativação (Quando Colapsado) -->
+        <button type="button" class="concierge-trigger-pill" id="concierge-pill-trigger" onclick="window.toggleConciergeWidget(false)" title="Falar com o Concierge Fafá">
+            <img src="assets/fafa_founders.jpg" alt="Chef Rafael Franzosi" class="concierge-pill-avatar">
+            <span class="concierge-pill-text">Concierge Fafá</span>
+            <i data-lucide="sparkles" style="width:14px;height:14px;color:var(--accent-coral);"></i>
+        </button>
+    </aside>
 
     <!-- Scripts -->
     <script src="app.js"></script>

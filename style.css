@@ -2626,8 +2626,16 @@ body.store-catalog-only .btn-header-trash {
 /* ==========================================================================
    Design Estilo Streaming / App de Filmes (Trilhos Horizontais de Categorias)
    ========================================================================== */
+.streaming-rails-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+}
+
 .streaming-rail-section {
-    margin-bottom: 36px;
+    width: 100%;
+    margin-bottom: 0;
     position: relative;
 }
 
@@ -2638,6 +2646,7 @@ body.store-catalog-only .btn-header-trash {
     margin-bottom: 14px;
     padding: 0 4px;
     gap: 16px;
+    flex-wrap: wrap;
 }
 
 .rail-header-text {
@@ -2650,6 +2659,7 @@ body.store-catalog-only .btn-header-trash {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .rail-icon {
@@ -2689,8 +2699,33 @@ body.store-catalog-only .btn-header-trash {
 .rail-nav-controls {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     flex-shrink: 0;
+}
+
+.btn-rail-view-grid {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(160, 106, 59, 0.08);
+    color: var(--primary-dark);
+    border: 1px solid rgba(160, 106, 59, 0.22);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 7px 14px;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.btn-rail-view-grid:hover {
+    background: var(--primary);
+    color: #FFFFFF;
+    border-color: var(--primary);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(54, 12, 20, 0.15);
 }
 
 .btn-rail-nav {
@@ -2747,6 +2782,7 @@ body.store-catalog-only .btn-header-trash {
 /* Card Individual dentro do Trilho */
 .streaming-rail-track .menu-card {
     flex: 0 0 280px;
+    width: 280px;
     max-width: 280px;
     scroll-snap-align: start;
     display: flex;
@@ -2760,87 +2796,232 @@ body.store-catalog-only .btn-header-trash {
     box-shadow: 0 10px 24px rgba(54, 12, 20, 0.12);
 }
 
-/* Card Spotlight de Destaque no Trilho de Presentes (Concierge Afetivo) */
-.concierge-spotlight-card {
-    flex: 0 0 300px;
-    max-width: 300px;
-    scroll-snap-align: start;
-    background: linear-gradient(145deg, #360C14 0%, #1A050A 100%);
-    color: #FFFFFF;
-    border-radius: var(--radius-lg);
-    padding: 24px 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 1px solid rgba(238, 82, 68, 0.35);
-    box-shadow: 0 8px 24px rgba(54, 12, 20, 0.25);
-    position: relative;
-    overflow: hidden;
-}
-
-.concierge-spotlight-card::before {
-    content: '';
-    position: absolute;
-    top: -50px;
-    right: -50px;
-    width: 140px;
-    height: 140px;
-    background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-}
-
-.spotlight-tag {
+/* Botão de Retorno dos Trilhos para Modo Grade */
+.btn-back-to-rails {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    background: rgba(245, 158, 11, 0.18);
-    border: 1px solid rgba(245, 158, 11, 0.4);
-    color: #FBBF24;
-    padding: 4px 10px;
+    gap: 8px;
+    background: #FFFFFF;
+    color: var(--primary-dark);
+    border: 1.5px solid var(--accent-caramel);
+    padding: 8px 18px;
     border-radius: var(--radius-pill);
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.6px;
-    margin-bottom: 12px;
-}
-
-.spotlight-title {
-    font-family: var(--font-body);
-    font-size: 1.22rem;
-    font-weight: 800;
-    color: #FFFFFF;
-    line-height: 1.3;
-    margin-bottom: 8px;
-}
-
-.spotlight-desc {
-    font-size: 0.82rem;
-    color: #E2D1C5;
-    line-height: 1.45;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
     margin-bottom: 20px;
 }
 
-.btn-spotlight-wa {
-    display: inline-flex;
+.btn-back-to-rails:hover {
+    background: var(--accent-caramel);
+    color: #FFFFFF;
+    transform: translateX(-3px);
+}
+
+/* ==========================================================================
+   Widget Flutuante do Concierge Afetivo (Chef Rafael Franzosi)
+   ========================================================================== */
+.concierge-floating-widget {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 990;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: var(--font-body);
+}
+
+.concierge-floating-widget.widget-cart-hidden {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateY(24px) scale(0.9) !important;
+}
+
+.concierge-card-popup {
+    background: #FFFFFF;
+    border: 1.5px solid rgba(160, 106, 59, 0.25);
+    border-radius: 20px;
+    box-shadow: 0 16px 40px rgba(54, 12, 20, 0.18);
+    padding: 16px 18px;
+    width: 320px;
+    max-width: calc(100vw - 48px);
+    margin-bottom: 10px;
+    position: relative;
+    transform-origin: bottom left;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.concierge-floating-widget.is-collapsed .concierge-card-popup {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.85) translateY(12px);
+    display: none;
+}
+
+.concierge-popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.concierge-avatar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.concierge-avatar-wrap {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-coral);
+    overflow: visible;
+    flex-shrink: 0;
+}
+
+.concierge-avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 72% 18%; /* Foco no rosto do Chef Rafael */
+}
+
+.concierge-online-dot {
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    width: 12px;
+    height: 12px;
+    background: #10B981;
+    border: 2px solid #FFFFFF;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+}
+
+.concierge-info-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.concierge-info-name {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+    margin: 0;
+}
+
+.concierge-info-role {
+    font-size: 0.72rem;
+    color: var(--accent-caramel);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-concierge-minimize {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.btn-concierge-minimize:hover {
+    background: rgba(0, 0, 0, 0.06);
+    color: var(--primary-dark);
+}
+
+.concierge-popup-copy {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: #4B4545;
+    margin: 0 0 12px 0;
+}
+
+.btn-concierge-talk {
+    width: 100%;
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     background: #25D366;
-    color: #0B0B0C;
-    padding: 10px 16px;
-    border-radius: var(--radius-pill);
+    color: #FFFFFF;
     font-weight: 800;
-    font-size: 0.84rem;
+    font-size: 0.82rem;
+    padding: 10px 14px;
+    border-radius: var(--radius-pill);
     text-decoration: none;
-    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
     transition: all 0.2s ease;
 }
 
-.btn-spotlight-wa:hover {
-    background: #20BA5A;
-    transform: translateY(-2px);
-    color: #0B0B0C;
+.btn-concierge-talk:hover {
+    background: #1EBE5D;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4);
+}
+
+.concierge-trigger-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #FFFFFF;
+    border: 1.5px solid rgba(160, 106, 59, 0.35);
+    border-radius: var(--radius-pill);
+    padding: 6px 14px 6px 6px;
+    box-shadow: 0 6px 20px rgba(54, 12, 20, 0.12);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.concierge-trigger-pill:hover {
+    transform: scale(1.04);
+    box-shadow: 0 8px 24px rgba(54, 12, 20, 0.18);
+    border-color: var(--accent-coral);
+}
+
+.concierge-floating-widget:not(.is-collapsed) .concierge-trigger-pill {
+    display: none;
+}
+
+.concierge-pill-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 72% 18%;
+    border: 1.5px solid var(--accent-coral);
+}
+
+.concierge-pill-text {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+}
+
+@media (max-width: 640px) {
+    .concierge-floating-widget {
+        bottom: 80px;
+        left: 14px;
+    }
+    .concierge-card-popup {
+        width: 290px;
+    }
 }
 
 /* ==========================================================================

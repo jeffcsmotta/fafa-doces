@@ -607,10 +607,20 @@ function getStoreConfig() {
     try {
         const saved = localStorage.getItem('fafa_store_config');
         if (saved) {
-            return JSON.parse(saved);
+            const parsed = JSON.parse(saved);
+            return {
+                mode: 'delivery',
+                scarcityLabel: 'Fornada',
+                conciergePhone: '5554996862169',
+                ...parsed
+            };
         }
     } catch (e) {}
-    return { mode: 'delivery' }; // 'delivery' ou 'catalog'
+    return { 
+        mode: 'delivery',
+        scarcityLabel: 'Fornada',
+        conciergePhone: '5554996862169'
+    };
 }
 
 function applyStoreConfig() {
@@ -969,27 +979,30 @@ function renderProducts() {
         const badgeClass = getBadgeClass(badgeLabel);
         const isSoldOut = prod.stock === 0;
 
+        const scarcityLabel = prod.scarcityLabel || storeConfig.scarcityLabel || 'Fornada';
+        const labelLower = scarcityLabel.toLowerCase();
+
         let scarcityHtml = '';
         if (prod.stock !== undefined && prod.stock !== null) {
             if (prod.stock > 3) {
                 scarcityHtml = `
                     <div class="card-scarcity-badge">
                         <span class="scarcity-pulse"></span>
-                        <span>Restam ${prod.stock} da fornada</span>
+                        <span>Restam ${prod.stock} (${labelLower})</span>
                     </div>
                 `;
             } else if (prod.stock > 0) {
                 scarcityHtml = `
                     <div class="card-scarcity-badge urgent">
                         <i data-lucide="flame" style="width:11px;height:11px;"></i>
-                        <span>Últimas ${prod.stock} unidades!</span>
+                        <span>Últimas ${prod.stock} un. (${labelLower})!</span>
                     </div>
                 `;
             } else {
                 scarcityHtml = `
                     <div class="card-scarcity-badge soldout">
                         <i data-lucide="lock" style="width:11px;height:11px;"></i>
-                        <span>Fornada esgotada hoje</span>
+                        <span>${scarcityLabel} esgotada hoje</span>
                     </div>
                 `;
             }
@@ -1043,7 +1056,7 @@ function renderProducts() {
         `;
     };
 
-    function renderStreamingRail(railId, title, subtitle, iconName, prodsList, isPresentes = false) {
+    function renderStreamingRail(railId, categoryKey, title, subtitle, iconName, prodsList) {
         if (!prodsList || prodsList.length === 0) return '';
         return `
             <section class="streaming-rail-section" id="rail-section-${railId}">
@@ -1057,6 +1070,10 @@ function renderProducts() {
                         <p class="rail-subtitle">${subtitle}</p>
                     </div>
                     <div class="rail-nav-controls">
+                        <button type="button" class="btn-rail-view-grid" onclick="window.filterCategory('${categoryKey}')" title="Ver todos os itens de ${title} em grade">
+                            <span>Ver em Grade</span>
+                            <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
+                        </button>
                         <button type="button" class="btn-rail-nav prev" onclick="window.scrollRail('${railId}', -320)" aria-label="Voltar itens de ${title}">
                             <i data-lucide="chevron-left" style="width:18px;height:18px;"></i>
                         </button>
@@ -1067,53 +1084,41 @@ function renderProducts() {
                 </div>
 
                 <div class="streaming-rail-track" id="rail-${railId}">
-                    ${isPresentes ? `
-                        <!-- Card Spotlight: Concierge Afetivo Personalizado -->
-                        <article class="concierge-spotlight-card">
-                            <div class="concierge-spotlight-content">
-                                <div class="spotlight-tag">
-                                    <i data-lucide="sparkles" style="width:13px;height:13px;"></i>
-                                    <span>COMPOSIÇÃO PERSONALIZADA</span>
-                                </div>
-                                <h3 class="spotlight-title">Cestas & Caixas sob Medida</h3>
-                                <p class="spotlight-desc">Fale diretamente com nossa equipe no WhatsApp. Escolhemos a composição ideal para sua ocasião, cartões dedicatórios e mimos especiais.</p>
-                                <a href="https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent('Olá! Gostaria de falar com a equipe da Fafa para escolher a composição ideal de presentes para uma ocasião especial.')}" target="_blank" rel="noopener noreferrer" class="btn-spotlight-wa">
-                                    <i data-lucide="message-circle" style="width:16px;height:16px;"></i>
-                                    <span>Falar com Nossa Equipe</span>
-                                </a>
-                            </div>
-                        </article>
-                    ` : ''}
                     ${prodsList.map(renderCard).join('')}
                 </div>
             </section>
         `;
     }
 
-    // SE "TODOS OS ITENS" e SEM BUSCA: Renderiza os 4 Trilhos Cinematográficos Estilo Streaming
+    const backWrap = document.getElementById('back-to-rails-wrap');
+
+    // SE "TODOS OS ITENS" e SEM BUSCA: Renderiza os 4 Trilhos Cinematográficos Estilo Streaming (Netflix / Prime)
     if (activeCategory === 'todos' && !searchQuery) {
+        if (backWrap) backWrap.style.display = 'none';
+        catalogGrid.className = 'streaming-rails-container';
+
         let railsHtml = '';
 
         // Trilho 1: Presentes Incríveis
         const presentesProds = filtered.filter(p => p.category === 'presentes' || (p.group && p.group.toLowerCase().includes('presente')));
         railsHtml += renderStreamingRail(
             'presentes',
+            'presentes',
             'Presentes Incríveis & Boxes Comemorativas',
             'Fale diretamente com nossa equipe, vamos escolher a composição ideal para sua ocasião.',
             'gift',
-            presentesProds,
-            true
+            presentesProds
         );
 
         // Trilho 2: Pâtisserie do Chef
         const patisserieProds = filtered.filter(p => p.category === 'tortas' || (p.badge && p.badge.includes('Pâtisserie')) || (p.group && p.group.toLowerCase().includes('tortas')));
         railsHtml += renderStreamingRail(
             'patisserie',
+            'tortas',
             'Pâtisserie do Chef Rafael Franzosi',
             'Criações autorais e doces finos premiados pelo Prêmio Revista Sabores do Sul.',
             'cake',
-            patisserieProds,
-            false
+            patisserieProds
         );
 
         // Trilho 3: Pronta-Entrega & Balcão
@@ -1122,22 +1127,22 @@ function renderProducts() {
         );
         railsHtml += renderStreamingRail(
             'pronta-entrega',
+            'pronta-entrega',
             'Pronta-Entrega & Balcão (Para Hoje)',
             'O que podemos entregar no dia (preferência balcão, ou entrega programada). Cookies assados hoje, quiches, salgados e cafés.',
             'zap',
-            prontaEntregaProds,
-            false
+            prontaEntregaProds
         );
 
         // Trilho 4: Fafá na sua Casa • Congelados
         const congeladosProds = filtered.filter(p => p.category === 'congelados' || (p.group && p.group.toLowerCase().includes('congelados')));
         railsHtml += renderStreamingRail(
             'congelados',
+            'congelados',
             'Fafá na sua Casa • Congelados',
             'Congelados artesanais entregues conforme programação, para assar na sua Air Fryer quando quiser.',
             'snowflake',
-            congeladosProds,
-            false
+            congeladosProds
         );
 
         catalogGrid.innerHTML = railsHtml;
@@ -1145,35 +1150,10 @@ function renderProducts() {
         return;
     }
 
-    // Se busca ativa ou categoria individual selecionada, renderiza o grid ou trilho correspondente
-    if (activeCategory === 'presentes' && !searchQuery) {
-        catalogGrid.innerHTML = `
-            <div class="category-group-grid">
-                <!-- Card Spotlight: Concierge Afetivo Personalizado -->
-                <article class="concierge-spotlight-card" style="max-width:none;width:100%;">
-                    <div class="concierge-spotlight-content">
-                        <div class="spotlight-tag">
-                            <i data-lucide="sparkles" style="width:13px;height:13px;"></i>
-                            <span>COMPOSIÇÃO PERSONALIZADA</span>
-                        </div>
-                        <h3 class="spotlight-title">Cestas &amp; Caixas sob Medida</h3>
-                        <p class="spotlight-desc">Fale diretamente com nossa equipe no WhatsApp. Escolhemos a composição ideal para sua ocasião, cartões dedicatórios e mimos especiais.</p>
-                        <a href="https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent('Olá! Gostaria de falar com a equipe da Fafa para escolher a composição ideal de presentes para uma ocasião especial.')}" target="_blank" rel="noopener noreferrer" class="btn-spotlight-wa">
-                            <i data-lucide="message-circle" style="width:16px;height:16px;"></i>
-                            <span>Falar com Nossa Equipe</span>
-                        </a>
-                    </div>
-                </article>
-                ${filtered.map(renderCard).join('')}
-            </div>
-        `;
-    } else {
-        catalogGrid.innerHTML = `
-            <div class="category-group-grid">
-                ${filtered.map(renderCard).join('')}
-            </div>
-        `;
-    }
+    // Se busca ativa ou categoria individual selecionada: Modo Grade Completa (Grid)
+    if (backWrap) backWrap.style.display = 'block';
+    catalogGrid.className = 'catalog-grid';
+    catalogGrid.innerHTML = filtered.map(renderCard).join('');
 
     if (window.lucide) {
         window.lucide.createIcons();
@@ -1230,13 +1210,16 @@ window.openProductModal = function(productId) {
     // Informação de Escassez da Fornada no Modal
     const scarcityNoticeEl = document.getElementById('modal-scarcity-notice');
     const isSoldOut = product.stock === 0;
+    const scarcityLabel = product.scarcityLabel || storeConfig.scarcityLabel || 'Fornada';
+    const labelLower = scarcityLabel.toLowerCase();
+
     if (scarcityNoticeEl) {
         if (product.stock !== undefined && product.stock !== null) {
             if (product.stock > 3) {
                 scarcityNoticeEl.innerHTML = `
                     <div class="modal-scarcity-box">
                         <span class="scarcity-pulse"></span>
-                        <span>Fornada de hoje: Restam <strong>${product.stock} unidades</strong> disponíveis.</span>
+                        <span>${scarcityLabel} de hoje: Restam <strong>${product.stock} unidades</strong> disponíveis.</span>
                     </div>
                 `;
                 scarcityNoticeEl.style.display = 'block';
@@ -1244,7 +1227,7 @@ window.openProductModal = function(productId) {
                 scarcityNoticeEl.innerHTML = `
                     <div class="modal-scarcity-box urgent">
                         <i data-lucide="flame" style="width:14px;height:14px;"></i>
-                        <span>Últimas <strong>${product.stock} unidades</strong> desta fornada artesanal!</span>
+                        <span>Últimas <strong>${product.stock} unidades</strong> deste ${labelLower} artesanal!</span>
                     </div>
                 `;
                 scarcityNoticeEl.style.display = 'block';
@@ -1252,7 +1235,7 @@ window.openProductModal = function(productId) {
                 scarcityNoticeEl.innerHTML = `
                     <div class="modal-scarcity-box soldout">
                         <i data-lucide="lock" style="width:14px;height:14px;"></i>
-                        <span>🔒 <strong>Fornada de hoje esgotada.</strong> Fale com nossa equipe no WhatsApp para encomendar a próxima fornada fresquinha!</span>
+                        <span>🔒 <strong>${scarcityLabel} de hoje esgotada.</strong> Fale com nossa equipe no WhatsApp para encomendar a próxima fresquinha!</span>
                     </div>
                 `;
                 scarcityNoticeEl.style.display = 'block';
@@ -1320,7 +1303,7 @@ window.openProductModal = function(productId) {
         } else if (isSoldOut) {
             addBtn.innerHTML = `
                 <i data-lucide="message-circle" style="width:17px;height:17px;"></i>
-                <span>Encomendar Próxima Fornada no WhatsApp</span>
+                <span>Encomendar Próximo(a) ${scarcityLabel} no WhatsApp</span>
             `;
             addBtn.onclick = () => window.consultProductOnWhatsApp(product.id);
         } else {
@@ -1686,6 +1669,12 @@ function updateCartUI() {
         }
     }
 
+    // Regra do Concierge Afetivo: Oculta automaticamente quando o 1º item entra no carrinho
+    const conciergeWidget = document.getElementById('concierge-widget');
+    if (conciergeWidget) {
+        conciergeWidget.classList.toggle('widget-cart-hidden', totalItems > 0);
+    }
+
     if (cartItemsContainer) {
         if (cart.length === 0) {
             cartItemsContainer.innerHTML = `
@@ -1924,3 +1913,27 @@ function showToast(message) {
         toast.classList.remove('visible');
     }, 2800);
 }
+
+// ==========================================================================
+// Concierge Afetivo & Presentes Especiais (Chef Rafael Franzosi)
+// ==========================================================================
+window.toggleConciergeWidget = function(forceCollapse) {
+    const widget = document.getElementById('concierge-widget');
+    if (!widget) return;
+    if (typeof forceCollapse === 'boolean') {
+        widget.classList.toggle('is-collapsed', forceCollapse);
+    } else {
+        widget.classList.toggle('is-collapsed');
+    }
+};
+
+window.openConciergeWhatsApp = function() {
+    const storeConfig = getStoreConfig();
+    const phone = storeConfig.conciergePhone || storeConfig.phone || WHATSAPP_PHONE || '555432011633';
+
+    const msg = `Olá, Chef Rafael e equipe Fafá Doces Presentes! 👋✨\n\nEstou na vitrine digital oficial (fafadoces.com.br) e gostaria do atendimento do *Concierge Especializado* para planejar uma ocasião memorável sob medida:\n\n✨ *Ocasião Especial:* [Ex: Aniversário, Bodas, Maternidade, Presente Corporativo, Agradecimento Especial]\n📅 *Data / Prazo que preciso:* \n👥 *Estimativa de pessoas ou caixas:* \n💡 *Preferências ou restrições:* \n\nVocês poderiam me orientar com sugestões personalizadas do Chef para esta data?`;
+
+    const encoded = encodeURIComponent(msg);
+    const url = `https://wa.me/${phone}?text=${encoded}`;
+    window.open(url, '_blank');
+};

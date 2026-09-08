@@ -273,21 +273,31 @@
                 </div>
 
                 <div class="form-row" style="margin-top: 14px;">
-                    <div class="form-group" style="width: 100%;">
+                    <div class="form-group" style="flex:1;">
                         <label for="form-prod-stock" style="font-size:0.85rem;font-weight:700;color:var(--text-dark);display:flex;align-items:center;gap:6px;">
                             <i data-lucide="flame" style="width:16px;height:16px;color:var(--accent-coral);"></i>
-                            <span>Estoque da Fornada de Hoje (Unidades):</span>
+                            <span>Estoque do Lote / Fornada:</span>
                         </label>
                         <div style="display:flex;align-items:center;gap:12px;margin-top:6px;">
                             <input type="number" id="form-prod-stock" min="0" step="1" placeholder="Ex: 5" class="form-input" style="max-width:110px;font-weight:700;">
                             <label class="custom-checkbox-label" style="font-size:0.82rem;margin:0;">
                                 <input type="checkbox" id="form-prod-unlimited-stock" onchange="window.toggleUnlimitedStock(this.checked)">
                                 <span class="checkbox-box"></span>
-                                <span class="checkbox-text">Sem limite / Sob encomenda</span>
+                                <span class="checkbox-text">Sem limite / Encomenda</span>
                             </label>
                         </div>
                         <small style="font-size:0.75rem;color:var(--text-muted);display:block;margin-top:4px;">
-                            Gatilho de escassez artesanal: exibe no cardápio ("Restam X da fornada de hoje") instigando a compra imediata antes que esgote.
+                            Gatilho de escassez artesanal exibido no cardápio ("Restam X").
+                        </small>
+                    </div>
+                    <div class="form-group" style="flex:1;">
+                        <label for="form-prod-scarcity-label" style="font-size:0.85rem;font-weight:700;color:var(--text-dark);display:flex;align-items:center;gap:6px;">
+                            <i data-lucide="tag" style="width:15px;height:15px;color:var(--accent-caramel);"></i>
+                            <span>Rótulo deste Doce:</span>
+                        </label>
+                        <input type="text" id="form-prod-scarcity-label" class="form-input" placeholder="Padrão da loja (ex: Fornada, Lote)" style="margin-top:6px;">
+                        <small style="font-size:0.75rem;color:var(--text-muted);display:block;margin-top:4px;">
+                            Deixe vazio para herdar o rótulo padrão da loja.
                         </small>
                     </div>
                 </div>
@@ -438,6 +448,30 @@
                             </div>
                         </div>
                     </label>
+                </div>
+
+                <div class="store-config-extra" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label for="store-scarcity-label" style="font-size:0.85rem;font-weight:700;color:var(--text-dark);display:flex;align-items:center;gap:6px;">
+                            <i data-lucide="flame" style="width:15px;height:15px;color:var(--accent-coral);"></i>
+                            <span>Rótulo Padrão de Escassez da Loja:</span>
+                        </label>
+                        <input type="text" id="store-scarcity-label" class="form-input" placeholder="Ex: Fornada, Lote, Produção do Dia, Edição Limitada" style="margin-top:4px;">
+                        <small style="font-size:0.75rem;color:var(--text-muted);display:block;margin-top:2px;">
+                            Termo que aparece nos cards e no aviso de estoque ("Restam X da fornada / lote").
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="store-concierge-phone" style="font-size:0.85rem;font-weight:700;color:var(--text-dark);display:flex;align-items:center;gap:6px;">
+                            <i data-lucide="sparkles" style="width:15px;height:15px;color:#D97706;"></i>
+                            <span>WhatsApp do Concierge de Presentes (2ª Conta / Atendimento VIP):</span>
+                        </label>
+                        <input type="text" id="store-concierge-phone" class="form-input" placeholder="Ex: 5554996862169 (ou deixe vazio para usar o padrão)" style="margin-top:4px;">
+                        <small style="font-size:0.75rem;color:var(--text-muted);display:block;margin-top:2px;">
+                            Segmenta as mensagens do Concierge de Presentes para outro número de WhatsApp.
+                        </small>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

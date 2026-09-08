@@ -383,11 +383,20 @@ window.openStoreConfigModal = function() {
     const config = getStoreConfig();
     const optDelivery = document.getElementById('mode-opt-delivery');
     const optCatalog = document.getElementById('mode-opt-catalog');
+    const scarcityInput = document.getElementById('store-scarcity-label');
+    const conciergePhoneInput = document.getElementById('store-concierge-phone');
 
     if (config.mode === 'catalog') {
         if (optCatalog) optCatalog.checked = true;
     } else {
         if (optDelivery) optDelivery.checked = true;
+    }
+
+    if (scarcityInput) {
+        scarcityInput.value = config.scarcityLabel || 'Fornada';
+    }
+    if (conciergePhoneInput) {
+        conciergePhoneInput.value = config.conciergePhone || '5554996862169';
     }
 
     window.updateStoreModeUI();
@@ -424,13 +433,16 @@ window.updateStoreModeUI = function() {
 window.saveStoreConfig = function() {
     const isCatalog = document.getElementById('mode-opt-catalog')?.checked;
     const mode = isCatalog ? 'catalog' : 'delivery';
+    const scarcityLabel = (document.getElementById('store-scarcity-label')?.value || '').trim() || 'Fornada';
+    const conciergePhone = (document.getElementById('store-concierge-phone')?.value || '').replace(/\D/g, '').trim() || '5554996862169';
 
-    const newConfig = { mode };
+    const newConfig = { mode, scarcityLabel, conciergePhone };
     localStorage.setItem('fafa_store_config', JSON.stringify(newConfig));
     window.dispatchEvent(new Event('fafa_store_config_updated'));
 
     closeStoreConfigModal();
-    showAdminToast(`✓ Modo da loja atualizado para: ${mode === 'catalog' ? 'Catálogo Digital (Vitrine)' : 'Cardápio com Pedidos'}`);
+    showAdminToast(`✓ Configurações salvas (Rótulo de escassez: "${scarcityLabel}").`);
+    renderProductList();
 };
 
 // ==========================================================================
@@ -592,12 +604,14 @@ function renderProductList() {
     }
 
     const isAdmin = currentUserRole === 'admin';
+    const storeCfg = getStoreConfig();
 
     listContainer.innerHTML = filtered.map(prod => {
         const isVisible = prod.visible !== false;
         const priceFormatted = formatMoney(prod.price);
         const cardClass = isVisible ? 'admin-item-card' : 'admin-item-card is-paused';
         const isFeatured = prod.isFeatured === true || prod.destaque === true;
+        const itemScarcity = prod.scarcityLabel || storeCfg.scarcityLabel || 'Fornada';
 
         return `
             <article class="${cardClass}" id="card-prod-${prod.id}">
@@ -620,15 +634,15 @@ function renderProductList() {
                 <!-- Bloco de Ações do Dono/Operador -->
                 <div class="item-actions-block">
                     <!-- Controle Rápido de Fornada (Escassez) -->
-                    <div class="batch-stock-control" title="Estoque da fornada de hoje (escassez artesanal)">
-                        <span class="stock-label"><i data-lucide="flame" style="width:12px;height:12px;color:var(--accent-coral);"></i> Fornada:</span>
+                    <div class="batch-stock-control" title="Estoque de ${itemScarcity} (escassez artesanal)">
+                        <span class="stock-label"><i data-lucide="flame" style="width:12px;height:12px;color:var(--accent-coral);"></i> ${itemScarcity}:</span>
                         <button type="button" class="btn-stock-adjust" onclick="window.adjustBatchStock('${prod.id}', -1)" title="Diminuir 1">-</button>
                         <span class="stock-value-badge ${prod.stock === 0 ? 'stock-zero' : (prod.stock !== null && prod.stock !== undefined ? 'has-stock' : 'unlimited')}">
                             ${prod.stock !== null && prod.stock !== undefined ? prod.stock : '∞'}
                         </span>
                         <button type="button" class="btn-stock-adjust" onclick="window.adjustBatchStock('${prod.id}', 1)" title="Aumentar 1">+</button>
                         ${prod.stock !== 0 && prod.stock !== null && prod.stock !== undefined ? `
-                            <button type="button" class="btn-stock-zero" onclick="window.setZeroBatchStock('${prod.id}')" title="Esgotar fornada">0</button>
+                            <button type="button" class="btn-stock-zero" onclick="window.setZeroBatchStock('${prod.id}')" title="Esgotar ${itemScarcity.toLowerCase()}">0</button>
                         ` : ''}
                     </div>
 
@@ -867,15 +881,17 @@ window.openProductModal = function(id = null) {
         const previewImg = document.getElementById('form-prod-preview-img');
         if (previewImg) previewImg.src = prod.img || 'assets/logo_fafa_oficial.png';
 
-        // Carrega estoque da fornada
+        // Carrega estoque da fornada e rótulo customizado
         const stockInput = document.getElementById('form-prod-stock');
         const unlimitedChk = document.getElementById('form-prod-unlimited-stock');
+        const scarcityLabelInput = document.getElementById('form-prod-scarcity-label');
         const hasStock = prod.stock !== undefined && prod.stock !== null;
         if (stockInput) {
             stockInput.value = hasStock ? prod.stock : '';
             stockInput.disabled = !hasStock;
         }
         if (unlimitedChk) unlimitedChk.checked = !hasStock;
+        if (scarcityLabelInput) scarcityLabelInput.value = prod.scarcityLabel || '';
 
         // Botão de excluir só aparece se for Admin
         if (deleteBtn) {
@@ -895,8 +911,10 @@ window.openProductModal = function(id = null) {
 
         const stockInput = document.getElementById('form-prod-stock');
         const unlimitedChk = document.getElementById('form-prod-unlimited-stock');
+        const scarcityLabelInput = document.getElementById('form-prod-scarcity-label');
         if (stockInput) { stockInput.value = '5'; stockInput.disabled = false; }
         if (unlimitedChk) unlimitedChk.checked = false;
+        if (scarcityLabelInput) scarcityLabelInput.value = '';
 
         window.updateFeaturedLabel();
         window.clearProductPhoto();
@@ -945,6 +963,7 @@ window.handleProductFormSubmit = function(event) {
     const isUnlimitedStock = document.getElementById('form-prod-unlimited-stock')?.checked;
     const rawStockVal = document.getElementById('form-prod-stock')?.value;
     const stock = isUnlimitedStock || rawStockVal === '' ? null : Math.max(0, parseInt(rawStockVal, 10) || 0);
+    const scarcityLabel = (document.getElementById('form-prod-scarcity-label')?.value || '').trim();
 
     if (id) {
         const index = adminProducts.findIndex(p => p.id === id);
@@ -959,6 +978,7 @@ window.handleProductFormSubmit = function(event) {
                 isFeatured,
                 img,
                 stock,
+                scarcityLabel: scarcityLabel || undefined,
                 hasAdicionais,
                 visible
             };
@@ -978,6 +998,7 @@ window.handleProductFormSubmit = function(event) {
             img,
             price,
             stock,
+            scarcityLabel: scarcityLabel || undefined,
             hasAdicionais,
             visible
         };
