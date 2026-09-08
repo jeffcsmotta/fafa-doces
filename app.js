@@ -1379,6 +1379,11 @@ window.openProductModal = function(productId) {
         }
     }
 
+    const qtyBox = modalEl.querySelector('.qty-control-box');
+    if (qtyBox) {
+        qtyBox.style.display = isGiftItem ? 'none' : 'inline-flex';
+    }
+
     modalEl.classList.add('active');
     document.body.style.overflow = 'hidden';
 
@@ -1390,6 +1395,8 @@ window.closeProductModal = function() {
     if (modalEl) {
         modalEl.classList.remove('active');
         document.body.style.overflow = '';
+        const qtyBox = modalEl.querySelector('.qty-control-box');
+        if (qtyBox) qtyBox.style.display = 'inline-flex';
     }
 };
 
@@ -1954,6 +1961,12 @@ function initProposalFloatingWidget() {
     const ctaWidget = document.getElementById('onira-floating-cta');
     const cartBar = document.getElementById('cart-floating-bar');
     const conciergeWidget = document.getElementById('concierge-widget');
+
+    if (sessionStorage.getItem('fafa_concierge_dismissed') === 'true') {
+        if (conciergeWidget) conciergeWidget.classList.add('widget-dismissed');
+        document.body.classList.add('concierge-dismissed');
+    }
+
     if (!ctaWidget && !cartBar && !conciergeWidget) return;
 
     let lastScrollY = window.scrollY;
@@ -2047,6 +2060,7 @@ window.dismissConciergeWidget = function(event) {
     const widget = document.getElementById('concierge-widget');
     if (widget) {
         widget.classList.add('widget-dismissed');
+        document.body.classList.add('concierge-dismissed');
         sessionStorage.setItem('fafa_concierge_dismissed', 'true');
     }
 };
