@@ -978,31 +978,30 @@ function renderProducts() {
         const badgeLabel = prod.badge || (isFeatured ? '⭐ Destaque da Casa' : '');
         const badgeClass = getBadgeClass(badgeLabel);
         const isSoldOut = prod.stock === 0;
+        const isPatisserie = prod.category === 'tortas' || (prod.badge && prod.badge.includes('Pâtisserie')) || (prod.group && prod.group.toLowerCase().includes('tortas'));
 
-        const scarcityLabel = prod.scarcityLabel || storeConfig.scarcityLabel || 'Fornada';
-        const labelLower = scarcityLabel.toLowerCase();
-
+        // Escassez restrita exclusivamente à Pâtisserie do Chef (sem termo "fornada", unidades puras)
         let scarcityHtml = '';
-        if (prod.stock !== undefined && prod.stock !== null) {
+        if (isPatisserie && prod.stock !== undefined && prod.stock !== null) {
             if (prod.stock > 3) {
                 scarcityHtml = `
                     <div class="card-scarcity-badge">
                         <span class="scarcity-pulse"></span>
-                        <span>Restam ${prod.stock} (${labelLower})</span>
+                        <span>Restam ${prod.stock} un.</span>
                     </div>
                 `;
             } else if (prod.stock > 0) {
                 scarcityHtml = `
                     <div class="card-scarcity-badge urgent">
-                        <i data-lucide="flame" style="width:11px;height:11px;"></i>
-                        <span>Últimas ${prod.stock} un. (${labelLower})!</span>
+                        <i data-lucide="flame" style="width:10px;height:10px;"></i>
+                        <span>Últimas ${prod.stock} un.!</span>
                     </div>
                 `;
             } else {
                 scarcityHtml = `
                     <div class="card-scarcity-badge soldout">
-                        <i data-lucide="lock" style="width:11px;height:11px;"></i>
-                        <span>${scarcityLabel} esgotada hoje</span>
+                        <i data-lucide="lock" style="width:10px;height:10px;"></i>
+                        <span>Esgotado hoje</span>
                     </div>
                 `;
             }
@@ -1207,19 +1206,18 @@ window.openProductModal = function(productId) {
     document.getElementById('modal-desc').textContent = product.desc;
     document.getElementById('modal-badge').textContent = product.badge || (product.isFeatured ? '⭐ Destaque' : 'Confeitaria Artesanal');
 
-    // Informação de Escassez da Fornada no Modal
+    // Informação de Disponibilidade da Pâtisserie no Modal (Restrito ao Chef, sem palavra fornada)
     const scarcityNoticeEl = document.getElementById('modal-scarcity-notice');
     const isSoldOut = product.stock === 0;
-    const scarcityLabel = product.scarcityLabel || storeConfig.scarcityLabel || 'Fornada';
-    const labelLower = scarcityLabel.toLowerCase();
+    const isPatisserie = product.category === 'tortas' || (product.badge && product.badge.includes('Pâtisserie')) || (product.group && product.group.toLowerCase().includes('tortas'));
 
     if (scarcityNoticeEl) {
-        if (product.stock !== undefined && product.stock !== null) {
+        if (isPatisserie && product.stock !== undefined && product.stock !== null) {
             if (product.stock > 3) {
                 scarcityNoticeEl.innerHTML = `
                     <div class="modal-scarcity-box">
                         <span class="scarcity-pulse"></span>
-                        <span>${scarcityLabel} de hoje: Restam <strong>${product.stock} unidades</strong> disponíveis.</span>
+                        <span>Produção de hoje: Restam <strong>${product.stock} unidades</strong> disponíveis.</span>
                     </div>
                 `;
                 scarcityNoticeEl.style.display = 'block';
@@ -1227,7 +1225,7 @@ window.openProductModal = function(productId) {
                 scarcityNoticeEl.innerHTML = `
                     <div class="modal-scarcity-box urgent">
                         <i data-lucide="flame" style="width:14px;height:14px;"></i>
-                        <span>Últimas <strong>${product.stock} unidades</strong> deste ${labelLower} artesanal!</span>
+                        <span>Últimas <strong>${product.stock} unidades</strong> disponíveis para hoje!</span>
                     </div>
                 `;
                 scarcityNoticeEl.style.display = 'block';
@@ -1235,7 +1233,7 @@ window.openProductModal = function(productId) {
                 scarcityNoticeEl.innerHTML = `
                     <div class="modal-scarcity-box soldout">
                         <i data-lucide="lock" style="width:14px;height:14px;"></i>
-                        <span>🔒 <strong>${scarcityLabel} de hoje esgotada.</strong> Fale com nossa equipe no WhatsApp para encomendar a próxima fresquinha!</span>
+                        <span>🔒 <strong>Esgotado por hoje.</strong> Fale com nosso time no WhatsApp para encomendar com antecedência!</span>
                     </div>
                 `;
                 scarcityNoticeEl.style.display = 'block';
@@ -1303,7 +1301,7 @@ window.openProductModal = function(productId) {
         } else if (isSoldOut) {
             addBtn.innerHTML = `
                 <i data-lucide="message-circle" style="width:17px;height:17px;"></i>
-                <span>Encomendar Próximo(a) ${scarcityLabel} no WhatsApp</span>
+                <span>Encomendar no WhatsApp</span>
             `;
             addBtn.onclick = () => window.consultProductOnWhatsApp(product.id);
         } else {
@@ -1931,7 +1929,7 @@ window.openConciergeWhatsApp = function() {
     const storeConfig = getStoreConfig();
     const phone = storeConfig.conciergePhone || storeConfig.phone || WHATSAPP_PHONE || '555432011633';
 
-    const msg = `Olá, Chef Rafael e equipe Fafá Doces Presentes! 👋✨\n\nEstou na vitrine digital oficial (fafadoces.com.br) e gostaria do atendimento do *Concierge Especializado* para planejar uma ocasião memorável sob medida:\n\n✨ *Ocasião Especial:* [Ex: Aniversário, Bodas, Maternidade, Presente Corporativo, Agradecimento Especial]\n📅 *Data / Prazo que preciso:* \n👥 *Estimativa de pessoas ou caixas:* \n💡 *Preferências ou restrições:* \n\nVocês poderiam me orientar com sugestões personalizadas do Chef para esta data?`;
+    const msg = `Olá, equipe da Fafá Doces e Chef Rafael! 👋✨\n\nEstou no cardápio digital oficial e tenho uma ocasião especial. Gostaria da ajuda do time para escolher a composição perfeita:\n\n✨ *Ocasião Especial:* [Ex: Aniversário, Bodas, Maternidade, Presente Corporativo, Agradecimento Especial]\n📅 *Data que preciso:* \n👥 *Quantidade de pessoas ou caixas:* \n💡 *Preferências ou detalhes:* \n\nPoderiam me orientar com as melhores opções para esta data?`;
 
     const encoded = encodeURIComponent(msg);
     const url = `https://wa.me/${phone}?text=${encoded}`;

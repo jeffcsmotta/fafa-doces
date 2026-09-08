@@ -247,8 +247,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="form-prod-badge">Selo / Tag Personalizada (Opcional)</label>
-                        <input type="text" id="form-prod-badge" placeholder="Ex: Novo, Exclusivo, Mais Vendido" class="form-input">
+                        <label for="form-prod-badge" style="display:flex;justify-content:space-between;align-items:center;">
+                            <span>Selo / Tag no Cardápio (Opcional)</span>
+                        </label>
+                        <div style="display:flex;gap:6px;align-items:center;margin:6px 0;flex-wrap:wrap;">
+                            <button type="button" class="btn-quick-badge" onclick="window.setQuickBadge('⭐ Mais Vendido')" style="font-size:0.75rem;padding:3px 9px;border-radius:12px;background:#FEFCE8;border:1px solid #FEF08A;color:#A16207;cursor:pointer;font-weight:700;">+ ⭐ Mais Vendido</button>
+                            <button type="button" class="btn-quick-badge" onclick="window.setQuickBadge('👑 Pâtisserie do Chef')" style="font-size:0.75rem;padding:3px 9px;border-radius:12px;background:#28070E;border:1px solid rgba(254,240,138,0.5);color:#FEF08A;cursor:pointer;font-weight:700;">+ 👑 Pâtisserie</button>
+                            <button type="button" class="btn-quick-badge" onclick="window.setQuickBadge('🎁 Doces Presentes')" style="font-size:0.75rem;padding:3px 9px;border-radius:12px;background:#FDF2F8;border:1px solid #FBCFE8;color:#9D174D;cursor:pointer;font-weight:700;">+ 🎁 Presentes</button>
+                            <button type="button" class="btn-quick-badge" onclick="window.setQuickBadge('')" style="font-size:0.75rem;padding:3px 8px;border-radius:12px;background:#F1F5F9;border:1px solid #E2E8F0;color:#64748B;cursor:pointer;">Limpar</button>
+                        </div>
+                        <input type="text" id="form-prod-badge" placeholder="Ex: ⭐ Mais Vendido, Exclusivo" class="form-input">
                     </div>
                 </div>
 

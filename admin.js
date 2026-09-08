@@ -926,6 +926,14 @@ window.openProductModal = function(id = null) {
     if (window.lucide) window.lucide.createIcons();
 };
 
+window.setQuickBadge = function(badge) {
+    const input = document.getElementById('form-prod-badge');
+    if (input) {
+        input.value = badge;
+        input.focus();
+    }
+};
+
 window.closeProductModal = function() {
     const modal = document.getElementById('product-modal');
     if (modal) modal.style.display = 'none';
