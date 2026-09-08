@@ -34,12 +34,18 @@
                 <img src="assets/logo_fafa_horizontal.svg" alt="Fafa Doces Presentes" class="brand-logo-img" onerror="this.onerror=null;this.src='assets/logo.svg';">
                 <h1 class="sr-only">Fafa Doces Presentes - Caxias do Sul</h1>
             </a>
-
+            
             <!-- Status do Estabelecimento & Ações -->
             <div class="nav-actions">
                 <div class="status-compact" id="header-status">
                     <span class="status-dot"></span>
                     <span id="status-text-header">Aberto Hoje • 13h30 às 18h30</span>
+                </div>
+
+                <!-- Modo Catálogo Badge (Exibido quando no modo somente vitrine) -->
+                <div class="catalog-mode-badge" id="catalog-mode-badge" style="display:none;">
+                    <i data-lucide="book-open" style="width:13px;height:13px;"></i>
+                    <span>Catálogo Vitrine</span>
                 </div>
 
                 <!-- Botão Compre esse site (Azul Royal Elétrico de Alto Contraste no Desktop) -->
@@ -78,41 +84,61 @@
 
             <!-- Navegação em Carrossel Horizontal Touch / Chips Deslizantes de Alta Usabilidade -->
             <nav class="category-scroll-container" aria-label="Categorias do Cardápio">
-                <div class="category-scroll-pills">
+                <div class="category-scroll-pills" id="category-pills-container">
                     <button type="button" class="cat-pill active" data-category="todos" onclick="window.filterCategory('todos')">
-                        <i data-lucide="cookie" style="width:16px;height:16px;"></i>
+                        <i data-lucide="film" style="width:16px;height:16px;"></i>
                         <span>Todos os Itens</span>
                     </button>
-                    <button type="button" class="cat-pill" data-category="promocoes" onclick="window.filterCategory('promocoes')">
-                        <i data-lucide="sparkles" style="width:16px;height:16px;"></i>
-                        <span>Mais Vendidos &amp; Promoções</span>
-                    </button>
-                    <button type="button" class="cat-pill" data-category="cookies" onclick="window.filterCategory('cookies')">
-                        <i data-lucide="circle-dot" style="width:16px;height:16px;"></i>
-                        <span>Cookies &amp; Viciantes</span>
+                    <button type="button" class="cat-pill" data-category="presentes" onclick="window.filterCategory('presentes')">
+                        <i data-lucide="gift" style="width:16px;height:16px;"></i>
+                        <span>Presentes Incríveis</span>
                     </button>
                     <button type="button" class="cat-pill" data-category="tortas" onclick="window.filterCategory('tortas')">
                         <i data-lucide="cake" style="width:16px;height:16px;"></i>
                         <span>Pâtisserie do Chef</span>
                     </button>
-                    <button type="button" class="cat-pill" data-category="presentes" onclick="window.filterCategory('presentes')">
-                        <i data-lucide="gift" style="width:16px;height:16px;"></i>
-                        <span>Doces Presentes &amp; Boxes</span>
+                    <button type="button" class="cat-pill" data-category="pronta-entrega" onclick="window.filterCategory('pronta-entrega')">
+                        <i data-lucide="zap" style="width:16px;height:16px;"></i>
+                        <span>Pronta-Entrega &amp; Balcão</span>
                     </button>
                     <button type="button" class="cat-pill" data-category="congelados" onclick="window.filterCategory('congelados')">
                         <i data-lucide="snowflake" style="width:16px;height:16px;"></i>
                         <span>Fafa na sua Casa</span>
                     </button>
-                    <button type="button" class="cat-pill" data-category="salgados" onclick="window.filterCategory('salgados')">
-                        <i data-lucide="croissant" style="width:16px;height:16px;"></i>
-                        <span>Quiches &amp; Salgados</span>
-                    </button>
-                    <button type="button" class="cat-pill" data-category="bebidas" onclick="window.filterCategory('bebidas')">
-                        <i data-lucide="coffee" style="width:16px;height:16px;"></i>
-                        <span>Cafés &amp; Bebidas</span>
-                    </button>
                 </div>
             </nav>
+        </div>
+    </section>
+
+    <!-- Seção de Concierge Afetivo & Encomendas de Ocasião -->
+    <section class="concierge-highlight-section" id="concierge-section">
+        <div class="container">
+            <div class="concierge-card">
+                <div class="concierge-badge-pill">
+                    <i data-lucide="sparkles" style="width:14px;height:14px;color:#D84A5B;"></i>
+                    <span>Concierge Fafá • Ocasiões Especiais</span>
+                </div>
+                <div class="concierge-content-grid">
+                    <div class="concierge-text-col">
+                        <h2 class="concierge-title">Presenteie com afeto, elegância e curadoria artesanal.</h2>
+                        <p class="concierge-desc">
+                            Cestas de café da manhã premiadas, platters e presentes personalizados não são produtos de entrega rápida: são experiências feitas sob medida. Fale com nosso Concierge no WhatsApp para planejar sua surpresa ou agendar com antecedência.
+                        </p>
+                        <div class="concierge-features-row">
+                            <span class="c-feat"><i data-lucide="gift" style="width:14px;height:14px;"></i> Personalizado &amp; Exclusivo</span>
+                            <span class="c-feat"><i data-lucide="calendar" style="width:14px;height:14px;"></i> Entrega Programada com Prazo</span>
+                            <span class="c-feat"><i data-lucide="store" style="width:14px;height:14px;"></i> Retirada Recomendada no Balcão</span>
+                        </div>
+                    </div>
+                    <div class="concierge-action-col">
+                        <a href="https://wa.me/555432011633?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20o%20Concierge%20Faf%C3%A1%20para%20planejar%20uma%20ocasi%C3%A3o%20especial%20sob%20encomenda." target="_blank" class="btn-concierge-cta" aria-label="Falar com o Concierge no WhatsApp">
+                            <i data-lucide="message-circle" style="width:18px;height:18px;"></i>
+                            <span>Falar com o Concierge</span>
+                        </a>
+                        <span class="concierge-subtext">Atendimento direto e humano no WhatsApp</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -350,27 +376,30 @@
             <div class="modal-body-scroll">
                 <h3 class="modal-title" id="modal-title"></h3>
                 <p class="modal-desc" id="modal-desc"></p>
+                <div id="modal-scarcity-notice" style="display:none;margin-bottom:14px;"></div>
 
                 <!-- Seção de Tamanhos / Opções -->
                 <div class="modal-section-title">
-                    <span>Opções &amp; Tamanhos</span>
+                    <span>Opções &amp; Porção</span>
                     <small>Selecione 1 opção</small>
                 </div>
                 <div class="size-options-grid" id="modal-sizes-list"></div>
 
-                <!-- Seção de Adicionais / Presentes -->
-                <div class="modal-section-title">
-                    <span>Mimos &amp; Adicionais Especiais</span>
-                    <small>Opcional</small>
+                <!-- Adicionais Especiais & Mimos de Presente -->
+                <div id="modal-addons-section" style="display:none;margin-top:14px;">
+                    <div class="modal-section-title">
+                        <span>Adicionais Especiais &amp; Mimos</span>
+                        <small>Opcional • Selecione quantos desejar</small>
+                    </div>
+                    <div class="addons-options-list" id="modal-addons-list"></div>
                 </div>
-                <div class="addons-options-list" id="modal-addons-list"></div>
 
-                <!-- Observações -->
+                <!-- Observações e Dedicatória -->
                 <div class="modal-section-title">
-                    <span>Instruções ou Mensagem do Cartão</span>
+                    <span>Dedicatória para Cartão ou Observações</span>
                     <small>Opcional</small>
                 </div>
-                <input type="text" id="modal-obs" class="modal-obs-input" placeholder="Ex: Aquecer antes de enviar / De: João Para: Maria">
+                <input type="text" id="modal-obs" class="modal-obs-input" placeholder="Ex: De: Maria Para: João / Escrever no cartão com carinho...">
 
                 <!-- Rodapé de Ações do Modal -->
                 <div class="modal-footer-actions">
@@ -426,19 +455,55 @@
 
         <!-- Corpo do Carrinho com Rolagem 100% Fluida e Unificada (Itens empurram o formulário, totais e botão WhatsApp) -->
         <div class="cart-body">
-            <!-- 1. Tipo de Pedido (Tele-Entrega vs Retirada) no Início do Fluxo -->
+            <!-- 1. Tipo de Pedido (Balcão Recomendado vs Tele-Entrega Própria) -->
             <div class="cart-form-group delivery-top-group">
                 <span class="cart-label">Como deseja receber seu pedido?</span>
                 <div class="delivery-toggle-wrap">
-                    <button type="button" class="delivery-type-btn active" data-type="delivery" onclick="window.setDeliveryType('delivery')">
-                        <i data-lucide="truck" style="width:15px;height:15px;"></i>
-                        <span>Tele-Entrega</span>
-                    </button>
-                    <button type="button" class="delivery-type-btn" data-type="pickup" onclick="window.setDeliveryType('pickup')">
+                    <button type="button" class="delivery-type-btn active" data-type="pickup" onclick="window.setDeliveryType('pickup')">
                         <i data-lucide="store" style="width:15px;height:15px;"></i>
-                        <span>Retirada na Loja</span>
+                        <span>Retirada no Balcão (Recomendado)</span>
+                    </button>
+                    <button type="button" class="delivery-type-btn" data-type="delivery" onclick="window.setDeliveryType('delivery')">
+                        <i data-lucide="truck" style="width:15px;height:15px;"></i>
+                        <span>Tele-Entrega Própria</span>
                     </button>
                 </div>
+                <p class="pickup-notice-hint" id="pickup-notice-hint">
+                    📍 Balcão Fafá: Rua Tronca, 2951 – Sala 1 (Rio Branco). Ideal para bolos e itens frágeis!
+                </p>
+            </div>
+
+            <!-- 1.1 Previsão do Pedido: Pronta Entrega vs Encomenda Programada -->
+            <div class="cart-form-group schedule-top-group">
+                <span class="cart-label">Previsão e Prazo</span>
+                <div class="delivery-toggle-wrap schedule-toggle-wrap">
+                    <button type="button" class="schedule-type-btn active" data-schedule="hoje" onclick="window.setScheduleType('hoje')">
+                        <i data-lucide="clock" style="width:15px;height:15px;"></i>
+                        <span>Pronta Entrega (Hoje)</span>
+                    </button>
+                    <button type="button" class="schedule-type-btn" data-schedule="programado" onclick="window.setScheduleType('programado')">
+                        <i data-lucide="calendar" style="width:15px;height:15px;"></i>
+                        <span>Encomenda Programada</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Formulário de Agendamento (quando Encomenda Programada) -->
+            <div id="schedule-fields-form" class="cart-form-group" style="display:none;">
+                <span class="cart-label">Data e Turno Desejado</span>
+                <div class="form-row-2">
+                    <input type="date" id="order-schedule-date" class="cart-input" aria-label="Data da Encomenda">
+                    <select id="order-schedule-period" class="cart-input" aria-label="Turno Desejado">
+                        <option value="Manhã (10h às 12h)">Manhã (10h às 12h)</option>
+                        <option value="Tarde (13h30 às 18h)" selected>Tarde (13h30 às 18h)</option>
+                    </select>
+                </div>
+                <div style="margin-top:8px;">
+                    <input type="text" id="order-gift-card" class="cart-input" placeholder="Mensagem para o cartão do presente (opcional)">
+                </div>
+                <p class="schedule-hint-text">
+                    🎁 Cestas e presentes personalizados são preparados com carinho sob agendamento prévio.
+                </p>
             </div>
 
             <!-- 2. Lista de Itens no Carrinho (Sem rolagem interna: expande e empurra todo o conteúdo para baixo) -->

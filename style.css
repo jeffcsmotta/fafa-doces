@@ -2353,4 +2353,711 @@ body.has-cart-items .onira-cta {
     color: #F59E0B;
 }
 
+/* ==========================================================================
+   Concierge Afetivo & Presentes Sob Encomenda
+   ========================================================================== */
+.concierge-highlight-section {
+    padding: 24px 0 10px 0;
+}
+
+.concierge-card {
+    background: linear-gradient(135deg, #FFF9F7 0%, #FFF2ED 100%);
+    border: 1.5px solid rgba(216, 74, 91, 0.22);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
+    box-shadow: 0 10px 30px rgba(54, 12, 20, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.concierge-card::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, rgba(238, 82, 68, 0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.concierge-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #FFFFFF;
+    border: 1px solid rgba(216, 74, 91, 0.3);
+    color: var(--accent-rose-dark);
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 0.76rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.concierge-content-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .concierge-content-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+.concierge-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.concierge-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin-bottom: 14px;
+}
+
+.concierge-features-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+}
+
+.c-feat {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    background: rgba(255, 255, 255, 0.7);
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(206, 179, 171, 0.35);
+}
+
+.concierge-action-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-concierge-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #25D366;
+    color: #FFFFFF !important;
+    padding: 13px 22px;
+    border-radius: var(--radius-pill);
+    font-weight: 800;
+    font-size: 0.92rem;
+    text-decoration: none;
+    box-shadow: 0 4px 18px rgba(37, 211, 102, 0.35);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+}
+
+.btn-concierge-cta:hover {
+    background: #1EBE5D;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45);
+}
+
+.concierge-subtext {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/* ==========================================================================
+   Agrupamento por Categorias na Listagem "Todos os Itens"
+   ========================================================================== */
+.category-group-block {
+    margin-bottom: 36px;
+}
+
+.category-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+    border-bottom: 2px solid rgba(216, 74, 91, 0.15);
+}
+
+.cat-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.category-group-title {
+    font-family: var(--font-heading);
+    font-size: 1.32rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+}
+
+.category-group-count {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent-rose-dark);
+    background: #FFF0ED;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+}
+
+.category-group-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+@media (max-width: 640px) {
+    .category-group-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}
+
+/* ==========================================================================
+   Card Destaque da Casa
+   ========================================================================== */
+.menu-card.card-featured {
+    border-color: rgba(238, 82, 68, 0.35);
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFFDFD 100%);
+    box-shadow: 0 6px 22px rgba(238, 82, 68, 0.09);
+}
+
+/* ==========================================================================
+   Carrinho: Retirada Recomendada & Encomenda Programada
+   ========================================================================== */
+.pickup-notice-hint {
+    font-size: 0.76rem;
+    color: var(--accent-caramel);
+    background: #FFFDF9;
+    border: 1px dashed rgba(160, 106, 59, 0.3);
+    padding: 8px 10px;
+    border-radius: var(--radius-sm);
+    margin-top: 8px;
+    line-height: 1.4;
+}
+
+.schedule-top-group {
+    margin-top: 12px;
+}
+
+.schedule-toggle-wrap .schedule-type-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-sm);
+    color: #E6C8B2;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.schedule-toggle-wrap .schedule-type-btn.active {
+    background: var(--accent-rose-dark);
+    color: #FFFFFF;
+    border-color: var(--accent-rose-dark);
+    box-shadow: 0 2px 10px rgba(216, 74, 91, 0.35);
+}
+
+.schedule-hint-text {
+    font-size: 0.74rem;
+    color: rgba(255, 255, 255, 0.65);
+    margin-top: 6px;
+    line-height: 1.35;
+}
+
+/* ==========================================================================
+   Modo Somente Catálogo Vitrine (store-catalog-only)
+   ========================================================================== */
+body.store-catalog-only .btn-cart-trigger,
+body.store-catalog-only .cart-floating-bar,
+body.store-catalog-only .btn-header-trash {
+    display: none !important;
+}
+
+.catalog-mode-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #FFF7ED;
+    border: 1px solid #FED7AA;
+    color: #C2410C;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.btn-catalog-view {
+    background: #25D366 !important;
+    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3) !important;
+}
+
+.btn-catalog-view:hover {
+    background: #1EBE5D !important;
+}
+
+/* ==========================================================================
+   Design Estilo Streaming / App de Filmes (Trilhos Horizontais de Categorias)
+   ========================================================================== */
+.streaming-rail-section {
+    margin-bottom: 36px;
+    position: relative;
+}
+
+.streaming-rail-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding: 0 4px;
+    gap: 16px;
+}
+
+.rail-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.rail-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rail-icon {
+    width: 22px;
+    height: 22px;
+    color: var(--accent-coral);
+    flex-shrink: 0;
+}
+
+.rail-title {
+    font-family: var(--font-body);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+    letter-spacing: -0.3px;
+    margin: 0;
+}
+
+.rail-count-tag {
+    background: rgba(54, 12, 20, 0.07);
+    color: var(--primary-dark);
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    letter-spacing: 0.3px;
+}
+
+.rail-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    max-width: 680px;
+    margin: 0;
+}
+
+.rail-nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.btn-rail-nav {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 1.5px solid var(--border);
+    color: var(--primary-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-rail-nav:hover {
+    background: var(--primary);
+    color: #FFFFFF;
+    border-color: var(--primary);
+    transform: scale(1.08);
+}
+
+.streaming-rail-track {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 8px 4px 18px 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(160, 106, 59, 0.3) transparent;
+}
+
+.streaming-rail-track::-webkit-scrollbar {
+    height: 6px;
+}
+
+.streaming-rail-track::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.streaming-rail-track::-webkit-scrollbar-thumb {
+    background: rgba(160, 106, 59, 0.25);
+    border-radius: var(--radius-pill);
+}
+
+.streaming-rail-track::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-caramel);
+}
+
+/* Card Individual dentro do Trilho */
+.streaming-rail-track .menu-card {
+    flex: 0 0 280px;
+    max-width: 280px;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 14px rgba(54, 12, 20, 0.05);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.streaming-rail-track .menu-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(54, 12, 20, 0.12);
+}
+
+/* Card Spotlight de Destaque no Trilho de Presentes (Concierge Afetivo) */
+.concierge-spotlight-card {
+    flex: 0 0 300px;
+    max-width: 300px;
+    scroll-snap-align: start;
+    background: linear-gradient(145deg, #360C14 0%, #1A050A 100%);
+    color: #FFFFFF;
+    border-radius: var(--radius-lg);
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid rgba(238, 82, 68, 0.35);
+    box-shadow: 0 8px 24px rgba(54, 12, 20, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+.concierge-spotlight-card::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.spotlight-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(245, 158, 11, 0.18);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    color: #FBBF24;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    margin-bottom: 12px;
+}
+
+.spotlight-title {
+    font-family: var(--font-body);
+    font-size: 1.22rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    line-height: 1.3;
+    margin-bottom: 8px;
+}
+
+.spotlight-desc {
+    font-size: 0.82rem;
+    color: #E2D1C5;
+    line-height: 1.45;
+    margin-bottom: 20px;
+}
+
+.btn-spotlight-wa {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #25D366;
+    color: #0B0B0C;
+    padding: 10px 16px;
+    border-radius: var(--radius-pill);
+    font-weight: 800;
+    font-size: 0.84rem;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+    transition: all 0.2s ease;
+}
+
+.btn-spotlight-wa:hover {
+    background: #20BA5A;
+    transform: translateY(-2px);
+    color: #0B0B0C;
+}
+
+/* ==========================================================================
+   Badges de Escassez da Fornada (Gatilho Artesanal)
+   ========================================================================== */
+.card-scarcity-badge {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    background: rgba(54, 12, 20, 0.88);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    color: #FFFFFF;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: var(--radius-pill);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.card-scarcity-badge.urgent {
+    background: rgba(220, 38, 38, 0.94);
+    border-color: rgba(254, 202, 202, 0.5);
+    color: #FFFFFF;
+    animation: urgentPulse 2s infinite ease-in-out;
+}
+
+.card-scarcity-badge.soldout {
+    background: rgba(15, 23, 42, 0.94);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #CBD5E1;
+}
+
+.scarcity-pulse {
+    width: 7px;
+    height: 7px;
+    background: #10B981;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 6px #10B981;
+}
+
+@keyframes urgentPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+.card-soldout {
+    opacity: 0.75;
+}
+
+.btn-item-soldout {
+    background: #F1F5F9 !important;
+    color: #94A3B8 !important;
+    border: 1px solid #CBD5E1 !important;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .rail-nav-controls {
+        display: none;
+    }
+    .streaming-rail-track .menu-card {
+        flex: 0 0 235px;
+        max-width: 235px;
+    }
+    .concierge-spotlight-card {
+        flex: 0 0 260px;
+        max-width: 260px;
+    }
+    .rail-title {
+        font-size: 1.15rem;
+    }
+}
+
+.modal-scarcity-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #FFF8F6;
+    border: 1px solid rgba(238, 82, 68, 0.3);
+    padding: 9px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.82rem;
+    color: var(--primary-dark);
+}
+
+.modal-scarcity-box.urgent {
+    background: #FEF2F2;
+    border-color: #FCA5A5;
+    color: #991B1B;
+    font-weight: 700;
+}
+
+.modal-scarcity-box.soldout {
+    background: #F1F5F9;
+    border-color: #CBD5E1;
+    color: #475569;
+}
+
+/* ==========================================================================
+   Category Group Grid (Busca ou Categoria Individual)
+   ========================================================================== */
+.category-group-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 22px;
+    width: 100%;
+}
+
+@media (max-width: 640px) {
+    .category-group-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+/* ==========================================================================
+   Adicionais Especiais & Mimos de Presente no Modal
+   ========================================================================== */
+.addons-options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.addon-option-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 14px;
+    background: #FDFBF9;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.addon-option-item:hover {
+    border-color: var(--accent-caramel);
+    background: #FFFFFF;
+}
+
+.addon-option-item.selected {
+    border-color: var(--accent-rose);
+    background: #FFF7F8;
+    box-shadow: 0 2px 8px rgba(216, 74, 91, 0.12);
+}
+
+.addon-left-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.addon-icon-box {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: #F8ECE8;
+    color: var(--accent-coral);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.addon-name-txt {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.35;
+}
+
+.addon-price-tag {
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: var(--accent-coral);
+    white-space: nowrap;
+    margin-left: 12px;
+}
+
+.addon-chk-custom {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    accent-color: var(--accent-rose);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* Adicionais no Item do Carrinho */
+.cart-item-addons {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.cart-addon-pill {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.cart-addon-pill strong {
+    color: var(--accent-coral);
+}
+
+
 

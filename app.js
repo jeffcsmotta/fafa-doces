@@ -579,10 +579,66 @@ const ADDON_OPTIONS = [
     { id: 'ad-aquecer', name: '🔥 Enviar Quentinho para Consumo Imediato', price: 0.00 }
 ];
 
+// Categorias Padrão Configuráveis (4 Trilhos Cinematográficos Estilo Streaming)
+const DEFAULT_CATEGORIES = [
+    { id: 'todos', name: 'Todos os Itens', icon: 'film' },
+    { id: 'presentes', name: 'Presentes Incríveis', icon: 'gift' },
+    { id: 'tortas', name: 'Pâtisserie do Chef', icon: 'cake' },
+    { id: 'pronta-entrega', name: 'Pronta-Entrega & Balcão', icon: 'zap' },
+    { id: 'congelados', name: 'Fafa na sua Casa', icon: 'snowflake' }
+];
+
+function getCategories() {
+    try {
+        const saved = localStorage.getItem('fafa_categories_custom');
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+                return parsed;
+            }
+        }
+    } catch (e) {
+        console.warn('Usando categorias padrão', e);
+    }
+    return DEFAULT_CATEGORIES;
+}
+
+function getStoreConfig() {
+    try {
+        const saved = localStorage.getItem('fafa_store_config');
+        if (saved) {
+            return JSON.parse(saved);
+        }
+    } catch (e) {}
+    return { mode: 'delivery' }; // 'delivery' ou 'catalog'
+}
+
+function applyStoreConfig() {
+    const config = getStoreConfig();
+    const isCatalogOnly = config.mode === 'catalog';
+    
+    document.body.classList.toggle('store-catalog-only', isCatalogOnly);
+    
+    const catalogBadge = document.getElementById('catalog-mode-badge');
+    const cartNavBtn = document.getElementById('btn-cart-nav');
+    const floatingBar = document.getElementById('cart-floating-bar');
+    const trashBtn = document.getElementById('btn-header-trash');
+    
+    if (catalogBadge) catalogBadge.style.display = isCatalogOnly ? 'inline-flex' : 'none';
+    if (isCatalogOnly) {
+        if (cartNavBtn) cartNavBtn.style.display = 'none';
+        if (floatingBar) floatingBar.classList.remove('visible');
+        if (trashBtn) trashBtn.style.display = 'none';
+    } else {
+        if (cartNavBtn) cartNavBtn.style.display = 'inline-flex';
+    }
+}
+
 // Estado da Aplicação
 let cart = [];
-let selectedDeliveryType = 'delivery'; // 'delivery' ou 'pickup'
-let selectedPaymentMethod = 'pix'; // 'pix', 'cartao', 'dinheiro'
+let selectedDeliveryType = 'pickup'; // Prioriza Retirada no Balcão!
+let selectedScheduleType = 'hoje';   // 'hoje' ou 'programado'
+let selectedPaymentMethod = 'pix';   // 'pix', 'cartao', 'dinheiro'
 let selectedZone = DELIVERY_ZONES[0];
 let activeCategory = 'todos';
 let searchQuery = '';
@@ -591,32 +647,32 @@ let currentModalProduct = null;
 // Conceitos e Atmosferas Afetivas de Cada Categoria
 const CATEGORY_CONCEPTS = {
     'todos': {
-        title: 'Cardápio Completo',
-        desc: 'Cardápio artesanal completo da Fafa Doces Presentes. Escolha seus favoritos para entrega rápida ou retirada no balcão.'
+        title: 'Seleção Completa da Confeitaria',
+        desc: 'Navegue pelos 4 trilhos exclusivos da nossa vitrine: presentes afetivos, pâtisserie do chef, pronta-entrega para hoje e congelados para assar em casa.'
     },
     'presentes': {
-        title: '🎁 Doces Presentes & Boxes',
-        desc: 'Caixas exclusivas e mimos montados com elegância para presentear quem você ama, prontas para encantar.'
+        title: '🎁 Presentes Incríveis & Boxes Comemorativas',
+        desc: 'Fale diretamente com nossa equipe, vamos escolher a composição ideal para sua ocasião. Caixas, mimos e cestas montadas com afeto.'
     },
     'tortas': {
-        title: '🎂 Pâtisserie do Chef & Vitrine',
-        desc: 'Criações autorais e entremets premiados do Chef Rafael Franzosi, preparados com técnica clássica francesa e ingredientes nobres.'
+        title: '👑 Pâtisserie do Chef Rafael Franzosi',
+        desc: 'Criações autorais e doces finos premiados pelo Prêmio Sabores do Sul. Tortas nobres, cheesecakes de frutas vermelhas e pistache e entremets.'
+    },
+    'pronta-entrega': {
+        title: '⚡ Pronta-Entrega & Balcão (Para Hoje)',
+        desc: 'O que podemos entregar no dia (preferência balcão, ou entrega programada). Cookies assados hoje, quiches artesanais, salgados e cafés.'
+    },
+    'congelados': {
+        title: '❄️ Fafá na sua Casa • Congelados Artesanais',
+        desc: 'Congelados artesanais entregues conforme programação. Kits de cookies para assar na sua Air Fryer e quiches inteiros para ter sempre à mão.'
     },
     'cookies': {
         title: '🍪 Cookies & Viciantes',
-        desc: 'Massa artesanal de baunilha com pedaços generosos de chocolate nobre, assados diariamente com casquinha crocante e centro macio.'
-    },
-    'promocoes': {
-        title: '⚡ Receitas Relâmpago & Promoções',
-        desc: 'Sabores sazonais, receitas relâmpago e combinações especiais da semana para aproveitar agora.'
-    },
-    'congelados': {
-        title: '❄️ Fafa na sua Casa (Congelados)',
-        desc: 'Nossas massas de cookies e quiches artesanais congeladas para você assar no forno ou Air Fryer e sentir o aroma de confeitaria em casa.'
+        desc: 'Massa artesanal com gotas de chocolate nobre, assados diariamente com casquinha crocante e centro macio.'
     },
     'salgados': {
         title: '🥐 Quiches & Salgados Folhados',
-        desc: 'Massas folhadas e quiches de fermentação lenta com queijos selecionados, ideais para o café da tarde ou lanches especiais.'
+        desc: 'Massas folhadas e quiches de fermentação lenta com queijos selecionados para lanches especiais.'
     },
     'bebidas': {
         title: '☕ Cafés & Bebidas Especiais',
@@ -635,7 +691,7 @@ function getBadgeClass(badgeText) {
     return '';
 }
 
-// Normalização & Migração de Badges para a Nova Taxonomia
+// Normalização & Migração de Badges e Estoque da Fornada
 function sanitizeProductList(list) {
     if (!Array.isArray(list)) return PRODUCTS;
     return list.map(p => {
@@ -643,6 +699,7 @@ function sanitizeProductList(list) {
         let desc = (p.desc || '').replace(/Fafá/g, 'Fafa');
         let group = (p.group || '').replace(/Fafá/g, 'Fafa');
         let badge = p.badge || '';
+        let stock = p.stock;
 
         // Migração e padronização inteligente de selos
         if (p.category === 'congelados' || badge.includes('Congelados') || badge.includes('na sua Casa') || badge.includes('na Sua Casa') || badge.includes('Fafá')) {
@@ -657,12 +714,47 @@ function sanitizeProductList(list) {
             badge = 'Mais Vendido ⭐';
         }
 
+        // Atribui estoque da fornada se não existir previamente
+        if (stock === undefined) {
+            if (p.id === 'prod-12314145') stock = 6;
+            else if (p.id === 'prod-12314146') stock = 4;
+            else if (p.id === 'prod-12314158') stock = 2;
+            else if (p.id === 'prod-12820845') stock = 3;
+            else if (p.id === 'prod-12552870') stock = 8;
+            else if (p.id === 'prod-12552873') stock = 5;
+            else if (p.id === 'prod-12552876') stock = 3;
+            else if (p.id === 'prod-12552879') stock = 4;
+            else if (p.id === 'prod-12314150') stock = 5;
+            else if (p.id === 'prod-12314151') stock = 3;
+            else if (p.id === 'prod-12314152') stock = 2;
+            else if (p.id === 'prod-12314153') stock = 3;
+            else if (p.id === 'prod-12314154') stock = 1;
+            else if (p.id === 'prod-12314165') stock = 4;
+            else if (p.id === 'prod-12314166') stock = 3;
+            else if (p.id === 'prod-12314170') stock = 2;
+            else if (p.id === 'prod-12314171') stock = 3;
+            else if (p.id === 'prod-12314172') stock = 4;
+            else if (p.category === 'cookies') stock = 5;
+            else if (p.category === 'tortas') stock = 3;
+            else if (p.category === 'salgados') stock = 4;
+            else if (p.category === 'presentes') stock = 3;
+            else if (p.category === 'congelados') stock = 6;
+            else stock = null;
+        }
+
+        let hasAdicionais = p.hasAdicionais;
+        if (hasAdicionais === undefined) {
+            hasAdicionais = (p.category !== 'bebidas');
+        }
+
         return {
             ...p,
             name,
             desc,
             group,
-            badge
+            badge,
+            stock,
+            hasAdicionais
         };
     });
 }
@@ -686,18 +778,33 @@ function getLiveProducts() {
 // Inicialização ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
     loadCartFromStorage();
+    applyStoreConfig();
     renderCategories();
     renderProducts();
     updateCartUI();
     initStoreStatus();
     initProposalFloatingWidget();
 
-    // Sincronização em Tempo Real quando o Dono altera preços ou visibilidade
+    // Sincronização em Tempo Real quando o Dono altera preços, visibilidade, categorias ou configurações
     window.addEventListener('fafa_products_updated', () => {
+        renderProducts();
+    });
+    window.addEventListener('fafa_categories_updated', () => {
+        renderCategories();
+        renderProducts();
+    });
+    window.addEventListener('fafa_store_config_updated', () => {
+        applyStoreConfig();
         renderProducts();
     });
     window.addEventListener('storage', (e) => {
         if (e.key === 'fafa_products_custom') {
+            renderProducts();
+        } else if (e.key === 'fafa_categories_custom') {
+            renderCategories();
+            renderProducts();
+        } else if (e.key === 'fafa_store_config') {
+            applyStoreConfig();
             renderProducts();
         }
     });
@@ -763,17 +870,25 @@ function initStoreStatus() {
     }
 }
 
-// Renderizar Categorias de Produtos
+// Renderizar Categorias de Produtos Dinâmicas
 function renderCategories() {
-    const categoryButtons = document.querySelectorAll('.cat-pill, .nav-category-btn');
-    categoryButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            categoryButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            activeCategory = btn.dataset.category || 'todos';
-            renderProducts();
-        });
-    });
+    const container = document.getElementById('category-pills-container');
+    if (!container) return;
+    
+    const categories = getCategories();
+    
+    container.innerHTML = categories.map(cat => {
+        const isActive = activeCategory === cat.id;
+        const iconName = cat.icon || 'cookie';
+        return `
+            <button type="button" class="cat-pill ${isActive ? 'active' : ''}" data-category="${cat.id}" onclick="window.filterCategory('${cat.id}')">
+                <i data-lucide="${iconName}" style="width:16px;height:16px;"></i>
+                <span>${cat.name}</span>
+            </button>
+        `;
+    }).join('');
+    
+    if (window.lucide) window.lucide.createIcons();
 }
 
 // Manipulador de Seleção de Categoria Global
@@ -798,12 +913,24 @@ function renderProducts() {
     if (!catalogGrid) return;
 
     const allProducts = getLiveProducts();
+    const storeConfig = getStoreConfig();
+    const isCatalogOnly = storeConfig.mode === 'catalog';
 
     let filtered = allProducts.filter(prod => {
         // Se o produto foi ocultado / pausado pelo dono, não exibe no cardápio público
         if (prod.visible === false) return false;
 
-        const matchesCategory = activeCategory === 'todos' || prod.category === activeCategory;
+        let matchesCategory = false;
+        if (activeCategory === 'todos') {
+            matchesCategory = true;
+        } else if (activeCategory === 'destaques') {
+            matchesCategory = prod.isFeatured === true || prod.destaque === true || (prod.badge && prod.badge.includes('Mais Vendido'));
+        } else if (activeCategory === 'pronta-entrega') {
+            matchesCategory = prod.category === 'cookies' || prod.category === 'salgados' || prod.category === 'bebidas' || prod.category === 'promocoes' || prod.category === 'pronta-entrega';
+        } else {
+            matchesCategory = prod.category === activeCategory;
+        }
+
         const matchesSearch = !searchQuery || 
             prod.name.toLowerCase().includes(searchQuery) || 
             (prod.desc && prod.desc.toLowerCase().includes(searchQuery));
@@ -811,7 +938,10 @@ function renderProducts() {
     });
 
     // Atualiza o Banner de Conceito da Categoria Ativa
-    const conceptInfo = CATEGORY_CONCEPTS[activeCategory] || CATEGORY_CONCEPTS['todos'];
+    const conceptInfo = CATEGORY_CONCEPTS[activeCategory] || {
+        title: 'Cardápio Completo',
+        desc: 'Cardápio artesanal da Fafa Doces Presentes para entrega rápida ou retirada no balcão.'
+    };
     const titleEl = document.getElementById('current-category-name');
     const descEl = document.getElementById('category-concept-desc');
     const countEl = document.getElementById('products-count-badge');
@@ -832,18 +962,69 @@ function renderProducts() {
         return;
     }
 
-    catalogGrid.innerHTML = filtered.map(prod => {
+    const renderCard = (prod) => {
         const priceFormatted = formatCurrency(prod.price);
-        const badgeClass = getBadgeClass(prod.badge);
+        const isFeatured = prod.isFeatured === true || prod.destaque === true;
+        const badgeLabel = prod.badge || (isFeatured ? '⭐ Destaque da Casa' : '');
+        const badgeClass = getBadgeClass(badgeLabel);
+        const isSoldOut = prod.stock === 0;
+
+        let scarcityHtml = '';
+        if (prod.stock !== undefined && prod.stock !== null) {
+            if (prod.stock > 3) {
+                scarcityHtml = `
+                    <div class="card-scarcity-badge">
+                        <span class="scarcity-pulse"></span>
+                        <span>Restam ${prod.stock} da fornada</span>
+                    </div>
+                `;
+            } else if (prod.stock > 0) {
+                scarcityHtml = `
+                    <div class="card-scarcity-badge urgent">
+                        <i data-lucide="flame" style="width:11px;height:11px;"></i>
+                        <span>Últimas ${prod.stock} unidades!</span>
+                    </div>
+                `;
+            } else {
+                scarcityHtml = `
+                    <div class="card-scarcity-badge soldout">
+                        <i data-lucide="lock" style="width:11px;height:11px;"></i>
+                        <span>Fornada esgotada hoje</span>
+                    </div>
+                `;
+            }
+        }
+        
+        let actionBtn = '';
+        if (isCatalogOnly) {
+            actionBtn = `
+                <button type="button" class="btn-add-item btn-catalog-view" onclick="window.openProductModal('${prod.id}')" aria-label="Ver detalhes de ${prod.name}">
+                    <i data-lucide="eye" style="width:16px;height:16px;"></i>
+                    <span>Ver Detalhes</span>
+                </button>
+            `;
+        } else if (isSoldOut) {
+            actionBtn = `
+                <button type="button" class="btn-add-item btn-item-soldout" onclick="window.openProductModal('${prod.id}')" aria-label="${prod.name} esgotado">
+                    <i data-lucide="lock" style="width:14px;height:14px;"></i>
+                    <span>Esgotado Hoje</span>
+                </button>
+            `;
+        } else {
+            actionBtn = `
+                <button type="button" class="btn-add-item" onclick="window.openProductModal('${prod.id}')" aria-label="Adicionar ${prod.name}">
+                    <i data-lucide="plus" style="width:16px;height:16px;"></i>
+                    <span>Pedir</span>
+                </button>
+            `;
+        }
 
         return `
-            <article class="menu-card" data-id="${prod.id}">
+            <article class="menu-card ${isFeatured ? 'card-featured' : ''} ${isSoldOut ? 'card-soldout' : ''}" data-id="${prod.id}">
                 <div class="card-img-box" onclick="window.openProductModal('${prod.id}')">
                     <img src="${prod.img}" alt="${prod.name}" class="card-img" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=600&q=80';">
-                    ${prod.badge ? `<span class="card-badge ${badgeClass}">${prod.badge}</span>` : ''}
-                    <div class="card-rating">
-                        <i data-lucide="star" style="width:12px;height:12px;fill:#F59E0B;stroke:none;"></i> ${prod.rating || '5.0'}
-                    </div>
+                    ${badgeLabel ? `<span class="card-badge ${badgeClass}">${badgeLabel}</span>` : ''}
+                    ${scarcityHtml}
                 </div>
                 <div class="card-body">
                     <div class="card-title-row" onclick="window.openProductModal('${prod.id}')">
@@ -855,20 +1036,165 @@ function renderProducts() {
                             <span class="price-label">Valor:</span>
                             <span class="price-value">${priceFormatted}</span>
                         </div>
-                        <button type="button" class="btn-add-item" onclick="window.openProductModal('${prod.id}')" aria-label="Adicionar ${prod.name}">
-                            <i data-lucide="plus" style="width:16px;height:16px;"></i>
-                            <span>Pedir</span>
-                        </button>
+                        ${actionBtn}
                     </div>
                 </div>
             </article>
         `;
-    }).join('');
+    };
+
+    function renderStreamingRail(railId, title, subtitle, iconName, prodsList, isPresentes = false) {
+        if (!prodsList || prodsList.length === 0) return '';
+        return `
+            <section class="streaming-rail-section" id="rail-section-${railId}">
+                <div class="streaming-rail-header">
+                    <div class="rail-header-text">
+                        <div class="rail-title-row">
+                            <i data-lucide="${iconName}" class="rail-icon"></i>
+                            <h2 class="rail-title">${title}</h2>
+                            <span class="rail-count-tag">${prodsList.length} ${prodsList.length === 1 ? 'opção' : 'opções'}</span>
+                        </div>
+                        <p class="rail-subtitle">${subtitle}</p>
+                    </div>
+                    <div class="rail-nav-controls">
+                        <button type="button" class="btn-rail-nav prev" onclick="window.scrollRail('${railId}', -320)" aria-label="Voltar itens de ${title}">
+                            <i data-lucide="chevron-left" style="width:18px;height:18px;"></i>
+                        </button>
+                        <button type="button" class="btn-rail-nav next" onclick="window.scrollRail('${railId}', 320)" aria-label="Avançar itens de ${title}">
+                            <i data-lucide="chevron-right" style="width:18px;height:18px;"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="streaming-rail-track" id="rail-${railId}">
+                    ${isPresentes ? `
+                        <!-- Card Spotlight: Concierge Afetivo Personalizado -->
+                        <article class="concierge-spotlight-card">
+                            <div class="concierge-spotlight-content">
+                                <div class="spotlight-tag">
+                                    <i data-lucide="sparkles" style="width:13px;height:13px;"></i>
+                                    <span>COMPOSIÇÃO PERSONALIZADA</span>
+                                </div>
+                                <h3 class="spotlight-title">Cestas & Caixas sob Medida</h3>
+                                <p class="spotlight-desc">Fale diretamente com nossa equipe no WhatsApp. Escolhemos a composição ideal para sua ocasião, cartões dedicatórios e mimos especiais.</p>
+                                <a href="https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent('Olá! Gostaria de falar com a equipe da Fafa para escolher a composição ideal de presentes para uma ocasião especial.')}" target="_blank" rel="noopener noreferrer" class="btn-spotlight-wa">
+                                    <i data-lucide="message-circle" style="width:16px;height:16px;"></i>
+                                    <span>Falar com Nossa Equipe</span>
+                                </a>
+                            </div>
+                        </article>
+                    ` : ''}
+                    ${prodsList.map(renderCard).join('')}
+                </div>
+            </section>
+        `;
+    }
+
+    // SE "TODOS OS ITENS" e SEM BUSCA: Renderiza os 4 Trilhos Cinematográficos Estilo Streaming
+    if (activeCategory === 'todos' && !searchQuery) {
+        let railsHtml = '';
+
+        // Trilho 1: Presentes Incríveis
+        const presentesProds = filtered.filter(p => p.category === 'presentes' || (p.group && p.group.toLowerCase().includes('presente')));
+        railsHtml += renderStreamingRail(
+            'presentes',
+            'Presentes Incríveis & Boxes Comemorativas',
+            'Fale diretamente com nossa equipe, vamos escolher a composição ideal para sua ocasião.',
+            'gift',
+            presentesProds,
+            true
+        );
+
+        // Trilho 2: Pâtisserie do Chef
+        const patisserieProds = filtered.filter(p => p.category === 'tortas' || (p.badge && p.badge.includes('Pâtisserie')) || (p.group && p.group.toLowerCase().includes('tortas')));
+        railsHtml += renderStreamingRail(
+            'patisserie',
+            'Pâtisserie do Chef Rafael Franzosi',
+            'Criações autorais e doces finos premiados pelo Prêmio Revista Sabores do Sul.',
+            'cake',
+            patisserieProds,
+            false
+        );
+
+        // Trilho 3: Pronta-Entrega & Balcão
+        const prontaEntregaProds = filtered.filter(p => 
+            p.category === 'cookies' || p.category === 'salgados' || p.category === 'bebidas' || p.category === 'promocoes' || p.category === 'pronta-entrega'
+        );
+        railsHtml += renderStreamingRail(
+            'pronta-entrega',
+            'Pronta-Entrega & Balcão (Para Hoje)',
+            'O que podemos entregar no dia (preferência balcão, ou entrega programada). Cookies assados hoje, quiches, salgados e cafés.',
+            'zap',
+            prontaEntregaProds,
+            false
+        );
+
+        // Trilho 4: Fafá na sua Casa • Congelados
+        const congeladosProds = filtered.filter(p => p.category === 'congelados' || (p.group && p.group.toLowerCase().includes('congelados')));
+        railsHtml += renderStreamingRail(
+            'congelados',
+            'Fafá na sua Casa • Congelados',
+            'Congelados artesanais entregues conforme programação, para assar na sua Air Fryer quando quiser.',
+            'snowflake',
+            congeladosProds,
+            false
+        );
+
+        catalogGrid.innerHTML = railsHtml;
+        if (window.lucide) window.lucide.createIcons();
+        return;
+    }
+
+    // Se busca ativa ou categoria individual selecionada, renderiza o grid ou trilho correspondente
+    if (activeCategory === 'presentes' && !searchQuery) {
+        catalogGrid.innerHTML = `
+            <div class="category-group-grid">
+                <!-- Card Spotlight: Concierge Afetivo Personalizado -->
+                <article class="concierge-spotlight-card" style="max-width:none;width:100%;">
+                    <div class="concierge-spotlight-content">
+                        <div class="spotlight-tag">
+                            <i data-lucide="sparkles" style="width:13px;height:13px;"></i>
+                            <span>COMPOSIÇÃO PERSONALIZADA</span>
+                        </div>
+                        <h3 class="spotlight-title">Cestas &amp; Caixas sob Medida</h3>
+                        <p class="spotlight-desc">Fale diretamente com nossa equipe no WhatsApp. Escolhemos a composição ideal para sua ocasião, cartões dedicatórios e mimos especiais.</p>
+                        <a href="https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent('Olá! Gostaria de falar com a equipe da Fafa para escolher a composição ideal de presentes para uma ocasião especial.')}" target="_blank" rel="noopener noreferrer" class="btn-spotlight-wa">
+                            <i data-lucide="message-circle" style="width:16px;height:16px;"></i>
+                            <span>Falar com Nossa Equipe</span>
+                        </a>
+                    </div>
+                </article>
+                ${filtered.map(renderCard).join('')}
+            </div>
+        `;
+    } else {
+        catalogGrid.innerHTML = `
+            <div class="category-group-grid">
+                ${filtered.map(renderCard).join('')}
+            </div>
+        `;
+    }
 
     if (window.lucide) {
         window.lucide.createIcons();
     }
 }
+
+// Catálogo Curado de Adicionais Especiais & Mimos de Presente da Fafá Doces
+const FAFA_SPECIAL_ADDONS = [
+    { id: 'addon-gift-box', name: 'Embalagem de Presente Especial + Laço de Cetim & Tag', price: 8.00, icon: 'gift' },
+    { id: 'addon-card-handwritten', name: 'Cartão Artesanal com Dedicatória Manuscrita', price: 5.00, icon: 'mail' },
+    { id: 'addon-special-candle', name: 'Vela de Aniversário Especial Comemorativa', price: 6.00, icon: 'flame' },
+    { id: 'addon-extra-topping', name: 'Pote Extra de Nutella Pura ou Calda de Frutas Vermelhas (60g)', price: 6.00, icon: 'heart' }
+];
+
+window.toggleAddonSelection = function(chk) {
+    const label = document.getElementById(`label-${chk.value}`);
+    if (label) {
+        label.classList.toggle('selected', chk.checked);
+    }
+    updateModalTotal();
+};
 
 // Resetar filtros de busca
 window.resetFilters = function() {
@@ -893,40 +1219,88 @@ window.openProductModal = function(productId) {
     const modalEl = document.getElementById('product-modal');
     if (!modalEl) return;
 
+    const storeConfig = getStoreConfig();
+    const isCatalogOnly = storeConfig.mode === 'catalog';
+
     document.getElementById('modal-img').src = product.img;
     document.getElementById('modal-title').textContent = product.name;
     document.getElementById('modal-desc').textContent = product.desc;
-    document.getElementById('modal-badge').textContent = product.badge || 'Confeitaria Artesanal';
+    document.getElementById('modal-badge').textContent = product.badge || (product.isFeatured ? '⭐ Destaque' : 'Confeitaria Artesanal');
 
-    // Renderizar Tamanhos/Opções
+    // Informação de Escassez da Fornada no Modal
+    const scarcityNoticeEl = document.getElementById('modal-scarcity-notice');
+    const isSoldOut = product.stock === 0;
+    if (scarcityNoticeEl) {
+        if (product.stock !== undefined && product.stock !== null) {
+            if (product.stock > 3) {
+                scarcityNoticeEl.innerHTML = `
+                    <div class="modal-scarcity-box">
+                        <span class="scarcity-pulse"></span>
+                        <span>Fornada de hoje: Restam <strong>${product.stock} unidades</strong> disponíveis.</span>
+                    </div>
+                `;
+                scarcityNoticeEl.style.display = 'block';
+            } else if (product.stock > 0) {
+                scarcityNoticeEl.innerHTML = `
+                    <div class="modal-scarcity-box urgent">
+                        <i data-lucide="flame" style="width:14px;height:14px;"></i>
+                        <span>Últimas <strong>${product.stock} unidades</strong> desta fornada artesanal!</span>
+                    </div>
+                `;
+                scarcityNoticeEl.style.display = 'block';
+            } else {
+                scarcityNoticeEl.innerHTML = `
+                    <div class="modal-scarcity-box soldout">
+                        <i data-lucide="lock" style="width:14px;height:14px;"></i>
+                        <span>🔒 <strong>Fornada de hoje esgotada.</strong> Fale com nossa equipe no WhatsApp para encomendar a próxima fornada fresquinha!</span>
+                    </div>
+                `;
+                scarcityNoticeEl.style.display = 'block';
+            }
+        } else {
+            scarcityNoticeEl.style.display = 'none';
+        }
+    }
+
+    // Renderizar Opção Padrão
     const sizesContainer = document.getElementById('modal-sizes-list');
     if (sizesContainer) {
         sizesContainer.innerHTML = `
             <label class="size-option-label selected">
-                <input type="radio" name="modal-size" value="Porção / Item Padrão" data-price="${product.price}" checked onchange="updateModalTotal()">
-                <span class="size-name">Porção / Item Padrão</span>
+                <input type="radio" name="modal-size" value="Porção Padrão" data-price="${product.price}" checked onchange="updateModalTotal()">
+                <span class="size-name">Porção / Unidade Artesanal</span>
                 <span class="size-price">${formatCurrency(product.price)}</span>
             </label>
         `;
     }
 
-    // Renderizar Opcionais/Adicionais
-    const addonsContainer = document.getElementById('modal-addons-list');
-    if (addonsContainer) {
-        if (product.hasAdicionais) {
-            addonsContainer.innerHTML = ADDON_OPTIONS.map(ad => `
-                <label class="addon-option-label">
-                    <input type="checkbox" class="addon-checkbox" value="${ad.name}" data-price="${ad.price}" onchange="updateModalTotal()">
-                    <span class="addon-name">${ad.name}</span>
-                    <span class="addon-price">${ad.price > 0 ? '+ ' + formatCurrency(ad.price) : 'Grátis'}</span>
+    // Renderizar Adicionais Especiais & Mimos de Presente
+    const addonsSection = document.getElementById('modal-addons-section');
+    const addonsList = document.getElementById('modal-addons-list');
+    if (addonsSection && addonsList) {
+        if (product.hasAdicionais !== false) {
+            addonsList.innerHTML = FAFA_SPECIAL_ADDONS.map(addon => `
+                <label class="addon-option-item" id="label-${addon.id}">
+                    <div class="addon-left-info">
+                        <div class="addon-icon-box">
+                            <i data-lucide="${addon.icon}" style="width:15px;height:15px;"></i>
+                        </div>
+                        <span class="addon-name-txt">${addon.name}</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <span class="addon-price-tag">+ ${formatCurrency(addon.price)}</span>
+                        <input type="checkbox" class="addon-chk-custom modal-addon-chk" value="${addon.id}" data-name="${addon.name}" data-price="${addon.price}" onchange="window.toggleAddonSelection(this)">
+                    </div>
                 </label>
             `).join('');
+            addonsSection.style.display = 'block';
         } else {
-            addonsContainer.innerHTML = `<p class="text-muted-sm" style="color:var(--text-muted);font-size:0.8rem;">Item pronto para envio.</p>`;
+            addonsList.innerHTML = '';
+            addonsSection.style.display = 'none';
         }
     }
 
-    // Observações
+    // Observações / Dedicatória
     const obsInput = document.getElementById('modal-obs');
     if (obsInput) obsInput.value = '';
 
@@ -934,6 +1308,30 @@ window.openProductModal = function(productId) {
     document.getElementById('modal-qty').textContent = '1';
 
     updateModalTotal();
+
+    const addBtn = document.getElementById('modal-add-btn');
+    if (addBtn) {
+        if (isCatalogOnly) {
+            addBtn.innerHTML = `
+                <i data-lucide="message-circle" style="width:17px;height:17px;"></i>
+                <span>Consultar no WhatsApp</span>
+            `;
+            addBtn.onclick = () => window.consultProductOnWhatsApp(product.id);
+        } else if (isSoldOut) {
+            addBtn.innerHTML = `
+                <i data-lucide="message-circle" style="width:17px;height:17px;"></i>
+                <span>Encomendar Próxima Fornada no WhatsApp</span>
+            `;
+            addBtn.onclick = () => window.consultProductOnWhatsApp(product.id);
+        } else {
+            addBtn.innerHTML = `
+                <span>Adicionar ao Pedido</span> 
+                <strong class="modal-price-pill">${formatCurrency(product.price)}</strong>
+            `;
+            addBtn.onclick = window.confirmAddModalToCart;
+        }
+    }
+
     modalEl.classList.add('active');
     document.body.style.overflow = 'hidden';
 
@@ -960,44 +1358,101 @@ window.changeModalQty = function(delta) {
 function updateModalTotal() {
     const qty = parseInt(document.getElementById('modal-qty')?.textContent) || 1;
     const basePrice = currentModalProduct?.price || 0;
-
-    let addonsTotal = 0;
-    const checkedAddons = document.querySelectorAll('.addon-checkbox:checked');
-    checkedAddons.forEach(cb => {
-        addonsTotal += parseFloat(cb.dataset.price) || 0;
+    let addonsSum = 0;
+    document.querySelectorAll('.modal-addon-chk:checked').forEach(chk => {
+        addonsSum += parseFloat(chk.dataset.price) || 0;
     });
+    const unitWithAddons = basePrice + addonsSum;
+    const total = unitWithAddons * qty;
 
-    const total = (basePrice + addonsTotal) * qty;
+    const storeConfig = getStoreConfig();
+    const isCatalogOnly = storeConfig.mode === 'catalog';
     const totalBtn = document.getElementById('modal-add-btn');
+
     if (totalBtn) {
-        totalBtn.innerHTML = `<span>Adicionar ao Pedido</span> <strong class="modal-price-pill">${formatCurrency(total)}</strong>`;
+        if (isCatalogOnly) {
+            totalBtn.innerHTML = `
+                <i data-lucide="message-circle" style="width:17px;height:17px;"></i>
+                <span>Consultar no WhatsApp</span>
+            `;
+        } else {
+            totalBtn.innerHTML = `<span>Adicionar ao Pedido</span> <strong class="modal-price-pill">${formatCurrency(total)}</strong>`;
+        }
     }
 }
 
-// Confirmar e Adicionar Item ao Carrinho
+// Consulta Direta no WhatsApp no Modo Catálogo
+window.consultProductOnWhatsApp = function(productId) {
+    const allProducts = getLiveProducts();
+    const product = allProducts.find(p => p.id === productId);
+    if (!product) return;
+
+    const qty = parseInt(document.getElementById('modal-qty')?.textContent) || 1;
+    const obs = (document.getElementById('modal-obs')?.value || '').trim();
+
+    let msg = `Olá! Gostaria de consultar a disponibilidade do item *${product.name}* (${formatCurrency(product.price)}) que vi no catálogo digital da Fafá Doces Presentes.`;
+    if (qty > 1) {
+        msg += `\n*Quantidade desejada:* ${qty} unidades`;
+    }
+    if (obs) {
+        msg += `\n*Observação / Ocasião:* ${obs}`;
+    }
+
+    const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+    closeProductModal();
+};
+
+// Confirmar e Adicionar Item ao Carrinho (Com Validação de Estoque da Fornada e Mimos Selecionados)
 window.confirmAddModalToCart = function() {
     if (!currentModalProduct) return;
 
-    const qty = parseInt(document.getElementById('modal-qty')?.textContent) || 1;
+    let qty = parseInt(document.getElementById('modal-qty')?.textContent) || 1;
     const basePrice = currentModalProduct.price;
-
-    const addons = [];
-    let addonsPrice = 0;
-    document.querySelectorAll('.addon-checkbox:checked').forEach(cb => {
-        addons.push(cb.value);
-        addonsPrice += parseFloat(cb.dataset.price) || 0;
-    });
-
     const observations = document.getElementById('modal-obs')?.value.trim() || '';
+
+    // Validação de Escassez da Fornada
+    if (currentModalProduct.stock !== undefined && currentModalProduct.stock !== null) {
+        if (currentModalProduct.stock === 0) {
+            showToast('🔒 Fornada esgotada por hoje! Fale conosco no WhatsApp para reservar a próxima.');
+            return;
+        }
+        const existingInCart = cart
+            .filter(item => item.productId === currentModalProduct.id)
+            .reduce((sum, item) => sum + item.qty, 0);
+
+        if (existingInCart + qty > currentModalProduct.stock) {
+            const available = Math.max(0, currentModalProduct.stock - existingInCart);
+            if (available === 0) {
+                showToast(`⚠️ Você já adicionou o limite máximo desta fornada (${currentModalProduct.stock} unid.)!`);
+                return;
+            } else {
+                showToast(`⚠️ Restam apenas ${available} unidades desta fornada de hoje. Quantidade ajustada.`);
+                qty = available;
+            }
+        }
+    }
+
+    // Coleta os adicionais especiais marcados
+    const selectedAddons = [];
+    document.querySelectorAll('.modal-addon-chk:checked').forEach(chk => {
+        selectedAddons.push({
+            id: chk.value,
+            name: chk.dataset.name,
+            price: parseFloat(chk.dataset.price) || 0
+        });
+    });
+    const addonsTotal = selectedAddons.reduce((sum, a) => sum + a.price, 0);
 
     const cartItem = {
         cartId: 'item_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
         productId: currentModalProduct.id,
         name: currentModalProduct.name,
         sizeName: 'Padrão',
-        unitPrice: basePrice + addonsPrice,
+        unitPrice: basePrice + addonsTotal,
+        basePrice: basePrice,
         qty: qty,
-        addons: addons,
+        addons: selectedAddons,
         observations: observations,
         img: currentModalProduct.img
     };
@@ -1008,6 +1463,14 @@ window.confirmAddModalToCart = function() {
     closeProductModal();
 
     showToast(`✓ ${qty}x ${currentModalProduct.name} adicionado!`);
+};
+
+// Navegação Horizontal Suave dos Trilhos Cinematográficos
+window.scrollRail = function(railId, offset) {
+    const track = document.getElementById('rail-' + railId);
+    if (track) {
+        track.scrollBy({ left: offset, behavior: 'smooth' });
+    }
 };
 
 // Adição Rápida de Upsell (1 Toque)
@@ -1109,7 +1572,7 @@ window.removeCartItem = function(cartId) {
     showToast('Item removido.');
 };
 
-// Alteração de Tipo de Entrega
+// Alteração de Tipo de Entrega (Balcão Recomendado vs Tele-Entrega Própria)
 window.setDeliveryType = function(type) {
     selectedDeliveryType = type;
     document.querySelectorAll('.delivery-type-btn').forEach(btn => {
@@ -1117,11 +1580,37 @@ window.setDeliveryType = function(type) {
     });
 
     const deliveryForm = document.getElementById('delivery-address-form');
+    const pickupHint = document.getElementById('pickup-notice-hint');
     if (deliveryForm) {
         deliveryForm.style.display = type === 'delivery' ? 'block' : 'none';
     }
+    if (pickupHint) {
+        pickupHint.style.display = type === 'pickup' ? 'block' : 'none';
+    }
 
     updateCartUI();
+};
+
+// Alteração de Previsão / Prazo: Pronta Entrega vs Encomenda Programada
+window.setScheduleType = function(type) {
+    selectedScheduleType = type;
+    document.querySelectorAll('.schedule-type-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.schedule === type);
+    });
+
+    const scheduleForm = document.getElementById('schedule-fields-form');
+    if (scheduleForm) {
+        scheduleForm.style.display = type === 'programado' ? 'block' : 'none';
+        if (type === 'programado') {
+            const dateInput = document.getElementById('order-schedule-date');
+            if (dateInput && !dateInput.value) {
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                dateInput.value = tomorrow.toISOString().split('T')[0];
+                dateInput.min = new Date().toISOString().split('T')[0];
+            }
+        }
+    }
 };
 
 // Seleção de Forma de Pagamento
@@ -1139,9 +1628,15 @@ window.setPaymentMethod = function(method) {
 
 // Atualização Visual do Carrinho
 function updateCartUI() {
+    const storeConfig = getStoreConfig();
+    if (storeConfig.mode === 'catalog') {
+        applyStoreConfig();
+        return;
+    }
+
     const cartItemsContainer = document.getElementById('cart-items-list');
     const cartCountBadge = document.getElementById('cart-count');
-    const cartTotalHeader = document.getElementById('cart-total-header');
+    const cartTotalHeader = document.getElementById('cart-total-nav');
     const headerTrash = document.getElementById('btn-header-trash');
     const floatingBar = document.getElementById('cart-floating-bar');
     const floatingCount = document.getElementById('floating-cart-count');
@@ -1207,7 +1702,11 @@ function updateCartUI() {
                         <h4 class="cart-item-name">${item.name}</h4>
                         <div class="cart-item-details">
                             ${item.sizeName && item.sizeName !== 'Padrão' ? `<span class="detail-pill">${item.sizeName}</span>` : ''}
-                            ${item.addons && item.addons.length > 0 ? item.addons.map(ad => `<div class="addon-line">+ ${ad}</div>`).join('') : ''}
+                            ${item.addons && item.addons.length > 0 ? `
+                                <div class="cart-item-addons">
+                                    ${item.addons.map(a => `<span class="cart-addon-pill"><i data-lucide="gift" style="width:11px;height:11px;color:var(--accent-coral);"></i> ${a.name} (<strong>+ ${formatCurrency(a.price)}</strong>)</span>`).join('')}
+                                </div>
+                            ` : ''}
                             ${item.observations ? `<div class="obs-line"><em>Obs: ${item.observations}</em></div>` : ''}
                         </div>
                         <div class="cart-item-price-row">
@@ -1244,10 +1743,10 @@ function updateCartUI() {
     if (window.lucide) window.lucide.createIcons();
 }
 
-// Finalização e Envio do Pedido via WhatsApp (Comanda Operacional Onira.fly)
+// Finalização e Envio do Pedido via WhatsApp (Comanda Operacional Concierge & Balcão Onira.fly)
 window.submitOrderToWhatsApp = function() {
     if (cart.length === 0) {
-        alert('Por favor, adicione pelo menos um item ao seu pedido antes de finalizar.');
+        showToast('⚠️ Por favor, adicione pelo menos um item ao seu pedido antes de finalizar.');
         return;
     }
 
@@ -1264,7 +1763,7 @@ window.submitOrderToWhatsApp = function() {
         if (street || number) {
             addressDetails = `${street}${number ? ', nº ' + number : ''}${bairro ? ' - ' + bairro : ''}${complement ? ' (' + complement + ')' : ''} - Caxias do Sul`;
         } else {
-            addressDetails = `Endereço a confirmar no WhatsApp (Caxias do Sul)`;
+            addressDetails = `Endereço a combinar no WhatsApp (Caxias do Sul)`;
         }
     }
 
@@ -1285,29 +1784,46 @@ window.submitOrderToWhatsApp = function() {
     let msg = `_pedido via site by Onira.fly_\n\n`;
     
     if (selectedDeliveryType === 'delivery') {
-        msg += `Solicitação de Tele-Entrega\n\n`;
+        msg += `🚚 *Solicitação de Tele-Entrega Própria*\n`;
     } else {
-        msg += `Solicitação de Retirada no balcão\n\n`;
+        msg += `🏬 *Solicitação de Retirada no Balcão*\n_Rua Tronca, 2951 - Sala 1 (Rio Branco)_\n`;
     }
 
+    // Previsão e Agendamento
+    if (selectedScheduleType === 'programado') {
+        const scheduleDate = document.getElementById('order-schedule-date')?.value;
+        const schedulePeriod = document.getElementById('order-schedule-period')?.value || 'Tarde';
+        let dateFormatted = scheduleDate ? scheduleDate.split('-').reverse().join('/') : 'A combinar';
+        msg += `📅 *Previsão:* Encomenda Programada para *${dateFormatted}* (Turno: ${schedulePeriod})\n\n`;
+    } else {
+        msg += `⚡ *Previsão:* Pronta Entrega (Hoje)\n\n`;
+    }
+
+    // Dedicatória para presente
+    const giftCardText = (document.getElementById('order-gift-card')?.value || '').trim();
+    if (giftCardText) {
+        msg += `💌 *Dedicatória para o Cartão de Presente:*\n"${giftCardText}"\n\n`;
+    }
+
+    msg += `*ITENS DO PEDIDO:*\n`;
     cart.forEach(item => {
         msg += `*${item.qty}x* ${item.name}${item.sizeName && item.sizeName !== 'Padrão' ? ' · ' + item.sizeName : ''}\n`;
         if (item.addons && item.addons.length > 0) {
-            item.addons.forEach(ad => {
-                msg += `+ ${ad}\n`;
+            item.addons.forEach(a => {
+                msg += `  └ Mimo: ${a.name} (+ ${formatCurrency(a.price)})\n`;
             });
         }
         if (item.observations) {
-            msg += `_Obs: ${item.observations}_\n`;
+            msg += `  └ _Obs: ${item.observations}_\n`;
         }
         msg += `*${formatCurrency(item.unitPrice * item.qty)}*\n\n`;
     });
 
-    msg += `*Itens: ${formatCurrency(subtotal)}*\n`;
+    msg += `*Subtotal:* ${formatCurrency(subtotal)}\n`;
     if (selectedDeliveryType === 'delivery') {
-        msg += `Entrega: ${formatCurrency(deliveryFee)} (Caxias do Sul)\n`;
+        msg += `*Entrega:* ${formatCurrency(deliveryFee)} (Caxias do Sul)\n`;
     }
-    msg += `*Total: ${formatCurrency(totalFinal)}*\n\n`;
+    msg += `*Total Geral:* ${formatCurrency(totalFinal)}\n\n`;
 
     if (clientName) {
         msg += `*Cliente:* ${clientName}\n`;
@@ -1316,7 +1832,7 @@ window.submitOrderToWhatsApp = function() {
         msg += `*Endereço:* ${addressDetails}\n`;
     }
     msg += `*Pagamento:* ${paymentText}\n\n`;
-    msg += `_Enviado pelo site oficial da Fafa Doces Presentes • Onira.fly (Engenharia de Negócios Digitais)_`;
+    msg += `_Enviado pelo site oficial da Fafa Doces Presentes • Onira.fly_`;
 
     const encodedMsg = encodeURIComponent(msg);
     const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodedMsg}`;

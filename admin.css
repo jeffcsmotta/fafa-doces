@@ -1192,3 +1192,290 @@ input:checked + .slider:before {
     }
 }
 
+/* ==========================================================================
+   Estilos de Perfis (Admin vs Operador) & Botões de Configuração
+   ========================================================================== */
+.owner-pill.role-admin {
+    background: #ECFDF5;
+    color: #059669;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.owner-pill.role-operator {
+    background: #FFFBEB;
+    color: #D97706;
+    border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.btn-switch-user {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-switch-user:hover {
+    background: #FFF0ED;
+    color: var(--accent-coral);
+    border-color: rgba(238, 82, 68, 0.4);
+}
+
+.btn-admin-config {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #FFFFFF;
+    border: 1.5px solid var(--border);
+    color: var(--text-dark);
+    padding: 7px 14px;
+    border-radius: var(--radius-pill);
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-admin-config:hover {
+    background: #FAF5F2;
+    border-color: var(--primary-light);
+    color: var(--primary);
+}
+
+/* ==========================================================================
+   Upload de Foto com Preview em Tempo Real
+   ========================================================================== */
+.image-upload-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px;
+    background: #FDFBF9;
+    border: 1.5px dashed var(--border);
+    border-radius: var(--radius-md);
+}
+
+@media (max-width: 580px) {
+    .image-upload-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.img-preview-container {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.preview-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.btn-clear-photo {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 20px;
+    height: 20px;
+    background: rgba(54, 12, 20, 0.75);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-clear-photo:hover {
+    background: var(--accent-coral);
+}
+
+.upload-controls {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.btn-select-file {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #FAF5F2;
+    border: 1px solid var(--border);
+    color: var(--text-dark);
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-select-file:hover {
+    background: #F2E9E4;
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* ==========================================================================
+   Toggle Destaque & Botões de Exclusão
+   ========================================================================== */
+.toggle-pill-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.toggle-hint-text {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.btn-delete-product {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: 1px solid rgba(238, 82, 68, 0.4);
+    color: var(--accent-coral);
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    font-size: 0.84rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-delete-product:hover {
+    background: #FFF2F0;
+    border-color: var(--accent-coral);
+}
+
+.btn-confirm-delete {
+    background: var(--accent-coral);
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 18px;
+    border-radius: var(--radius-pill);
+    font-size: 0.88rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-confirm-delete:hover {
+    background: #D83E31;
+}
+
+.store-mode-card {
+    transition: all 0.2s ease;
+}
+
+.store-mode-card:hover {
+    border-color: var(--primary-light) !important;
+}
+
+/* Controle Rápido de Estoque da Fornada (Escassez Artesanal) */
+.batch-stock-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #FFF8F6;
+    border: 1px solid rgba(238, 82, 68, 0.25);
+    padding: 4px 8px;
+    border-radius: var(--radius-pill);
+    font-size: 0.78rem;
+}
+
+.stock-label {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-weight: 700;
+    color: var(--primary-dark);
+    font-size: 0.75rem;
+}
+
+.btn-stock-adjust {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid rgba(54, 12, 20, 0.2);
+    background: #FFFFFF;
+    color: var(--primary-dark);
+    font-weight: 800;
+    font-size: 0.82rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    line-height: 1;
+}
+
+.btn-stock-adjust:hover {
+    background: var(--primary-dark);
+    color: #FFFFFF;
+    border-color: var(--primary-dark);
+}
+
+.stock-value-badge {
+    font-weight: 800;
+    font-size: 0.85rem;
+    min-width: 18px;
+    text-align: center;
+    color: var(--accent-coral);
+}
+
+.stock-value-badge.stock-zero {
+    color: #DC2626;
+    font-weight: 900;
+}
+
+.stock-value-badge.unlimited {
+    color: var(--emerald);
+    font-size: 1rem;
+}
+
+.btn-stock-zero {
+    background: #FEE2E2;
+    color: #991B1B;
+    border: 1px solid #FCA5A5;
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.15s ease;
+}
+
+.btn-stock-zero:hover {
+    background: #EF4444;
+    color: #FFFFFF;
+    border-color: #DC2626;
+}
+
+
