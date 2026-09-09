@@ -1687,12 +1687,12 @@ body.cart-drawer-open .site-footer {
     border-radius: 4px;
 }
 
-/* 1. Tipo de Pedido (Tele-Entrega vs Retirada) no topo */
+/* 1. Tipo de Pedido (Tele-Entrega vs Retirada) no topo: cartão marrom-avermelhado padrão */
 .delivery-top-group {
-    background: rgba(0, 0, 0, 0.28);
+    background: #8C2F33;
     padding: 12px 14px;
     border-radius: var(--radius-md);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 /* Lista de Itens no Carrinho: Boxes com fundo claro conforme solicitado */
@@ -1865,10 +1865,9 @@ body.cart-drawer-open .site-footer {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
-    background: #140307;
-    padding: 4px;
-    border-radius: var(--radius-pill);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    padding: 0;
+    border: none;
 }
 
 .delivery-type-btn,
@@ -1876,8 +1875,8 @@ body.cart-drawer-open .site-footer {
     padding: 9px 8px;
     border-radius: var(--radius-pill);
     border: none;
-    background: transparent;
-    color: #D3C5BC;
+    background: #3B0F14; /* Pílula inativa escura sobre o coral */
+    color: #FFE9E4;
     font-family: var(--font-body);
     font-size: 0.82rem;
     font-weight: 700;
@@ -1921,14 +1920,18 @@ body.cart-drawer-open .site-footer {
 .cart-input, .cart-select {
     width: 100%;
     padding: 10px 14px;
-    background: #140307;
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: #C0392B; /* Poço coral-escuro sobre o fundo coral */
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: var(--radius-md);
     color: #FFFFFF;
     font-family: var(--font-body);
     font-size: 0.85rem;
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cart-input::placeholder {
+    color: rgba(255, 255, 255, 0.65);
 }
 
 /* Foco em Azul Turquesa */
@@ -1952,10 +1955,10 @@ body.cart-drawer-open .site-footer {
 
 .pay-method-btn {
     padding: 10px 6px;
-    background: #140307;
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: #C0392B; /* Poço coral-escuro sobre o fundo coral */
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: var(--radius-md);
-    color: #EFE4DE;
+    color: #FFE9E4;
     font-family: var(--font-body);
     font-size: 0.8rem;
     font-weight: 700;
@@ -1982,8 +1985,8 @@ body.cart-drawer-open .site-footer {
 
 /* Cart Footer & Totais */
 .cart-footer {
-    background: #140307;
-    border-top: 1px solid rgba(216, 74, 91, 0.25);
+    background: var(--accent-coral-hover);
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
     padding: 18px 20px;
     display: flex;
     flex-direction: column;
@@ -2660,6 +2663,10 @@ body.has-cart-items .onira-cta {
 
 .schedule-top-group {
     margin-top: 12px;
+    background: #8C2F33;
+    padding: 12px 14px;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .schedule-toggle-wrap .schedule-type-btn {
@@ -2669,10 +2676,10 @@ body.has-cart-items .onira-cta {
     justify-content: center;
     gap: 6px;
     padding: 9px 12px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: var(--radius-sm);
-    color: #E6C8B2;
+    background: #3B0F14;
+    border: none;
+    border-radius: var(--radius-pill);
+    color: #FFE9E4;
     font-size: 0.82rem;
     font-weight: 700;
     cursor: pointer;
@@ -2989,14 +2996,14 @@ body.store-catalog-only .btn-header-trash {
     display: flex;
     align-items: center;
     gap: 12px;
-    background: linear-gradient(135deg, #2A0812 0%, #150308 100%); /* Fundo contrastante escuro e nobre */
-    border: 1.5px solid rgba(245, 158, 11, 0.5);
+    background: #FFF9F5; /* Card creme do Chef sobre o fundo petit poá */
+    border: 1.5px solid #EBDCD0;
     border-radius: var(--radius-pill);
     padding: 10px 16px 10px 10px; /* Ligeiramente mais alto conforme solicitado */
-    box-shadow: 0 14px 34px rgba(21, 3, 8, 0.55), 0 2px 10px rgba(245, 158, 11, 0.2);
+    box-shadow: 0 14px 34px rgba(54, 12, 20, 0.22), 0 2px 10px rgba(245, 158, 11, 0.18);
     cursor: pointer;
     text-decoration: none;
-    color: #FFFFFF;
+    color: #1E120D;
     position: relative;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     max-width: 440px;
@@ -3005,7 +3012,7 @@ body.store-catalog-only .btn-header-trash {
 .concierge-floating-pill:hover {
     transform: translateY(-2px);
     border-color: #F59E0B;
-    box-shadow: 0 18px 40px rgba(21, 3, 8, 0.65), 0 4px 14px rgba(245, 158, 11, 0.35);
+    box-shadow: 0 18px 40px rgba(54, 12, 20, 0.28), 0 4px 14px rgba(245, 158, 11, 0.3);
 }
 
 .concierge-pill-avatar-wrap {
@@ -3032,7 +3039,7 @@ body.store-catalog-only .btn-header-trash {
     width: 12px;
     height: 12px;
     background: #10B981;
-    border: 2px solid #2A0812;
+    border: 2px solid #FFF9F5;
     border-radius: 50%;
     box-shadow: 0 0 6px rgba(16, 185, 129, 0.8);
 }
@@ -3049,7 +3056,7 @@ body.store-catalog-only .btn-header-trash {
 .concierge-pill-hook {
     font-size: 0.74rem;
     font-weight: 700;
-    color: #F59E0B; /* Dourado afetivo */
+    color: #5C131E; /* Vinho sobre o creme */
     letter-spacing: 0.2px;
     line-height: 1.2;
 }
@@ -3060,7 +3067,7 @@ body.store-catalog-only .btn-header-trash {
     gap: 6px;
     font-size: 0.84rem;
     font-weight: 700;
-    color: #FFFFFF;
+    color: #1E120D;
     line-height: 1.25;
 }
 
@@ -3071,7 +3078,7 @@ body.store-catalog-only .btn-header-trash {
 }
 
 .concierge-pill-arrow {
-    color: #F59E0B;
+    color: #B45309;
     font-weight: 800;
     font-size: 0.95rem;
     transition: transform 0.2s ease;
@@ -3082,9 +3089,9 @@ body.store-catalog-only .btn-header-trash {
 }
 
 .btn-concierge-pill-dismiss {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #D3C5BC;
+    background: rgba(92, 19, 30, 0.06);
+    border: 1px solid #E2D2C4;
+    color: #8C7B75;
     cursor: pointer;
     width: 24px;
     height: 24px;
@@ -3098,8 +3105,8 @@ body.store-catalog-only .btn-header-trash {
 }
 
 .btn-concierge-pill-dismiss:hover {
-    background: rgba(238, 82, 68, 0.3);
-    color: #FFFFFF;
+    background: rgba(238, 82, 68, 0.15);
+    color: #5C131E;
     border-color: var(--accent-coral);
 }
 
