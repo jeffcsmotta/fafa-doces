@@ -2145,15 +2145,34 @@ function initDesktopRailScroll() {
             }
         }, true);
 
-        // Traduz o rolamento vertical do scroll do mouse para rolamento horizontal fluido
-        track.addEventListener('wheel', (e) => {
-            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        // Rodinha no desktop: move o trilho só havendo caminho na direção;
+        // na ponta, o evento passa direto e a página segue rolando (sem armadilha)
+        if (!window.matchMedia('(pointer: coarse)').matches) {
+            track.addEventListener('wheel', (e) => {
+                if (e.ctrlKey || Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+                const maxLeft = track.scrollWidth - track.clientWidth;
+                if (maxLeft <= 0) return;
+                const goingForward = e.deltaY > 0;
+                const hasRoom = goingForward
+                    ? track.scrollLeft < maxLeft - 1
+                    : track.scrollLeft > 1;
+                if (!hasRoom) return;
                 e.preventDefault();
-                track.scrollBy({
-                    left: e.deltaY * 1.6,
-                    behavior: 'smooth'
-                });
-            }
-        }, { passive: false });
+                track.scrollLeft += e.deltaY;
+            }, { passive: false });
+        }
+
+        // Setas apagam na ponta correspondente para sinalizar o fim do trilho
+        const railSection = track.closest('.streaming-rail-section');
+        const prevBtn = railSection ? railSection.querySelector('.btn-rail-nav.prev') : null;
+        const nextBtn = railSection ? railSection.querySelector('.btn-rail-nav.next') : null;
+        const updateRailArrows = () => {
+            if (!prevBtn && !nextBtn) return;
+            const maxLeft = track.scrollWidth - track.clientWidth;
+            if (prevBtn) prevBtn.classList.toggle('rail-end', track.scrollLeft <= 1);
+            if (nextBtn) nextBtn.classList.toggle('rail-end', track.scrollLeft >= maxLeft - 1);
+        };
+        track.addEventListener('scroll', updateRailArrows, { passive: true });
+        updateRailArrows();
     });
 }

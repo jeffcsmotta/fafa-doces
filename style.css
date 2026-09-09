@@ -1576,7 +1576,7 @@ body.cart-drawer-open .site-footer {
     max-width: 440px;
     height: 100%;
     height: 100dvh;
-    background: #1C050A; /* Fundo mais escuro e nobre conforme solicitação */
+    background: var(--accent-coral); /* Coral do botão "Adicionar em 1 Toque" */
     color: #FFFFFF;
     z-index: 1200;
     display: flex;
@@ -1598,9 +1598,9 @@ body.cart-drawer-open .site-footer {
 
 .cart-header {
     flex-shrink: 0;
-    background: #140307;
+    background: var(--accent-coral-hover); /* Coral escuro: hierarquia sobre o fundo coral */
     padding: 14px 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
@@ -1856,7 +1856,7 @@ body.cart-drawer-open .site-footer {
 
 .empty-sub {
     font-size: 0.82rem;
-    color: #D3C5BC;
+    color: rgba(255, 255, 255, 0.88);
     margin-top: 4px;
 }
 
@@ -1913,7 +1913,7 @@ body.cart-drawer-open .site-footer {
 .cart-label {
     font-size: 0.75rem;
     font-weight: 700;
-    color: #E2D0C8;
+    color: #FFFFFF;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -1995,7 +1995,7 @@ body.cart-drawer-open .site-footer {
     align-items: center;
     justify-content: space-between;
     font-size: 0.85rem;
-    color: #D3C5BC;
+    color: #FFFFFF;
 }
 
 .cart-total-row {
@@ -2007,7 +2007,7 @@ body.cart-drawer-open .site-footer {
 }
 
 .cart-total-value {
-    color: var(--emerald-light) !important; /* Regra Mandatória: Total Verde Esmeralda */
+    color: #FFFFFF !important; /* Exceção ao esmeralda: sobre o fundo coral o total vai em branco */
     font-size: 1.35rem;
     font-family: var(--font-price);
     font-weight: 800;
@@ -2040,7 +2040,7 @@ body.cart-drawer-open .site-footer {
 .cart-onira-tag {
     text-align: center;
     font-size: 0.72rem;
-    color: #A38F86;
+    color: rgba(255, 255, 255, 0.85);
     margin-top: 4px;
 }
 
@@ -2284,20 +2284,31 @@ body.has-cart-items .onira-cta {
     }
 
     .nav-container {
-        padding-top: 12px;
-        padding-bottom: 12px;
+        padding-top: 10px;
+        padding-bottom: 10px;
         width: 100%;
         box-sizing: border-box;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 8px;
+        min-height: 0;
+    }
+
+    /* A logo absorve o aperto (encolhe) e o Pedido nunca sai da tela */
+    .brand-wrapper {
+        min-width: 0;
+        flex-shrink: 1;
     }
 
     .brand-logo-img {
-        height: 46px !important;
-        max-width: 200px !important;
+        height: 42px !important;
+        max-width: 160px !important;
+        width: 100%;
         object-fit: contain;
-        flex-shrink: 0;
+        object-position: left center;
+        flex-shrink: 1;
+        min-width: 0;
     }
 
     .status-compact {
@@ -2324,11 +2335,13 @@ body.has-cart-items .onira-cta {
     }
 
     .btn-cart-trigger {
-        padding: 9px 16px;
+        padding: 8px 12px;
         min-height: 44px;
-        gap: 8px;
+        gap: 6px;
         font-size: 0.82rem;
         margin-right: 0;
+        flex-shrink: 0;
+        white-space: nowrap;
     }
 
     .btn-cart-trigger .cart-btn-label {
@@ -2675,7 +2688,7 @@ body.has-cart-items .onira-cta {
 
 .schedule-hint-text {
     font-size: 0.74rem;
-    color: rgba(255, 255, 255, 0.65);
+    color: rgba(255, 255, 255, 0.92);
     margin-top: 6px;
     line-height: 1.35;
 }
@@ -2836,6 +2849,11 @@ body.store-catalog-only .btn-header-trash {
     color: #FFFFFF;
     border-color: var(--primary);
     transform: scale(1.08);
+}
+
+/* Seta apagada na ponta do trilho: indica que não há mais caminho */
+.btn-rail-nav.rail-end {
+    opacity: 0.3;
 }
 
 .streaming-rail-track {
