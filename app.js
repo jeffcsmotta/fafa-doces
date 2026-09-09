@@ -673,7 +673,7 @@ const CATEGORY_CONCEPTS = {
         desc: 'O que podemos entregar no dia (preferência balcão, ou entrega programada). Cookies assados hoje, quiches artesanais, salgados e cafés.'
     },
     'congelados': {
-        title: '❄️ Fafá na sua Casa • Congelados Artesanais',
+        title: '❄️ Fafa na sua Casa • Congelados Artesanais',
         desc: 'Congelados artesanais entregues conforme programação. Kits de cookies para assar na sua Air Fryer e quiches inteiros para ter sempre à mão.'
     },
     'cookies': {
@@ -705,6 +705,7 @@ function getBadgeClass(badgeText) {
 function sanitizeProductList(list) {
     if (!Array.isArray(list)) return PRODUCTS;
     return list.map(p => {
+        // Normaliza acento legado ("Fafá" de versões anteriores) para o padrão sem acento
         let name = (p.name || '').replace(/Fafá/g, 'Fafa');
         let desc = (p.desc || '').replace(/Fafá/g, 'Fafa');
         let group = (p.group || '').replace(/Fafá/g, 'Fafa');
@@ -911,7 +912,7 @@ window.filterCategory = function(cat) {
     renderProducts();
 };
 
-// Ordenação Curada de Presentes Incríveis (Fotos de Alto Impacto Primeiro: Experiência Fafá, Mini Experiência, Box Cookies)
+// Ordenação Curada de Presentes Incríveis (Fotos de Alto Impacto Primeiro: Experiência Fafa, Mini Experiência, Box Cookies)
 function sortPresentes(items) {
     return [...items].sort((a, b) => {
         const nameA = (a.name || '').toLowerCase();
@@ -1175,12 +1176,12 @@ function renderProducts() {
             prontaEntregaProds
         );
 
-        // Trilho 4: Fafá na sua Casa • Congelados
+        // Trilho 4: Fafa na sua Casa • Congelados
         const congeladosProds = filtered.filter(p => p.category === 'congelados' || (p.group && p.group.toLowerCase().includes('congelados')));
         railsHtml += renderStreamingRail(
             'congelados',
             'congelados',
-            'Fafá na sua Casa • Congelados',
+            'Fafa na sua Casa • Congelados',
             'Congelados artesanais entregues conforme programação, para assar na sua Air Fryer quando quiser.',
             'snowflake',
             congeladosProds
@@ -1202,7 +1203,7 @@ function renderProducts() {
     }
 }
 
-// Catálogo Curado de Adicionais Especiais & Mimos de Presente da Fafá Doces
+// Catálogo Curado de Adicionais Especiais & Mimos de Presente da Fafa Doces
 const FAFA_SPECIAL_ADDONS = [
     { id: 'addon-gift-box', name: 'Embalagem de Presente Especial + Laço de Cetim & Tag', price: 8.00, icon: 'gift' },
     { id: 'addon-card-handwritten', name: 'Cartão Artesanal com Dedicatória Manuscrita', price: 5.00, icon: 'mail' },
@@ -1468,7 +1469,7 @@ window.orderGiftOnWhatsApp = function(productId) {
     const unitPrice = product.price + addonsTotal;
     const total = unitPrice * qty;
 
-    let msg = `Olá Chef Rafael Franzosi e equipe Fafá! 👋✨\n\nGostaria de encomendar e personalizar este presente do catálogo:\n\n`;
+    let msg = `Olá Chef Rafael Franzosi e equipe Fafa! 👋✨\n\nGostaria de encomendar e personalizar este presente do catálogo:\n\n`;
     msg += `🎁 *${product.name}*\n`;
     msg += `💰 *Valor Estimado:* ${formatCurrency(total)} (${qty > 1 ? qty + 'x ' + formatCurrency(unitPrice) : formatCurrency(unitPrice)})\n`;
 
@@ -1499,7 +1500,7 @@ window.consultProductOnWhatsApp = function(productId) {
     const qty = parseInt(document.getElementById('modal-qty')?.textContent) || 1;
     const obs = (document.getElementById('modal-obs')?.value || '').trim();
 
-    let msg = `Olá! Gostaria de consultar a disponibilidade do item *${product.name}* (${formatCurrency(product.price)}) que vi no catálogo digital da Fafá Doces Presentes.`;
+    let msg = `Olá! Gostaria de consultar a disponibilidade do item *${product.name}* (${formatCurrency(product.price)}) que vi no catálogo digital da Fafa Doces Presentes.`;
     if (qty > 1) {
         msg += `\n*Quantidade desejada:* ${qty} unidades`;
     }
@@ -2069,7 +2070,7 @@ window.openConciergeWhatsApp = function() {
     const storeConfig = getStoreConfig();
     const phone = storeConfig.conciergePhone || storeConfig.phone || WHATSAPP_PHONE || '555432011633';
 
-    const msg = `Olá, equipe da Fafá Doces e Chef Rafael! 👋✨\n\nEstou no cardápio digital oficial e tenho uma ocasião especial. Gostaria da ajuda do time para escolher a composição perfeita:\n\n✨ *Ocasião Especial:* [Ex: Aniversário, Bodas, Maternidade, Presente Corporativo, Agradecimento Especial]\n📅 *Data que preciso:* \n👥 *Quantidade de pessoas ou caixas:* \n💡 *Preferências ou detalhes:* \n\nPoderiam me orientar com as melhores opções para esta data?`;
+    const msg = `Olá, equipe da Fafa Doces e Chef Rafael! 👋✨\n\nEstou no cardápio digital oficial e tenho uma ocasião especial. Gostaria da ajuda do time para escolher a composição perfeita:\n\n✨ *Ocasião Especial:* [Ex: Aniversário, Bodas, Maternidade, Presente Corporativo, Agradecimento Especial]\n📅 *Data que preciso:* \n👥 *Quantidade de pessoas ou caixas:* \n💡 *Preferências ou detalhes:* \n\nPoderiam me orientar com as melhores opções para esta data?`;
 
     const encoded = encodeURIComponent(msg);
     const url = `https://wa.me/${phone}?text=${encoded}`;

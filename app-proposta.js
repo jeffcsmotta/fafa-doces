@@ -342,7 +342,7 @@ function initRoiSimulator() {
         if (ctaBtn) {
             const formattedRev = formatCurrency(revenue);
             const formattedSav = formatCurrency(Math.round(monthlySavings));
-            const msg = encodeURIComponent(`Olá Jefferson! Simulei o canal próprio da Fafá Doces no Onira.fly com faturamento de ${formattedRev} e ${migrationPercent}% no canal próprio. Quero garantir os ${formattedSav}/mês de margem limpa no meu caixa!`);
+            const msg = encodeURIComponent(`Olá Jefferson! Simulei o canal próprio da Fafa Doces no Onira.fly com faturamento de ${formattedRev} e ${migrationPercent}% no canal próprio. Quero garantir os ${formattedSav}/mês de margem limpa no meu caixa!`);
             ctaBtn.href = `https://wa.me/5554996862169?text=${msg}`;
         }
     }
