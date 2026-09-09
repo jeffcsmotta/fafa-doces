@@ -22,7 +22,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=20260909c">
+    <link rel="stylesheet" href="style.css?v=20260909d">
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
@@ -567,16 +567,25 @@
         </div>
     </div>
 
-    <!-- Floating Proposal Widget (.onira-cta) -->
-    <a href="proposta.html" class="onira-cta" id="onira-floating-cta" title="Ver proposta comercial do site">
-        <img src="assets/jeff-avatar.webp" alt="Jefferson Motta" class="onira-avatar">
-        <div class="onira-text-col">
-            <span class="onira-hook">Tá lindo o site?</span>
-            <span class="onira-call">
-                <span class="onira-link-text">Adquira aqui &rarr;</span>
-            </span>
+    <!-- Floating Proposal Widget (.onira-cta): recolhido ao avatar, 1 toque expande -->
+    <aside class="onira-cta collapsed" id="onira-floating-cta" aria-label="Proposta comercial Onira">
+        <div class="onira-pill" onclick="window.toggleLojaJeff()" role="button" tabindex="0" title="Ver proposta comercial">
+            <img src="assets/jeff-avatar.webp" alt="Jefferson Motta" class="onira-avatar">
+            <a href="proposta.html" class="onira-text-col" onclick="event.stopPropagation()">
+                <span class="onira-hook">Tá lindo o site?</span>
+                <span class="onira-call">
+                    <span class="onira-link-text">Adquira aqui &rarr;</span>
+                </span>
+            </a>
         </div>
-    </a>
+    </aside>
+
+    <!-- Pílula de Pedido Desktop (espelho da barra mobile) -->
+    <button type="button" class="cart-desktop-pill" id="cart-desktop-pill" onclick="window.openCart()" aria-label="Ver pedido">
+        <i data-lucide="shopping-bag" style="width:18px;height:18px;"></i>
+        <span class="desktop-count-pill" id="desktop-cart-count">1 item</span>
+        <span class="desktop-total" id="desktop-cart-total">R$ 0,00</span>
+    </button>
 
     <!-- Widget Flutuante do Concierge Afetivo (Chef Rafael Franzosi - Estilo Cápsula Onira) -->
     <aside class="concierge-floating-widget" id="concierge-widget" aria-label="Concierge Especializado Fafa">

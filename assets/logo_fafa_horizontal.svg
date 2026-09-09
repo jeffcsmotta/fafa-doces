@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 48" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 296 48" fill="none">
     <defs>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap');
@@ -22,8 +22,8 @@
             .h-brand-sub {
                 font-family: 'Playfair Display', Georgia, serif;
                 font-style: italic;
-                font-size: 9px;
-                letter-spacing: 0.4px;
+                font-size: 8px;
+                letter-spacing: 0.2px;
                 fill: #B09289;
             }
         </style>
@@ -37,5 +37,5 @@
 
     <!-- Horizontal Tagline & Subtitle Stacked cleanly -->
     <text x="108" y="21" class="h-brand-tag">DOCES PRESENTES</text>
-    <text x="108" y="33" class="h-brand-sub">confeitaria afetiva &amp; café</text>
+    <text x="108" y="33" class="h-brand-sub">Cookies, Bolos, Cestas de café da manhã</text>
 </svg>

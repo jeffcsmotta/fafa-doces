@@ -1803,18 +1803,27 @@ function updateCartUI() {
             if (floatingCount) floatingCount.textContent = `${totalItems} ${totalItems === 1 ? 'item' : 'itens'}`;
             if (floatingTotal) floatingTotal.textContent = formatCurrency(finalTotal);
         }
+        const desktopPill = document.getElementById('cart-desktop-pill');
+        if (desktopPill) {
+            desktopPill.classList.add('visible');
+            const desktopCount = document.getElementById('desktop-cart-count');
+            const desktopTotal = document.getElementById('desktop-cart-total');
+            if (desktopCount) desktopCount.textContent = `${totalItems} ${totalItems === 1 ? 'item' : 'itens'}`;
+            if (desktopTotal) desktopTotal.textContent = formatCurrency(finalTotal);
+        }
     } else {
         document.body.classList.remove('has-cart-items');
         if (floatingBar) {
             floatingBar.classList.remove('visible');
         }
+        const desktopPill = document.getElementById('cart-desktop-pill');
+        if (desktopPill) {
+            desktopPill.classList.remove('visible');
+        }
     }
 
-    // Regra do Concierge Afetivo: Oculta automaticamente quando o 1º item entra no carrinho
-    const conciergeWidget = document.getElementById('concierge-widget');
-    if (conciergeWidget) {
-        conciergeWidget.classList.toggle('widget-cart-hidden', totalItems > 0);
-    }
+    // Pilha de widgets: o chef permanece visível com itens no carrinho;
+    // só o "x" dispensa (memória de sessão)
 
     if (cartItemsContainer) {
         if (cart.length === 0) {
@@ -1834,7 +1843,7 @@ function updateCartUI() {
                             ${item.sizeName && item.sizeName !== 'Padrão' ? `<span class="detail-pill">${item.sizeName}</span>` : ''}
                             ${item.addons && item.addons.length > 0 ? `
                                 <div class="cart-item-addons">
-                                    ${item.addons.map(a => `<span class="cart-addon-pill"><i data-lucide="gift" style="width:11px;height:11px;color:var(--accent-coral);"></i> ${a.name} (<strong>+ ${formatCurrency(a.price)}</strong>)</span>`).join('')}
+                                    ${item.addons.map(a => `<span class="cart-addon-pill"><span class="addon-name"><i data-lucide="gift" style="width:11px;height:11px;color:var(--accent-coral);"></i> ${a.name}</span><span class="addon-amt">(+ ${formatCurrencyShort(a.price)})</span></span>`).join('')}
                                 </div>
                             ` : ''}
                             ${item.observations ? `<div class="obs-line"><em>Obs: ${item.observations}</em></div>` : ''}
@@ -1974,6 +1983,7 @@ window.submitOrderToWhatsApp = function() {
 function initProposalFloatingWidget() {
     const ctaWidget = document.getElementById('onira-floating-cta');
     const cartBar = document.getElementById('cart-floating-bar');
+    const desktopPill = document.getElementById('cart-desktop-pill');
     const conciergeWidget = document.getElementById('concierge-widget');
 
     if (sessionStorage.getItem('fafa_concierge_dismissed') === 'true') {
@@ -1981,7 +1991,18 @@ function initProposalFloatingWidget() {
         document.body.classList.add('concierge-dismissed');
     }
 
-    if (!ctaWidget && !cartBar && !conciergeWidget) return;
+    // Teclado: Enter/Espaço no avatar do Jeff expandem no mobile
+    const jeffPill = ctaWidget ? ctaWidget.querySelector('.onira-pill') : null;
+    if (jeffPill) {
+        jeffPill.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                window.toggleLojaJeff();
+            }
+        });
+    }
+
+    if (!ctaWidget && !cartBar && !conciergeWidget && !desktopPill) return;
 
     let lastScrollY = window.scrollY;
     let scrollTimeout = null;
@@ -1993,18 +2014,21 @@ function initProposalFloatingWidget() {
         // Leve efeito de opacidade em movimento ativo
         if (ctaWidget) ctaWidget.classList.add('scrolling-active');
         if (cartBar) cartBar.classList.add('scrolling-active');
+        if (desktopPill) desktopPill.classList.add('scrolling-active');
         if (conciergeWidget) conciergeWidget.classList.add('scrolling-active');
 
         // Rolando para baixo: recolhe suavemente para dar visibilidade total aos doces
         if (scrollDelta > 10 && currentScrollY > 100) {
             if (ctaWidget) ctaWidget.classList.add('scroll-hidden');
             if (cartBar) cartBar.classList.add('scroll-hidden');
+            if (desktopPill) desktopPill.classList.add('scroll-hidden');
             if (conciergeWidget) conciergeWidget.classList.add('scroll-hidden');
         } 
         // Rolando para cima ou perto do topo: reexibe ambos em bloco
         else if (scrollDelta < -6 || currentScrollY <= 80) {
             if (ctaWidget) ctaWidget.classList.remove('scroll-hidden');
             if (cartBar) cartBar.classList.remove('scroll-hidden');
+            if (desktopPill) desktopPill.classList.remove('scroll-hidden');
             if (conciergeWidget) conciergeWidget.classList.remove('scroll-hidden');
         }
 
@@ -2012,6 +2036,7 @@ function initProposalFloatingWidget() {
         scrollTimeout = setTimeout(() => {
             if (ctaWidget) ctaWidget.classList.remove('scrolling-active');
             if (cartBar) cartBar.classList.remove('scrolling-active');
+            if (desktopPill) desktopPill.classList.remove('scrolling-active');
             if (conciergeWidget) conciergeWidget.classList.remove('scrolling-active');
         }, 220);
 
@@ -2027,8 +2052,20 @@ window.toggleProposalWidget = function(event) {
     }
 };
 
+// Widget Jeff na loja: recolhido ao avatar, 1 toque expande e mostra o texto (mobile)
+window.toggleLojaJeff = function () {
+    const ctaWidget = document.getElementById('onira-floating-cta');
+    if (!ctaWidget || window.innerWidth > 640) return;
+    ctaWidget.classList.toggle('collapsed');
+};
+
 function formatCurrency(val) {
     return 'R$ ' + Number(val || 0).toFixed(2).replace('.', ',');
+}
+
+// Formato curto dos adicionais no carrinho: "8,00" sem R$ para não quebrar a linha
+function formatCurrencyShort(val) {
+    return Number(val || 0).toFixed(2).replace('.', ',');
 }
 
 function saveCartToStorage() {
@@ -2145,20 +2182,20 @@ function initDesktopRailScroll() {
             }
         }, true);
 
-        // Rodinha no desktop: move o trilho só havendo caminho na direção;
-        // na ponta, o evento passa direto e a página segue rolando (sem armadilha)
+        // Rodinha no desktop: a rolagem vertical NUNCA é interceptada (a página rola sempre);
+        // o trilho responde só a gesto horizontal (trackpads, Shift+rodinha), arrasto e setas
         if (!window.matchMedia('(pointer: coarse)').matches) {
             track.addEventListener('wheel', (e) => {
-                if (e.ctrlKey || Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+                if (e.ctrlKey || Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
                 const maxLeft = track.scrollWidth - track.clientWidth;
                 if (maxLeft <= 0) return;
-                const goingForward = e.deltaY > 0;
+                const goingForward = e.deltaX > 0;
                 const hasRoom = goingForward
                     ? track.scrollLeft < maxLeft - 1
                     : track.scrollLeft > 1;
                 if (!hasRoom) return;
                 e.preventDefault();
-                track.scrollLeft += e.deltaY;
+                track.scrollLeft += e.deltaX;
             }, { passive: false });
         }
 

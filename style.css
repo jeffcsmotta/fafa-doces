@@ -1999,14 +1999,22 @@ body.cart-drawer-open .site-footer {
     justify-content: space-between;
     font-size: 0.85rem;
     color: #FFFFFF;
+    padding: 7px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.cart-summary-row:first-child {
+    border-top: none;
+    padding-top: 0;
 }
 
 .cart-total-row {
     font-size: 1.1rem;
     font-weight: 900;
     color: #FFFFFF;
-    border-top: 1px dashed rgba(216, 74, 91, 0.3);
-    padding-top: 8px;
+    border-top: 2px solid #FFFFFF;
+    margin-top: 4px;
+    padding-top: 12px;
 }
 
 .cart-total-value {
@@ -2048,7 +2056,7 @@ body.cart-drawer-open .site-footer {
 }
 
 .cart-onira-tag strong {
-    color: #F59E0B; /* Bright Yellow / Amber */
+    color: #0891B2; /* Azul dos selects em negrito */
 }
 
 /* ==========================================================================
@@ -2089,10 +2097,54 @@ body.cart-drawer-open .site-footer {
     display: flex;
 }
 
+/* Pílula de Pedido Desktop: espelho da barra mobile, canto inferior direito */
+.cart-desktop-pill {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 800;
+    display: none;
+    align-items: center;
+    gap: 10px;
+    background: var(--primary);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #FFFFFF;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 800;
+    padding: 12px 20px;
+    border-radius: var(--radius-pill);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease, bottom 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cart-desktop-pill:hover {
+    transform: translateY(-2px);
+}
+
 @media (min-width: 1024px) {
     .cart-floating-bar {
         display: none !important;
     }
+    .cart-desktop-pill.visible {
+        display: inline-flex;
+    }
+}
+
+.desktop-count-pill {
+    background: var(--accent-coral);
+    padding: 2px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.desktop-total {
+    font-family: var(--font-price);
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--emerald-light);
 }
 
 .floating-bar-left {
@@ -2119,14 +2171,17 @@ body.cart-drawer-open .site-footer {
     color: var(--emerald-light);
 }
 
-/* Floating Proposal Widget (.onira-cta) */
+/* Floating Proposal Widget (.onira-cta): topo da pilha, à esquerda */
 .onira-cta {
     position: fixed;
-    bottom: 16px;
-    z-index: 750;
+    left: 24px;
+    right: auto;
+    bottom: 104px;
+    width: auto;
+    max-width: 340px;
+    z-index: 950;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 12px;
     background: #0F172A;
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -2135,9 +2190,38 @@ body.cart-drawer-open .site-footer {
     color: #FFFFFF;
 }
 
-/* Quando há itens no carrinho, o card de proposta se alinha acima do botão do pedido */
-body.has-cart-items .onira-cta {
-    bottom: 74px;
+.onira-cta.collapsed {
+    padding: 5px;
+}
+
+.onira-pill {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.onira-cta .onira-text-col {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0;
+    transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, margin 0.3s ease;
+}
+
+.onira-cta:not(.collapsed) .onira-text-col {
+    max-width: 240px;
+    opacity: 1;
+    margin-left: 10px;
+}
+
+@media (min-width: 641px) {
+    /* No desktop o Jeff nasce expandido; recolher só no mobile */
+    .onira-cta .onira-text-col {
+        max-width: 240px;
+        opacity: 1;
+        margin-left: 10px;
+    }
 }
 
 .onira-cta:hover {
@@ -2148,6 +2232,7 @@ body.has-cart-items .onira-cta {
 
 /* Movimento em bloco quando rolando a página */
 .cart-floating-bar.scroll-hidden,
+.cart-desktop-pill.scroll-hidden,
 .onira-cta.scroll-hidden,
 .concierge-floating-widget.scroll-hidden {
     transform: translateY(180%) !important;
@@ -2156,6 +2241,7 @@ body.has-cart-items .onira-cta {
 }
 
 .cart-floating-bar.scrolling-active,
+.cart-desktop-pill.scrolling-active,
 .onira-cta.scrolling-active,
 .concierge-floating-widget.scrolling-active {
     opacity: 0.88;
@@ -2705,6 +2791,7 @@ body.has-cart-items .onira-cta {
    ========================================================================== */
 body.store-catalog-only .btn-cart-trigger,
 body.store-catalog-only .cart-floating-bar,
+body.store-catalog-only .cart-desktop-pill,
 body.store-catalog-only .btn-header-trash {
     display: none !important;
 }
@@ -3137,21 +3224,7 @@ body.store-catalog-only .btn-header-trash {
         font-size: 0.80rem;
     }
 
-    /* No mobile, enquanto o concierge estiver ativo, o card de proposta (.onira-cta) fica oculto da tela flutuante para não sufocar o conteúdo */
-    .onira-cta {
-        display: none !important;
-    }
-
-    /* Se o usuário fechar o concierge, o card de proposta surge no rodapé com respiro */
-    body.concierge-dismissed:not(.has-cart-items) .onira-cta {
-        display: flex !important;
-        bottom: 14px;
-        left: 12px;
-        right: 12px;
-        width: calc(100% - 24px);
-    }
-
-    /* Quando há itens no carrinho no mobile: APENAS o botão do pedido flutua a 14px (sem empilhamento duplo) */
+    /* Pilha mobile: pedido embaixo, chef acima, Jeff (avatar) no topo — sem exclusão */
     body.has-cart-items .cart-floating-bar {
         bottom: 14px;
         display: flex !important;
@@ -3159,8 +3232,16 @@ body.store-catalog-only .btn-header-trash {
         right: 12px;
         width: calc(100% - 24px);
     }
-    body.has-cart-items .onira-cta {
-        display: none !important;
+
+    .concierge-floating-widget {
+        bottom: 80px;
+    }
+
+    .onira-cta {
+        left: 12px;
+        right: auto;
+        bottom: 154px;
+        width: auto;
     }
 }
 
@@ -3388,13 +3469,25 @@ body.store-catalog-only .btn-header-trash {
 .cart-addon-pill {
     font-size: 0.74rem;
     color: var(--text-muted);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+}
+
+.cart-addon-pill .addon-name {
     display: inline-flex;
     align-items: center;
     gap: 4px;
+    min-width: 0;
 }
 
-.cart-addon-pill strong {
+.cart-addon-pill .addon-amt {
+    white-space: nowrap;
     color: var(--accent-coral);
+    font-weight: 800;
+    flex-shrink: 0;
 }
 
 /* ==========================================================================
