@@ -29,7 +29,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style-proposta.css?v=3.0">
+    <link rel="stylesheet" href="style-proposta.css?v=3.1">
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
@@ -108,7 +108,7 @@
                     </p>
 
                     <div class="hero-cta-group">
-                        <a href="#cases" class="btn btn-primary btn-xl">
+                        <a href="index.html" class="btn btn-primary btn-xl">
                             <span>Ver Demonstração da Minha Loja ➔</span>
                         </a>
                         <a href="#simulador" class="btn btn-secondary btn-xl">
@@ -906,18 +906,47 @@
         </div>
     </footer>
 
-    <!-- Botão WhatsApp Flutuante com Glow Oficial -->
-    <a href="https://wa.me/5554996862169?text=Ol%C3%A1%20Jefferson!%20Li%20a%20proposta%20do%20canal%20pr%C3%B3prio%20da%20Faf%C3%A1%20Doces%20e%20quero%20conversar."
-       class="floating-whatsapp-btn"
-       target="_blank"
-       rel="noopener noreferrer"
-       aria-label="Falar com o Jefferson no WhatsApp (54) 99686-2169">
-        <i data-lucide="message-circle" class="wa-icon"></i>
-        <span class="wa-tooltip">Falar com o Jefferson</span>
-    </a>
+    <!-- Widgets Flutuantes da Proposta: Jeff (comercial), Rafael (concierge) e Pedido -->
+    <div class="prop-widgets" id="prop-widgets">
+        <!-- Widget Concierge: ocasiões especiais e presentes direto com a equipe no WhatsApp -->
+        <aside class="prop-widget prop-concierge" id="prop-concierge" aria-label="Concierge de presentes Fafa">
+            <div class="prop-concierge-pill" onclick="window.openPropConcierge()" role="button" tabindex="0" title="Falar com a equipe Fafa no WhatsApp">
+                <div class="prop-concierge-avatar-wrap">
+                    <img src="assets/fafa_founders.jpg" alt="Equipe Fafa Doces" class="prop-concierge-avatar" loading="lazy">
+                    <span class="prop-online-dot" title="Equipe disponível"></span>
+                </div>
+                <div class="prop-concierge-text">
+                    <span class="prop-concierge-hook">Ocasião especial? Fale com a equipe</span>
+                    <span class="prop-concierge-sub">Presentes e personalização no WhatsApp</span>
+                </div>
+                <button type="button" class="prop-widget-dismiss" onclick="window.dismissPropConcierge(event)" title="Fechar" aria-label="Fechar concierge">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Widget Proposta Comercial: colapsado em "D" no mobile, 1 toque expande -->
+        <aside class="prop-widget prop-jeff collapsed" id="prop-jeff" aria-label="Proposta comercial Onira">
+            <div class="prop-jeff-pill" onclick="window.togglePropJeff()" role="button" tabindex="0" title="Ver proposta comercial">
+                <span class="prop-jeff-avatar-wrap">
+                    <img src="assets/jeff-avatar.webp" alt="Jefferson Motta" class="prop-jeff-avatar" loading="lazy">
+                </span>
+                <a href="#investimento" class="prop-jeff-text" onclick="event.stopPropagation()">
+                    <span class="prop-jeff-hook">Tá lindo, né?</span>
+                    <span class="prop-jeff-sub">Clique e adquira &rarr;</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Widget Pedido: abre o carrinho lateral da loja -->
+        <a href="index.html#pedido" class="prop-widget prop-cart" id="prop-cart" title="Abrir carrinho da loja" aria-label="Abrir carrinho da loja">
+            <i data-lucide="shopping-bag" class="prop-cart-icon"></i>
+            <span class="prop-cart-label">Ver pedido</span>
+        </a>
+    </div>
 
     <!-- Scripts da Aplicação -->
-    <script src="app-proposta.js?v=3.2.0"></script>
+    <script src="app-proposta.js?v=3.3.0"></script>
     <script>
         // Inicializa ícones Lucide
         if (window.lucide) {

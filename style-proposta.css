@@ -2676,63 +2676,256 @@ img, svg {
 }
 
 /* --------------------------------------------------------------------------
-   15. BOTÃO WHATSAPP FLUTUANTE
+   15. WIDGETS FLUTUANTES DA PROPOSTA (Jeff + Concierge + Pedido)
    -------------------------------------------------------------------------- */
-.floating-whatsapp-btn {
+.prop-widgets {
     position: fixed;
-    bottom: 24px;
-    right: 24px;
-    width: 58px;
-    height: 58px;
+    inset: 0;
+    z-index: 9000;
+    pointer-events: none;
+}
+
+.prop-widget {
+    position: absolute;
+    pointer-events: auto;
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+/* Fade unificado durante a rolagem: revela o conteúdo abaixo dos widgets */
+.prop-widgets.is-scrolling .prop-widget {
+    opacity: 0.25 !important;
+    box-shadow: none !important;
+}
+
+.prop-widget.prop-hidden {
+    display: none !important;
+}
+
+/* Widget Proposta Comercial (Jeff): canto inferior esquerdo */
+.prop-jeff {
+    left: 16px;
+    bottom: 16px;
+}
+
+.prop-jeff-pill {
+    display: flex;
+    align-items: center;
+    background: #0F172A;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px 9999px 9999px 12px; /* Esquerda reta, direita ovalada abraçando o avatar */
+    padding: 5px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    max-width: calc(100vw - 32px);
+}
+
+.prop-jeff-pill:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55);
+}
+
+.prop-jeff-avatar-wrap {
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
-    background: #25D366;
+    border: 2px solid var(--color-primary);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.prop-jeff-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.prop-jeff-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 0;
+    opacity: 0;
+    margin: 0;
+    transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, margin 0.3s ease;
+}
+
+.prop-jeff:not(.collapsed) .prop-jeff-text {
+    max-width: 240px;
+    opacity: 1;
+    margin: 0 14px 0 10px;
+}
+
+.prop-jeff-hook {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 800;
     color: #FFFFFF;
+}
+
+.prop-jeff-sub {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+/* Widget Concierge (equipe Fafa): empilhado acima do Jeff */
+.prop-concierge {
+    left: 16px;
+    bottom: 92px;
+}
+
+.prop-concierge-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #2A0812 0%, #150308 100%);
+    border: 1px solid rgba(245, 158, 11, 0.5);
+    border-radius: var(--radius-pill);
+    padding: 8px 12px 8px 8px;
+    cursor: pointer;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55);
+    max-width: min(360px, calc(100vw - 32px));
+}
+
+.prop-concierge-pill:hover {
+    transform: translateY(-2px);
+    border-color: #F59E0B;
+}
+
+.prop-concierge-avatar-wrap {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid #F59E0B;
+    overflow: visible;
+    flex-shrink: 0;
+}
+
+.prop-concierge-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.prop-online-dot {
+    position: absolute;
+    right: -1px;
+    bottom: -1px;
+    width: 12px;
+    height: 12px;
+    background: #10B981;
+    border: 2px solid #2A0812;
+    border-radius: 50%;
+}
+
+.prop-concierge-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+    min-width: 0;
+}
+
+.prop-concierge-hook {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #F59E0B;
+}
+
+.prop-concierge-sub {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.prop-widget-dismiss {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #D3C5BC;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45);
-    z-index: 9999;
-    transition: var(--transition-smooth);
-    animation: waPulse 2.5s infinite ease-in-out;
+    flex-shrink: 0;
+    padding: 0;
 }
 
-.floating-whatsapp-btn:hover {
-    transform: scale(1.08) translateY(-2px);
-    background: #20BA5A;
-    box-shadow: 0 12px 30px rgba(37, 211, 102, 0.65);
+.prop-widget-dismiss:hover {
+    background: rgba(238, 82, 68, 0.3);
     color: #FFFFFF;
 }
 
-@keyframes waPulse {
-    0%, 100% { box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45); }
-    50% { box-shadow: 0 8px 34px rgba(37, 211, 102, 0.75); }
+.prop-widget-dismiss svg {
+    width: 13px;
+    height: 13px;
 }
 
-.wa-icon {
-    width: 28px;
-    height: 28px;
-}
-
-.wa-tooltip {
-    position: absolute;
-    right: 68px;
-    background: rgba(10, 10, 10, 0.9);
-    border: 1px solid rgba(255, 199, 0, 0.4);
-    color: #FFFFFF;
+/* Widget Pedido: canto inferior direito, abre o carrinho da loja */
+.prop-cart {
+    right: 16px;
+    bottom: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-primary);
+    color: #0A0A0A;
     font-family: var(--font-heading);
-    font-size: 0.78125rem;
-    font-weight: 700;
-    padding: 6px 12px;
-    border-radius: var(--radius-sm);
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: var(--transition-smooth);
+    font-size: 0.85rem;
+    font-weight: 800;
+    padding: 13px 20px;
+    border-radius: var(--radius-pill);
+    box-shadow: 0 8px 24px rgba(255, 199, 0, 0.35);
 }
 
-.floating-whatsapp-btn:hover .wa-tooltip {
-    opacity: 1;
-    transform: translateX(-4px);
+.prop-cart:hover {
+    background: var(--color-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(255, 199, 0, 0.5);
+    color: #0A0A0A;
+}
+
+.prop-cart-icon {
+    width: 18px;
+    height: 18px;
+}
+
+@media (min-width: 641px) {
+    /* No desktop o Jeff nasce expandido; o toque só colapsa no mobile */
+    .prop-jeff .prop-jeff-text {
+        max-width: 240px;
+        opacity: 1;
+        margin: 0 14px 0 10px;
+    }
+}
+
+@media (max-width: 640px) {
+    .prop-jeff {
+        left: 12px;
+        bottom: 12px;
+    }
+    .prop-concierge {
+        left: 12px;
+        bottom: 84px;
+    }
+    .prop-cart {
+        right: 12px;
+        bottom: 12px;
+        padding: 12px 16px;
+    }
+    .prop-cart-label {
+        display: none;
+    }
+    .prop-concierge-sub {
+        max-width: 38vw;
+    }
 }
 
 /* --------------------------------------------------------------------------

@@ -181,6 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initRoiSimulator();
     initMomentCards();
     initSmoothScroll();
+    initPropWidgets();
     renderCase('bebidas');
     if (window.lucide) {
         lucide.createIcons();
@@ -366,6 +367,81 @@ function formatNumber(val) {
         maximumFractionDigits: 0
     }).format(val);
 }
+
+/* ==========================================================================
+   WIDGETS FLUTUANTES DA PROPOSTA — Jeff, Concierge e fade no scroll
+   ========================================================================== */
+
+const PROP_STORE_WHATSAPP = '555432011633';
+
+function initPropWidgets() {
+    const wrap = document.getElementById('prop-widgets');
+    const jeff = document.getElementById('prop-jeff');
+    const concierge = document.getElementById('prop-concierge');
+    if (!wrap) return;
+
+    // Desktop nasce expandido; mobile nasce colapsado em "D" (classe já vem no HTML)
+    if (jeff && window.innerWidth > 640) {
+        jeff.classList.remove('collapsed');
+    }
+
+    // Concierge dispensado nesta sessão continua oculto
+    try {
+        if (concierge && sessionStorage.getItem('prop_concierge_dismissed') === '1') {
+            concierge.classList.add('prop-hidden');
+        }
+    } catch (e) {}
+
+    // Teclado: Enter/Espaço acionam os widgets focáveis
+    wrap.querySelectorAll('[role="button"]').forEach((el) => {
+        el.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                el.click();
+            }
+        });
+    });
+
+    // Fade unificado: opacidade 0.25 rolando, retorno total 400ms após parar
+    let scrollTimer = null;
+    let autoCollapsed = false;
+    const onScroll = () => {
+        wrap.classList.add('is-scrolling');
+        // Sugestão aplicada: no primeiro scroll o Jeff auto-recolhe para liberar a leitura
+        if (!autoCollapsed && jeff && window.innerWidth <= 640 && !jeff.classList.contains('collapsed')) {
+            autoCollapsed = true;
+            jeff.classList.add('collapsed');
+        }
+        if (scrollTimer) clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+            wrap.classList.remove('is-scrolling');
+        }, 400);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+// Widget Jeff: 1 toque alterna entre avatar colapsado e cápsula expandida (mobile)
+window.togglePropJeff = function () {
+    const jeff = document.getElementById('prop-jeff');
+    if (!jeff || window.innerWidth > 640) return;
+    jeff.classList.toggle('collapsed');
+};
+
+// Widget Concierge: abre o WhatsApp da equipe para personalizar presentes
+window.openPropConcierge = function () {
+    const msg = 'Olá, equipe Fafa! Vi a proposta do canal próprio e tenho uma ocasião especial. Quero ajuda para escolher e personalizar o presente ideal.';
+    window.open(`https://wa.me/${PROP_STORE_WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
+};
+
+// Widget Concierge: "x" dispensa nesta sessão sem recarregar a página
+window.dismissPropConcierge = function (event) {
+    if (event) event.stopPropagation();
+    const concierge = document.getElementById('prop-concierge');
+    if (concierge) concierge.classList.add('prop-hidden');
+    try {
+        sessionStorage.setItem('prop_concierge_dismissed', '1');
+    } catch (e) {}
+};
 
 /**
  * 4. Navegação Suave

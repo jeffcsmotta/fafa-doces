@@ -795,6 +795,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartUI();
     initStoreStatus();
     initProposalFloatingWidget();
+    initPedidoDeepLink();
 
     // Sincronização em Tempo Real quando o Dono altera preços, visibilidade, categorias ou configurações
     window.addEventListener('fafa_products_updated', () => {
@@ -824,6 +825,18 @@ document.addEventListener('DOMContentLoaded', () => {
         window.lucide.createIcons();
     }
 });
+
+// Deep-link da proposta: index.html#pedido abre o carrinho lateral sozinho
+function initPedidoDeepLink() {
+    const openIfPedido = () => {
+        if (window.location.hash === '#pedido' && typeof window.openCart === 'function') {
+            window.openCart();
+        }
+    };
+    // Pequeno atraso garante drawer e itens renderizados antes de abrir
+    setTimeout(openIfPedido, 350);
+    window.addEventListener('hashchange', openIfPedido);
+}
 
 // Checagem de Horário de Funcionamento em Tempo Real
 function initStoreStatus() {
